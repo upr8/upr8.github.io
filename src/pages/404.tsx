@@ -8,7 +8,7 @@ const NotFoundPage: React.FC<PageProps> = () => {
 			<p className="mb-16">
 				Sorry 😔, we couldn’t find what you were looking for.
 				<br />
-				<Link to="/">Go home</Link>.
+				Please <Link to="/">Go home</Link>.
 			</p>
 		</main>
 	);
