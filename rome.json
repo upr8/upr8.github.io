@@ -11,6 +11,7 @@
 	"files": {
 		"ignore": [
 			".devcontainer",
+			".vscode",
 			"tsconfig.json",
 			"package-lock.json",
 			"*.md",
