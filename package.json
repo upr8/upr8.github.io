@@ -6,17 +6,19 @@
   "author": "",
   "keywords": [],
   "scripts": {
+    "typecheck": "tsc --noEmit",
     "rome:check": "rome check .",
     "rome:check:apply": "rome check . --apply",
     "rome:check:apply:unsafe": "rome check . --apply-unsafe",
     "rome:format": "rome format . --write",
     "fix": "npm run rome:format && npm run rome:check:apply",
-    "fix:unsafe": "npm run rome:format && npm run rome:check:apply:unsafe"
+    "fix:unsafe": "npm run rome:format && npm run typecheck && npm run rome:check:apply:unsafe"
   },
   "license": "MIT",
   "dependencies": {
   },
   "devDependencies": {
-    "rome": "12.1.2"
+    "rome": "12.1.2",
+    "typescript": "^5.0.4"
   }
 }
