@@ -13,7 +13,7 @@
     "fix": "npm run rome:format && npm run rome:check:apply",
     "fix:unsafe": "npm run rome:format && npm run rome:check:apply:unsafe"
   },
-  "license": "",
+  "license": "MIT",
   "dependencies": {
   },
   "devDependencies": {
