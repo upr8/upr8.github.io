@@ -4,8 +4,13 @@
   "private": false,
   "description": "A personal website.",
   "author": "",
-  "keywords": [],
+  "keywords": ["gatsby"],
   "scripts": {
+    "develop": "gatsby develop",
+    "start": "gatsby develop",
+    "build": "gatsby build",
+    "serve": "gatsby serve",
+    "clean": "gatsby clean",
     "typecheck": "tsc --noEmit",
     "rome:check": "rome check .",
     "rome:check:apply": "rome check . --apply",
@@ -16,8 +21,14 @@
   },
   "license": "MIT",
   "dependencies": {
+    "gatsby": "^5.10.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
+    "@types/node": "^18.16.5",
+    "@types/react": "^18.2.5",
+    "@types/react-dom": "^18.2.4",
     "rome": "12.1.2",
     "typescript": "^5.0.4"
   }

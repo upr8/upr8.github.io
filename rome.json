@@ -3,8 +3,19 @@
 	"organizeImports": {
 		"enabled": false
 	},
+	"vcs": {
+		"enabled": true,
+		"clientKind": "git",
+		"useIgnoreFile": true
+	},
 	"files": {
-		"ignore": [".devcontainer", "package-lock.json", "node_modules"]
+		"ignore": [
+			".devcontainer",
+			"tsconfig.json",
+			"package-lock.json",
+			"*.md",
+			"LICENSE"
+		]
 	},
 	"linter": {
 		"enabled": true,
