@@ -1,0 +1,52 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/typescript-node
+{
+	"name": "Node.js & TypeScript",
+	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+	"image": "mcr.microsoft.com/devcontainers/typescript-node:0-20-bullseye",
+	// Features to add to the dev container. More info: https://containers.dev/features.
+	"features": {
+		"ghcr.io/devcontainers/features/common-utils:2": {
+			"nonFreePackages": true,
+			"username": "automatic",
+			"userUid": "automatic",
+			"userGid": "automatic"
+		},
+		"ghcr.io/devcontainers-contrib/features/apt-packages:1": {
+			"clean_ppas": false,
+			"preserve_apt_list": true,
+			"packages": "curl,nano,vim,bash-completion"
+		},
+		"ghcr.io/devcontainers/features/github-cli:1": {
+			"installDirectlyFromGitHubRelease": true,
+			"version": "latest"
+		},
+		"ghcr.io/devcontainers-contrib/features/npm-package:1": {
+			"package": "vtop",
+			"version": "latest"
+		},
+		"ghcr.io/devcontainers-contrib/features/bash-command:1": {
+			"command": "echo hello"
+		}
+	},
+	// Configure tool-specific properties.
+	"customizations": {
+		// Configure properties specific to VS Code.
+		"vscode": {
+			// Set *default* container specific settings.json values on container create.
+			"settings": {
+				"files.eol": "\n",
+				"files.insertFinalNewline": true,
+				"editor.formatOnSave": true,
+				"editor.formatOnType": true
+			},
+			// Add the IDs of extensions you want installed when the container is created.
+			"extensions": [
+				"redhat.vscode-yaml",
+				"oderwat.indent-rainbow"
+			]
+		}
+	}
+	// Use 'postCreateCommand' to run commands after the container is created.
+	// "postCreateCommand": "yarn install",
+}
