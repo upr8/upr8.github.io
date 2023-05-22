@@ -1,0 +1,22 @@
+{
+  "name": "personal-web-site",
+  "version": "1.0.0",
+  "private": false,
+  "description": "A personal website.",
+  "author": "",
+  "keywords": [],
+  "scripts": {
+    "rome:check": "rome check .",
+    "rome:check:apply": "rome check . --apply",
+    "rome:check:apply:unsafe": "rome check . --apply-unsafe",
+    "rome:format": "rome format . --write",
+    "fix": "npm run rome:format && npm run rome:check:apply",
+    "fix:unsafe": "npm run rome:format && npm run rome:check:apply:unsafe"
+  },
+  "license": "",
+  "dependencies": {
+  },
+  "devDependencies": {
+    "rome": "12.1.2"
+  }
+}
