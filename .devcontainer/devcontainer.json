@@ -43,6 +43,7 @@
 				"oderwat.indent-rainbow",
 				"bradlc.vscode-tailwindcss",
 				"heybourn.headwind",
+				"github.vscode-github-actions",
 				"rome.rome"
 			]
 		}

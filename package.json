@@ -4,8 +4,13 @@
   "private": false,
   "description": "A personal website.",
   "author": "",
-  "keywords": ["gatsby"],
+  "keywords": [
+    "gatsby"
+  ],
   "scripts": {
+    "gh-pages-action": "gh-pages -d public -b release -x -r https://$GH_TOKEN@github.com/yruc/yruc.github.io.git --remove '**/*'",
+    "deploy-action": "npm run build && npm run gh-pages-action",
+    "deploy": "npm run build && gh-pages -d public -b release --remove '**/*'",
     "develop": "gatsby develop",
     "start": "gatsby develop",
     "build": "gatsby build",
@@ -31,6 +36,7 @@
     "@types/react-dom": "^18.2.4",
     "autoprefixer": "^10.4.14",
     "gatsby-plugin-postcss": "^6.10.0",
+    "gh-pages": "^5.0.0",
     "postcss": "^8.4.23",
     "rome": "12.1.2",
     "tailwindcss": "^3.3.2",
