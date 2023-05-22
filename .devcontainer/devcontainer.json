@@ -59,6 +59,8 @@
 			"extensions": [
 				"redhat.vscode-yaml",
 				"oderwat.indent-rainbow",
+				"bradlc.vscode-tailwindcss",
+				"heybourn.headwind",
 				"rome.rome"
 			]
 		}

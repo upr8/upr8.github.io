@@ -4,7 +4,7 @@ import type { HeadFC, PageProps } from "gatsby";
 const IndexPage: React.FC<PageProps> = () => {
 	return (
 		<main>
-			<p>Hello 👋!</p>
+			<p className="text-3xl font-bold">Hello 👋!</p>
 		</main>
 	);
 };

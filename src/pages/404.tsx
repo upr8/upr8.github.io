@@ -1,26 +1,11 @@
 import * as React from "react";
 import { Link, HeadFC, PageProps } from "gatsby";
 
-const pageStyles = {
-	color: "#232129",
-	padding: "96px",
-	fontFamily: "-apple-system, Roboto, sans-serif, serif",
-};
-const headingStyles = {
-	marginTop: 0,
-	marginBottom: 64,
-	maxWidth: 320,
-};
-
-const paragraphStyles = {
-	marginBottom: 48,
-};
-
 const NotFoundPage: React.FC<PageProps> = () => {
 	return (
-		<main style={pageStyles}>
-			<h1 style={headingStyles}>Page not found</h1>
-			<p style={paragraphStyles}>
+		<main className="p-24 font-sans text-gray-900">
+			<h1 className="max-w-3xl mt-0 mb-16">Page not found</h1>
+			<p className="mb-16">
 				Sorry 😔, we couldn’t find what you were looking for.
 				<br />
 				<Link to="/">Go home</Link>.
