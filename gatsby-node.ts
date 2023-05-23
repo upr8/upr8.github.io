@@ -4,6 +4,7 @@ import { createFilePath } from "gatsby-source-filesystem";
 
 const postTemplate = path.resolve("./src/templates/blog-post.tsx");
 const aboutTemplate = path.resolve("./src/templates/about.tsx");
+const tagTemplate = path.resolve("./src/templates/tag.tsx");
 
 // Transform nodes, each of logic inside here can be extracted to a separated plugin later.
 export const onCreateNode: GatsbyNode["onCreateNode"] = async ({
@@ -27,6 +28,20 @@ export const onCreateNode: GatsbyNode["onCreateNode"] = async ({
 			name: "slug",
 			value: slug,
 		});
+		if (node.frontmatter.tags) {
+			const slugTagList: { tag: string; slug: string }[] = [];
+			node.frontmatter.tags.forEach((tag: string) => {
+				slugTagList.push({
+					tag,
+					slug: `/${node.frontmatter.lang}/tag/${tag}`,
+				});
+			});
+			createNodeField({
+				node,
+				name: "slugtaglist",
+				value: slugTagList,
+			});
+		}
 	}
 };
 
@@ -77,18 +92,22 @@ export const createPages: GatsbyNode["createPages"] = async ({
 			context: {
 				// Data passed to context is available
 				// in page queries as GraphQL variables.
-				slug: "/en/about",
+				slug: node.fields.slug,
 			},
 		});
 	});
 
 	const result = await graphql(`
         query {
-            allMdx(filter: { frontmatter: { published: { eq: true } } }) {
+            allMdx(filter: { frontmatter: { published: { eq: true }, type: {ne: "single-page"} } }) {
                 edges {
                     node {
                         fields {
                             slug
+							slugtaglist {
+                                tag
+                                slug
+                            }
                         }
 						internal {
 							contentFilePath
@@ -101,6 +120,7 @@ export const createPages: GatsbyNode["createPages"] = async ({
 	if (result.errors) {
 		reporter.panicOnBuild('🚨  ERROR: Loading "createPages" query');
 	}
+	const tagList = new Set();
 	result.data.allMdx.edges.forEach(({ node }) => {
 		createPage({
 			path: node.fields.slug,
@@ -111,5 +131,19 @@ export const createPages: GatsbyNode["createPages"] = async ({
 				slug: node.fields.slug,
 			},
 		});
+		node.fields.slugtaglist?.forEach(
+			(slugtag: { tag: string; slug: string }) => {
+				if (!tagList.has(slugtag.tag)) {
+					tagList.add(slugtag.tag);
+					createPage({
+						path: slugtag.slug,
+						component: `${tagTemplate}`,
+						context: {
+							tag: slugtag.tag,
+						},
+					});
+				}
+			},
+		);
 	});
 };
