@@ -1,11 +1,10 @@
 import * as React from "react";
-import { Link, graphql, PageProps } from "gatsby";
-import { MDXProvider } from "@mdx-js/react";
+import { graphql, PageProps } from "gatsby";
 import MdxContainer from "../components/mdx-container";
 import Layout from "../components/layout";
 
-interface Props {
-	data: PageProps<Queries.Query>;
+interface Props extends PageProps {
+	data: Queries.Query;
 }
 
 const BlogPostTemplate: React.FC<Props> = ({ data }) => {
@@ -13,7 +12,7 @@ const BlogPostTemplate: React.FC<Props> = ({ data }) => {
 
 	return (
 		<Layout>
-			<MdxContainer>{post.body}</MdxContainer>
+			<MdxContainer>{post?.body}</MdxContainer>
 		</Layout>
 	);
 };
