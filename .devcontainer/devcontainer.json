@@ -44,6 +44,9 @@
 				"bradlc.vscode-tailwindcss",
 				"heybourn.headwind",
 				"github.vscode-github-actions",
+				"GraphQL.vscode-graphql",
+				"GraphQL.vscode-graphql-syntax",
+				"unifiedjs.vscode-mdx",
 				"rome.rome"
 			]
 		}
