@@ -5,14 +5,15 @@ import Layout from "../components/layout";
 
 interface Props extends PageProps {
 	data: Queries.Query;
+	children: React.ReactNode;
 }
 
-const BlogPostTemplate: React.FC<Props> = ({ data }) => {
+const BlogPostTemplate: React.FC<Props> = ({ data, children }) => {
 	const post = data.mdx;
 
 	return (
 		<Layout>
-			<MdxContainer>{post?.body}</MdxContainer>
+			<MdxContainer>{children}</MdxContainer>
 		</Layout>
 	);
 };
@@ -22,7 +23,6 @@ export default BlogPostTemplate;
 export const query = graphql`
     query ($slug: String!) {
         mdx(fields: { slug: { eq: $slug } }) {
-            body
             frontmatter {
                 title
                 date(formatString: "DD MMMM, YYYY")

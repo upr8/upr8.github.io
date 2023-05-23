@@ -2,6 +2,8 @@ import path from "path";
 import { GatsbyNode } from "gatsby";
 import { createFilePath } from "gatsby-source-filesystem";
 
+const postTemplate = path.resolve("./src/templates/blog-post.tsx");
+
 // Transform nodes, each of logic inside here can be extracted to a separated plugin later.
 export const onCreateNode: GatsbyNode["onCreateNode"] = async ({
 	node,
@@ -48,6 +50,9 @@ export const createPages: GatsbyNode["createPages"] = async ({
                         fields {
                             slug
                         }
+						internal {
+							contentFilePath
+						}
                     }
                 }
             }
@@ -59,7 +64,7 @@ export const createPages: GatsbyNode["createPages"] = async ({
 	result.data.allMdx.edges.forEach(({ node }) => {
 		createPage({
 			path: node.fields.slug,
-			component: path.resolve("./src/templates/blog-post.tsx"),
+			component: `${postTemplate}?__contentFilePath=${node.internal.contentFilePath}`,
 			context: {
 				// Data passed to context is available
 				// in page queries as GraphQL variables.
