@@ -5,14 +5,15 @@ import Layout from "../components/layout";
 
 interface Props extends PageProps {
 	data: Queries.Query;
+	childern: React.ReactNode;
 }
 
-const AboutMeTemplate: React.FC<Props> = ({ data }) => {
+const AboutMeTemplate: React.FC<Props> = ({ data, children }) => {
 	const post = data.mdx;
 
 	return (
 		<Layout>
-			<MdxContainer>{post?.body}</MdxContainer>
+			<MdxContainer>{children}</MdxContainer>
 		</Layout>
 	);
 };
