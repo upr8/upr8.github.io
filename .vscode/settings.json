@@ -4,7 +4,7 @@
     "editor.formatOnSave": true,
     "editor.formatOnType": true,
     "files.associations": {
-        "*.css": "tailwindcss"
+        "*.css": "postcss"
     },
     "[json]": {
         "editor.defaultFormatter": "rome.rome"
