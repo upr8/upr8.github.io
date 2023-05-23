@@ -1,4 +1,5 @@
 import * as React from "react";
+import { Link } from "gatsby";
 
 const Header: React.FC<{}> = () => {
 	return (
@@ -9,15 +10,15 @@ const Header: React.FC<{}> = () => {
 			</div>
 			<div className="box-border flex flex-wrap items-center justify-between pb-4 mt-4 border-b-2">
 				<nav className="text-lg">
-					<a className="no-underline me-4" href="/blog">
+					<Link className="no-underline me-4" to="/en/blog">
 						blog
-					</a>
-					<a className="no-underline me-4" href="/library">
+					</Link>
+					<Link className="no-underline me-4" to="/en/library">
 						library
-					</a>
-					<a className="no-underline me-4" href="/about">
+					</Link>
+					<Link className="no-underline me-4" to="/en/about">
 						about
-					</a>
+					</Link>
 				</nav>
 				<div />
 			</div>
