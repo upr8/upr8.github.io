@@ -34,6 +34,12 @@ export const createPages: GatsbyNode["createPages"] = async ({
 }) => {
 	const { createPage } = actions;
 
+	createPage({
+		path: "/en/blog",
+		component: path.resolve("./src/templates/blog-index.tsx"),
+		context: { lang: "en" },
+	});
+
 	const result = await graphql(`
         query {
             allMdx(filter: { frontmatter: { published: { eq: true } } }) {
