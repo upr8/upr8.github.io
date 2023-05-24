@@ -1,6 +1,6 @@
 import { SiteContext } from "./context";
 import { siteReducer, toggleTheme, toggleLanguage } from "./reducer";
-import { initialSiteState, SiteState, Language, Theme } from "./state";
+import { initialSiteState, Language, Theme } from "./state";
 
 export {
 	SiteContext,
@@ -8,7 +8,6 @@ export {
 	toggleTheme,
 	toggleLanguage,
 	initialSiteState,
-	SiteState,
 	Language,
 	Theme,
 };
