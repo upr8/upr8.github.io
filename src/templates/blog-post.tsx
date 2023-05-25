@@ -5,7 +5,7 @@ import Layout from "../components/layout";
 
 export { Head } from "../components/gatsby-head";
 
-interface Props extends PageProps {
+interface Props extends Omit<PageProps, "children"> {
 	data: Queries.Query;
 	children: React.ReactNode;
 }
