@@ -1,0 +1,17 @@
+.toggleDot {
+    top: 0.1rem;
+    transition: all 0.3s ease-in-out;
+
+    @apply bg-yellow-200;
+}
+
+input:checked ~ .toggleDot {
+    transform: translateX(100%);
+
+    @apply bg-gray-200;
+}
+
+.icon {
+    margin-top: 0.12rem;
+    margin-right: 0.1rem;
+}

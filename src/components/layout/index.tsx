@@ -9,7 +9,7 @@ interface Props {
 
 const Layout: React.FC<Props> = ({ children }) => {
 	return (
-		<div className="box-border w-full max-w-5xl min-w-0 p-8 mx-auto">
+		<div className="box-border w-full max-w-5xl min-w-0 px-4 py-1 mx-auto">
 			<Header />
 			<Main>{children}</Main>
 			<Footer />
