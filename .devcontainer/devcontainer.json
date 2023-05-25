@@ -48,6 +48,7 @@
 				"GraphQL.vscode-graphql-syntax",
 				"unifiedjs.vscode-mdx",
 				"csstools.postcss",
+				"streetsidesoftware.code-spell-checker",
 				"rome.rome"
 			]
 		}

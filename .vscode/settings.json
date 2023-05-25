@@ -23,5 +23,19 @@
     },
     "[typescriptreact]": {
         "editor.defaultFormatter": "rome.rome"
-    }
+    },
+    "cSpell.enabled": true,
+    "cSpell.words": [
+        "bradlc",
+        "csstools",
+        "devcontainers",
+        "frontmatter",
+        "heybourn",
+        "oderwat",
+        "ppas",
+        "slugtag",
+        "tailwindcss",
+        "unifiedjs",
+        "vtop"
+    ]
 }
