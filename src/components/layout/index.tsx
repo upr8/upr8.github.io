@@ -24,7 +24,10 @@ const Layout: React.FC<Props> = ({
 					<div>{children}</div>
 				) : (
 					<div className="box-border max-w-full px-4 sm:mx-4 lg:max-w-4xl lg:mx-auto">
-						<Header />
+						<Header
+							pageTitle={pageContext.title}
+							pageSubtitle={pageContext.desc}
+						/>
 						<Main>{children}</Main>
 						<Footer />
 					</div>
