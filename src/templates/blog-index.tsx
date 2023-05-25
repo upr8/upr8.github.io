@@ -2,6 +2,7 @@ import * as React from "react";
 import { PageProps, graphql } from "gatsby";
 import Layout from "../components/layout";
 import { PageContext } from "../gatsby/types";
+import BlogCard from "../components/cards/blog-post-card";
 
 export { Head } from "../components/gatsby-head";
 
@@ -15,15 +16,9 @@ const BlogIndexTemplate: React.FC<Props> = ({ data, pageContext }) => {
 		<Layout pageContext={pageContext}>
 			<article>
 				<section>
-					{data.allMdx.edges.map(
-						({ node }): React.JSX.Element => (
-							<ol key={node.id}>
-								<li>{node.frontmatter?.title}</li>
-								<li>{node.frontmatter?.desc}</li>
-								<li>{node.frontmatter?.date}</li>
-							</ol>
-						),
-					)}
+					{data.allMdx.edges.map(({ node }) => (
+						<BlogCard key={node.id} BlogNode={node} />
+					))}
 				</section>
 			</article>
 		</Layout>
@@ -34,15 +29,19 @@ export default BlogIndexTemplate;
 
 export const query = graphql`
     query {
-        allMdx {
+        allMdx(
+			filter: {
+				frontmatter: {
+					published: {eq: true},
+					type: {eq: "blog"}
+					}
+				}
+			sort: {frontmatter: {date: DESC}}
+			) {
             totalCount
             edges {
                 node {
-                    frontmatter {
-						title
-						desc
-						date
-					}
+                    ...BlogNode
                 }
             }
         }
