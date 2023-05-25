@@ -1,7 +1,9 @@
 import path from "path";
 import { GatsbyNode } from "gatsby";
 import { Language } from "../states";
+import { CreateAboutPageQueryResult, CreatePagesQueryResult } from "./types";
 
+const blogTemplate = path.resolve("./src/templates/blog-index.tsx");
 const postTemplate = path.resolve("./src/templates/blog-post.tsx");
 const aboutTemplate = path.resolve("./src/templates/about.tsx");
 const tagTemplate = path.resolve("./src/templates/tag.tsx");
@@ -15,11 +17,11 @@ const createPages: GatsbyNode["createPages"] = async ({
 
 	createPage({
 		path: "/en/blog",
-		component: path.resolve("./src/templates/blog-index.tsx"),
+		component: `${blogTemplate}`,
 		context: { lang: Language.English },
 	});
 
-	const aboutPage = await graphql(`
+	const aboutPageQueryResult: CreateAboutPageQueryResult = await graphql(`
 		query {
 			allMdx(
 				filter: {
@@ -43,30 +45,37 @@ const createPages: GatsbyNode["createPages"] = async ({
 			}
 		}
 	`);
-	if (aboutPage.errors) {
-		reporter.panicOnBuild('🚨  ERROR: Loading "about" query');
+	if (aboutPageQueryResult.errors) {
+		reporter.panicOnBuild("🚨  ERROR: Loading about page query error");
 	}
-	aboutPage.data.allMdx.edges.forEach(({ node }) => {
-		createPage({
-			path: "/en/about",
-			component: `${aboutTemplate}?__contentFilePath=${node.internal.contentFilePath}`,
-			context: {
-				// Data passed to context is available
-				// in page queries as GraphQL variables.
-				lang: Language.English,
-				slug: node.fields.slug,
-			},
+	const aboutNodes = aboutPageQueryResult.data?.allMdx.edges;
+	if (aboutNodes) {
+		aboutNodes.forEach(({ node }) => {
+			if (node.fields) {
+				createPage({
+					path: "/en/about",
+					component: `${aboutTemplate}?__contentFilePath=${node.internal.contentFilePath}`,
+					context: {
+						lang: Language.English,
+						slug: node.fields.slug,
+					},
+				});
+			} else {
+				reporter.panicOnBuild("🚨  ERROR: About Page without fields?");
+			}
 		});
-	});
+	} else {
+		reporter.panicOnBuild("🚨  ERROR: No About Page Found");
+	}
 
-	const result = await graphql(`
+	const pagesQueryResult: CreatePagesQueryResult = await graphql(`
         query {
             allMdx(filter: { frontmatter: { published: { eq: true }, type: {ne: "single-page"} } }) {
                 edges {
                     node {
                         fields {
                             slug
-							slugtaglist {
+							slugTagList {
                                 tag
                                 slug
                             }
@@ -79,37 +88,44 @@ const createPages: GatsbyNode["createPages"] = async ({
             }
         }
     `);
-	if (result.errors) {
-		reporter.panicOnBuild('🚨  ERROR: Loading "createPages" query');
+	if (pagesQueryResult.errors) {
+		reporter.panicOnBuild("🚨  ERROR: Loading createPostPages query errors");
 	}
 	const tagList = new Set();
-	result.data.allMdx.edges.forEach(({ node }) => {
-		createPage({
-			path: node.fields.slug,
-			component: `${postTemplate}?__contentFilePath=${node.internal.contentFilePath}`,
-			context: {
-				// Data passed to context is available
-				// in page queries as GraphQL variables.
-				lang: Language.English,
-				slug: node.fields.slug,
-			},
+	const createPagesNodes = pagesQueryResult.data?.allMdx.edges;
+	if (createPagesNodes) {
+		createPagesNodes.forEach(({ node }) => {
+			if (node.fields?.slug) {
+				createPage({
+					path: node.fields.slug,
+					component: `${postTemplate}?__contentFilePath=${node.internal.contentFilePath}`,
+					context: {
+						lang: Language.English,
+						slug: node.fields.slug,
+					},
+				});
+			} else {
+				reporter.panicOnBuild("🚨  ERROR: Page without fields?");
+			}
+			node.fields?.slugTagList?.forEach(
+				(slugtag: { tag: string; slug: string }) => {
+					if (!tagList.has(slugtag.tag)) {
+						tagList.add(slugtag.tag);
+						createPage({
+							path: slugtag.slug,
+							component: `${tagTemplate}`,
+							context: {
+								lang: Language.English,
+								tag: slugtag.tag,
+							},
+						});
+					}
+				},
+			);
 		});
-		node.fields.slugtaglist?.forEach(
-			(slugtag: { tag: string; slug: string }) => {
-				if (!tagList.has(slugtag.tag)) {
-					tagList.add(slugtag.tag);
-					createPage({
-						path: slugtag.slug,
-						component: `${tagTemplate}`,
-						context: {
-							lang: Language.English,
-							tag: slugtag.tag,
-						},
-					});
-				}
-			},
-		);
-	});
+	} else {
+		reporter.panicOnBuild('🚨  ERROR: Empty "createPages" query result');
+	}
 };
 
 export { createPages };

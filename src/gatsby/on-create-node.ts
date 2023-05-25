@@ -1,6 +1,8 @@
 import { GatsbyNode } from "gatsby";
 import { createFilePath } from "gatsby-source-filesystem";
 
+import * as types from "./types";
+
 // Transform nodes, each of logic inside here can be extracted to a separated plugin later.
 const onCreateNode: GatsbyNode["onCreateNode"] = async ({
 	node,
@@ -10,6 +12,8 @@ const onCreateNode: GatsbyNode["onCreateNode"] = async ({
 	const { createNodeField } = actions;
 
 	if (node.internal.type === "Mdx") {
+		const { frontmatter }: types.Edge["node"] = node;
+
 		const slugPath = createFilePath({ node, getNode, basePath: "pages" });
 		const slugPlain = slugPath.split(".")[0].replace(/\/index$/i, "");
 		createNodeField({
@@ -17,23 +21,31 @@ const onCreateNode: GatsbyNode["onCreateNode"] = async ({
 			name: "slugPlain",
 			value: slugPlain,
 		});
-		const slug = `/${node.frontmatter.lang}${slugPlain}`;
-		createNodeField({
-			node,
-			name: "slug",
-			value: slug,
-		});
-		if (node.frontmatter.tags) {
+		if (frontmatter) {
+			createNodeField({
+				node,
+				name: "slug",
+				value: `/${frontmatter.lang}${slugPlain}`,
+			});
+		} else {
+			createNodeField({
+				node,
+				name: "slug",
+				value: `/${slugPlain}`,
+			});
+		}
+
+		if (frontmatter?.tags) {
 			const slugTagList: { tag: string; slug: string }[] = [];
-			node.frontmatter.tags.forEach((tag: string) => {
+			frontmatter.tags.forEach((tag: string) => {
 				slugTagList.push({
 					tag,
-					slug: `/${node.frontmatter.lang}/tag/${tag}`,
+					slug: `/${frontmatter.lang}/tag/${tag}`,
 				});
 			});
 			createNodeField({
 				node,
-				name: "slugtaglist",
+				name: "slugTagList",
 				value: slugTagList,
 			});
 		}
