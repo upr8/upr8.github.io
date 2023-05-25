@@ -1,7 +1,11 @@
 import path from "path";
 import { GatsbyNode } from "gatsby";
 import { Language } from "../states";
-import { CreateAboutPageQueryResult, CreatePagesQueryResult } from "./types";
+import {
+	CreateAboutPageQueryResult,
+	CreatePagesQueryResult,
+	PageContext,
+} from "./types";
 
 const blogTemplate = path.resolve("./src/templates/blog-index.tsx");
 const postTemplate = path.resolve("./src/templates/blog-post.tsx");
@@ -15,10 +19,15 @@ const createPages: GatsbyNode["createPages"] = async ({
 }) => {
 	const { createPage } = actions;
 
+	const blogIndexPageContext: PageContext = {
+		lang: Language.English,
+		title: "List of Blog posts",
+	};
+
 	createPage({
 		path: "/en/blog",
 		component: `${blogTemplate}`,
-		context: { lang: Language.English },
+		context: blogIndexPageContext,
 	});
 
 	const aboutPageQueryResult: CreateAboutPageQueryResult = await graphql(`
@@ -52,13 +61,15 @@ const createPages: GatsbyNode["createPages"] = async ({
 	if (aboutNodes) {
 		aboutNodes.forEach(({ node }) => {
 			if (node.fields) {
+				const pageContext: PageContext = {
+					lang: Language.English,
+					slug: node.fields.slug,
+					title: "About me",
+				};
 				createPage({
 					path: "/en/about",
 					component: `${aboutTemplate}?__contentFilePath=${node.internal.contentFilePath}`,
-					context: {
-						lang: Language.English,
-						slug: node.fields.slug,
-					},
+					context: pageContext,
 				});
 			} else {
 				reporter.panicOnBuild("🚨  ERROR: About Page without fields?");
@@ -73,6 +84,9 @@ const createPages: GatsbyNode["createPages"] = async ({
             allMdx(filter: { frontmatter: { published: { eq: true }, type: {ne: "single-page"} } }) {
                 edges {
                     node {
+						frontmatter{
+							title
+						}
                         fields {
                             slug
 							slugTagList {
@@ -95,14 +109,16 @@ const createPages: GatsbyNode["createPages"] = async ({
 	const createPagesNodes = pagesQueryResult.data?.allMdx.edges;
 	if (createPagesNodes) {
 		createPagesNodes.forEach(({ node }) => {
-			if (node.fields?.slug) {
+			if (node.fields?.slug && node.frontmatter?.title) {
+				const pageContext: PageContext = {
+					lang: Language.English,
+					slug: node.fields.slug,
+					title: node.frontmatter.title,
+				};
 				createPage({
 					path: node.fields.slug,
 					component: `${postTemplate}?__contentFilePath=${node.internal.contentFilePath}`,
-					context: {
-						lang: Language.English,
-						slug: node.fields.slug,
-					},
+					context: pageContext,
 				});
 			} else {
 				reporter.panicOnBuild("🚨  ERROR: Page without fields?");
@@ -111,13 +127,16 @@ const createPages: GatsbyNode["createPages"] = async ({
 				(slugtag: { tag: string; slug: string }) => {
 					if (!tagList.has(slugtag.tag)) {
 						tagList.add(slugtag.tag);
+						const pageContext: PageContext = {
+							lang: Language.English,
+							tag: slugtag.tag,
+							title: `List of content with "${slugtag.tag}"`,
+							slug: slugtag.slug,
+						};
 						createPage({
 							path: slugtag.slug,
 							component: `${tagTemplate}`,
-							context: {
-								lang: Language.English,
-								tag: slugtag.tag,
-							},
+							context: pageContext,
 						});
 					}
 				},
