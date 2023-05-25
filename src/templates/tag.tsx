@@ -13,7 +13,7 @@ const TagIndexTemplate: React.FC<Props> = ({ data }) => {
 		<Layout>
 			<article>
 				<section>
-					{data.blog.edges.map(
+					{data.allMdx.edges.map(
 						({ node }): React.JSX.Element => (
 							<ol key={node.id}>
 								<li>{node.frontmatter?.title}</li>
@@ -32,7 +32,7 @@ export default TagIndexTemplate;
 
 export const query = graphql`
     query ($tag: String!) {
-        blog: allMdx(
+        allMdx(
             filter: {
                 frontmatter: {
                     tags: { in: [$tag] }
