@@ -155,7 +155,7 @@ const createPages: GatsbyNode["createPages"] = async ({
 							lang: Language.English,
 							tag: slugtag.tag,
 							title: `"${slugtag.tag}"`,
-							desc: `List of content taged with "${slugtag.tag}"`,
+							desc: `List of content tagged with "${slugtag.tag}"`,
 							slug: slugtag.slug,
 							cover: "",
 						};
