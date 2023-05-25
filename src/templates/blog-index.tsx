@@ -1,16 +1,18 @@
 import * as React from "react";
 import { PageProps, graphql } from "gatsby";
 import Layout from "../components/layout";
+import { PageContext } from "../gatsby/types";
 
 export { Head } from "../components/gatsby-head";
 
 interface Props extends PageProps {
 	data: Queries.Query;
+	pageContext: PageContext;
 }
 
-const BlogIndexTemplate: React.FC<Props> = ({ data }) => {
+const BlogIndexTemplate: React.FC<Props> = ({ data, pageContext }) => {
 	return (
-		<Layout>
+		<Layout pageContext={pageContext}>
 			<article>
 				<section>
 					{data.allMdx.edges.map(

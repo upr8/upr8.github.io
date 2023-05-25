@@ -2,18 +2,35 @@ import * as React from "react";
 import Header from "../header";
 import Main from "../main";
 import Footer from "../footer";
+import SEO from "../seo";
+import { PageContext } from "../../gatsby/types";
 
 interface Props {
 	children: React.ReactNode;
+	pageContext: PageContext;
+	justSeo?: boolean;
 }
 
-const Layout: React.FC<Props> = ({ children }) => {
+const Layout: React.FC<Props> = ({
+	pageContext,
+	justSeo = false,
+	children,
+}) => {
 	return (
-		<div className="box-border w-full max-w-5xl min-w-0 px-4 py-1 mx-auto">
-			<Header />
-			<Main>{children}</Main>
-			<Footer />
-		</div>
+		<>
+			<SEO pageContext={pageContext} />
+			<div className="antialiased">
+				{justSeo ? (
+					<div>{children}</div>
+				) : (
+					<div className="box-border max-w-full px-4 sm:mx-4 lg:max-w-4xl lg:mx-auto">
+						<Header />
+						<Main>{children}</Main>
+						<Footer />
+					</div>
+				)}
+			</div>
+		</>
 	);
 };
 
