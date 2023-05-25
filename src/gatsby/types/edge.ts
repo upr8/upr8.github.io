@@ -8,6 +8,7 @@ interface Frontmatter {
 	published?: boolean;
 	desc?: string;
 	tags?: Array<string>;
+	cover?: string;
 }
 
 interface SlugTag {

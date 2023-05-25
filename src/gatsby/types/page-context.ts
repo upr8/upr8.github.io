@@ -1,6 +1,8 @@
 export default interface PageContext {
 	title: string;
+	desc: string;
 	lang: string;
-	slug?: string;
+	cover: string;
+	slug: string;
 	tag?: string;
 }

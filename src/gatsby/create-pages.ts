@@ -21,7 +21,10 @@ const createPages: GatsbyNode["createPages"] = async ({
 
 	const blogIndexPageContext: PageContext = {
 		lang: Language.English,
-		title: "List of Blog posts",
+		title: "Blog posts",
+		desc: "List of Blog posts",
+		slug: "/en/blog",
+		cover: "",
 	};
 
 	createPage({
@@ -60,11 +63,13 @@ const createPages: GatsbyNode["createPages"] = async ({
 	const aboutNodes = aboutPageQueryResult.data?.allMdx.edges;
 	if (aboutNodes) {
 		aboutNodes.forEach(({ node }) => {
-			if (node.fields) {
+			if (node.fields?.slug) {
 				const pageContext: PageContext = {
 					lang: Language.English,
 					slug: node.fields.slug,
 					title: "About me",
+					desc: "Who am I?",
+					cover: "",
 				};
 				createPage({
 					path: "/en/about",
@@ -86,6 +91,8 @@ const createPages: GatsbyNode["createPages"] = async ({
                     node {
 						frontmatter{
 							title
+							desc
+							cover
 						}
                         fields {
                             slug
@@ -114,6 +121,8 @@ const createPages: GatsbyNode["createPages"] = async ({
 					lang: Language.English,
 					slug: node.fields.slug,
 					title: node.frontmatter.title,
+					desc: node.frontmatter.desc || "",
+					cover: node.frontmatter.cover || "",
 				};
 				createPage({
 					path: node.fields.slug,
@@ -130,8 +139,10 @@ const createPages: GatsbyNode["createPages"] = async ({
 						const pageContext: PageContext = {
 							lang: Language.English,
 							tag: slugtag.tag,
-							title: `List of content with "${slugtag.tag}"`,
+							title: `"${slugtag.tag}"`,
+							desc: `List of content taged with "${slugtag.tag}"`,
 							slug: slugtag.slug,
+							cover: "",
 						};
 						createPage({
 							path: slugtag.slug,
