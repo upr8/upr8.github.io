@@ -4,6 +4,7 @@ import Main from "../main";
 import Footer from "../footer";
 import SEO from "../seo";
 import { PageContext } from "../../gatsby/types";
+import HtmlHead from "../html-head";
 
 interface Props {
 	children: React.ReactNode;
@@ -18,6 +19,7 @@ const Layout: React.FC<Props> = ({
 }) => {
 	return (
 		<>
+			<HtmlHead pageContext={pageContext} />
 			<SEO pageContext={pageContext} />
 			<div className="antialiased">
 				{justSeo ? (
