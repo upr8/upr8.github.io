@@ -6,7 +6,7 @@ const HtmlAttributes = {
 };
 
 const BodyAttributes = {
-	className: "body-theme-light bg-body body-lang-english font-body",
+	className: "body-theme-light bg-body body-lang-english font-body bidi-en",
 };
 
 const onRenderBody = ({
