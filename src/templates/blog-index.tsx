@@ -2,6 +2,8 @@ import * as React from "react";
 import { PageProps, graphql } from "gatsby";
 import Layout from "../components/layout";
 
+export { Head } from "../components/gatsby-head";
+
 interface Props extends PageProps {
 	data: Queries.Query;
 }

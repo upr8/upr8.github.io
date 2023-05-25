@@ -3,6 +3,8 @@ import { graphql, PageProps } from "gatsby";
 import MdxContainer from "../components/mdx-container";
 import Layout from "../components/layout";
 
+export { Head } from "../components/gatsby-head";
+
 interface Props extends PageProps {
 	data: Queries.Query;
 	children: React.ReactNode;
