@@ -2,45 +2,41 @@ import React from "react";
 import Helmet from "react-helmet";
 import { useSiteMetadata } from "../../hooks/use-site-metadata";
 import { getLocaleFromLang } from "../../utils";
+import { PageContext } from "../../gatsby/types";
 
 // https://ogp.me/#type_website
 export enum OgTypes {
 	website = "website",
 }
 
-export interface SeoData {
-	lang: string;
-	title: string;
-	desc: string;
-	slung: string;
-	type: OgTypes;
-	cover?: string;
-}
-
 interface Props {
-	seoData: SeoData;
+	pageContext: PageContext;
 }
 
-const SEO: React.FC<Props> = ({ seoData }) => {
+const SEO: React.FC<Props> = ({ pageContext }) => {
 	const { title, favIcon, siteUrl } = useSiteMetadata();
-	const url = `${siteUrl}${seoData.slung}`;
-	const locale = getLocaleFromLang(seoData.lang);
+	const url = `${siteUrl}${pageContext.slug}`;
+	const locale = getLocaleFromLang(pageContext.lang);
 	return (
-		<Helmet title={seoData.title} titleTemplate={`%s | ${title}`}>
+		<Helmet title={pageContext.title} titleTemplate={`%s | ${title}`}>
 			<link rel="icon" href={favIcon} type="image/x-icon" />
 			<link rel="shortcut icon" href={favIcon} type="image/x-icon" />
 			<meta name="robots" content="noindex" />
-			<meta name="description" content={seoData.desc} />
-			<meta property="og:title" content={seoData.title} />
-			<meta name="twitter:title" content={seoData.title} />
-			<meta property="og:description" content={seoData.desc} />
-			<meta name="twitter:description" content={seoData.desc} />
+			<meta name="description" content={pageContext.desc} />
+			<meta property="og:title" content={pageContext.title} />
+			<meta name="twitter:title" content={pageContext.title} />
+			<meta property="og:description" content={pageContext.desc} />
+			<meta name="twitter:description" content={pageContext.desc} />
 			<meta property="og:locale" content={locale} />
-			<meta property="og:type" content={seoData.type} />
+			<meta property="og:type" content={OgTypes.website} />
 			<meta property="og:url" content={url} />
 			<meta name="twitter:site" content={url} />
-			{seoData.cover && <meta name="og:image" content={seoData.cover} />}
-			{seoData.cover && <meta name="twitter:card" content={seoData.cover} />}
+			{pageContext.cover && (
+				<meta name="og:image" content={pageContext.cover} />
+			)}
+			{pageContext.cover && (
+				<meta name="twitter:card" content={pageContext.cover} />
+			)}
 		</Helmet>
 	);
 };
