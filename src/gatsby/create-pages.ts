@@ -7,6 +7,7 @@ import {
 	PageContext,
 } from "./types";
 
+const archiveTemplate = path.resolve("./src/templates/archive-index.tsx");
 const blogTemplate = path.resolve("./src/templates/blog-index.tsx");
 const postTemplate = path.resolve("./src/templates/blog-post.tsx");
 const aboutTemplate = path.resolve("./src/templates/about.tsx");
@@ -31,6 +32,20 @@ const createPages: GatsbyNode["createPages"] = async ({
 		path: "/en/blog",
 		component: `${blogTemplate}`,
 		context: blogIndexPageContext,
+	});
+
+	const archiveIndexPageContext: PageContext = {
+		lang: Language.English,
+		title: "Archive posts",
+		desc: "List of Archive posts",
+		slug: "/en/archive",
+		cover: "",
+	};
+
+	createPage({
+		path: "/en/archive",
+		component: `${archiveTemplate}`,
+		context: archiveIndexPageContext,
 	});
 
 	const aboutPageQueryResult: CreateAboutPageQueryResult = await graphql(`
