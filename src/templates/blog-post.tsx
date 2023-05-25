@@ -3,6 +3,7 @@ import { graphql, PageProps } from "gatsby";
 import MdxContainer from "../components/mdx-container";
 import Layout from "../components/layout";
 import { PageContext } from "../gatsby/types";
+import { TagList } from "../components/tags";
 
 export { Head } from "../components/gatsby-head";
 
@@ -12,10 +13,16 @@ interface Props extends Omit<PageProps, "children"> {
 	pageContext: PageContext;
 }
 
-const BlogPostTemplate: React.FC<Props> = ({ pageContext, children }) => {
+const BlogPostTemplate: React.FC<Props> = ({ data, pageContext, children }) => {
 	return (
 		<Layout pageContext={pageContext}>
 			<MdxContainer>{children}</MdxContainer>
+			{data.mdx?.fields?.slugTagList && (
+				<div className="mt-32">
+					<p className="mt-8 text-center text-secondary">Tags of this Post:</p>
+					<TagList tags={data.mdx?.fields?.slugTagList} />
+				</div>
+			)}
 		</Layout>
 	);
 };
@@ -33,6 +40,7 @@ export const query = graphql`
             }
             fields {
                 slug
+                ...Tags
             }
         }
     }
