@@ -2,7 +2,7 @@ import * as React from "react";
 
 const Footer: React.FC<{}> = () => {
 	return (
-		<footer className="box-border flex flex-row justify-between pt-4 mt-32 border-t-2">
+		<footer className="box-border flex flex-row justify-between pt-4 mt-32 border-t-2 border-primary">
 			<p className="text-center align-middle text-secondary">
 				Copyright © 2023 by Saeed Asaiyan.
 			</p>
