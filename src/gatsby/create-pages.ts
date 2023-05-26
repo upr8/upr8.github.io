@@ -8,6 +8,7 @@ import {
 } from "./types";
 
 const archiveTemplate = path.resolve("./src/templates/archive-index.tsx");
+const libraryTemplate = path.resolve("./src/templates/library-index.tsx");
 const blogTemplate = path.resolve("./src/templates/blog-index.tsx");
 const postTemplate = path.resolve("./src/templates/blog-post.tsx");
 const aboutTemplate = path.resolve("./src/templates/about.tsx");
@@ -46,6 +47,20 @@ const createPages: GatsbyNode["createPages"] = async ({
 		path: "/en/archive",
 		component: `${archiveTemplate}`,
 		context: archiveIndexPageContext,
+	});
+
+	const libraryIndexPageContext: PageContext = {
+		lang: Language.English,
+		title: "Library posts",
+		desc: "List of Library posts",
+		slug: "/en/archive",
+		cover: "",
+	};
+
+	createPage({
+		path: "/en/library",
+		component: `${libraryTemplate}`,
+		context: libraryIndexPageContext,
 	});
 
 	const aboutPageQueryResult: CreateAboutPageQueryResult = await graphql(`
