@@ -12,6 +12,9 @@ const config: GatsbyConfig = {
 	graphqlTypegen: true,
 	plugins: [
 		"gatsby-plugin-postcss",
+		"gatsby-plugin-image",
+		"gatsby-plugin-sharp",
+		"gatsby-transformer-sharp",
 		{
 			resolve: "gatsby-source-filesystem",
 			options: {
@@ -19,7 +22,21 @@ const config: GatsbyConfig = {
 				path: `${__dirname}/data/`,
 			},
 		},
-		"gatsby-plugin-mdx",
+		{
+			resolve: "gatsby-plugin-mdx",
+			options: {
+				gatsbyRemarkPlugins: [
+					{
+						resolve: "gatsby-remark-images",
+						options: {
+							maxWidth: 1035,
+							linkImagesToOriginal: false,
+							// showCaptions: true,
+						},
+					},
+				],
+			},
+		},
 	],
 };
 
