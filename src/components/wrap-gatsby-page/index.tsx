@@ -1,13 +1,16 @@
 import * as React from "react";
 import type { PageProps } from "gatsby";
-import { SiteContext, initialSiteState, siteReducer } from "../../states";
+import { SiteContext, getInitialSiteState, siteReducer } from "../../states";
 
 interface Props extends Omit<PageProps, "children"> {
 	children: React.ReactElement;
 }
 
 const WrapGatsbyPage: React.FC<Props> = ({ children }) => {
-	const [state, dispatch] = React.useReducer(siteReducer, initialSiteState);
+	const [state, dispatch] = React.useReducer(
+		siteReducer,
+		getInitialSiteState(),
+	);
 
 	return (
 		<SiteContext.Provider value={{ state, dispatch }}>

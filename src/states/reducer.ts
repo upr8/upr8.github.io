@@ -1,3 +1,4 @@
+import { setLocalStorage } from "../utils";
 import {
 	ActionType,
 	SiteActions,
@@ -7,17 +8,21 @@ import {
 import { Language, SiteState, Theme } from "./state";
 
 export function siteReducer(state: SiteState, action: SiteActions): SiteState {
+	const toggledTheme = state.theme === Theme.Light ? Theme.Dark : Theme.Light;
+	const toggledLang =
+		state.lang === Language.English ? Language.Persian : Language.English;
 	switch (action.type) {
 		case ActionType.ToggleLanguage:
+			setLocalStorage({ key: "lang", value: toggledLang });
 			return {
 				...state,
-				lang:
-					state.lang === Language.English ? Language.Persian : Language.English,
+				lang: toggledLang,
 			};
 		case ActionType.ToggleTheme:
+			setLocalStorage({ key: "theme", value: toggledTheme });
 			return {
 				...state,
-				theme: state.theme === Theme.Light ? Theme.Dark : Theme.Light,
+				theme: toggledTheme,
 			};
 		default:
 			return state;
