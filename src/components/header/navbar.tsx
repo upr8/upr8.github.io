@@ -9,7 +9,13 @@ const NavBar: React.FC<{}> = () => {
 				<Link to="/en/blog">Blog</Link>
 			</li>
 			<li>
+				<Link to="/en/library">Library</Link>
+			</li>
+			<li>
 				<ThemeSwitcher />
+			</li>
+			<li>
+				<Link to="/en/archive">Archive</Link>
 			</li>
 			<li>
 				<Link to="/en/about">About</Link>
