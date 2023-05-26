@@ -1,16 +1,27 @@
 import * as React from "react";
 import { Link, HeadFC, PageProps } from "gatsby";
+import Layout from "../components/layout";
+import { PageContext } from "../gatsby/types";
+import { Language } from "../states";
 
 const NotFoundPage: React.FC<PageProps> = () => {
+	const pageContext: PageContext = {
+		title: "Error 404",
+		desc: "Page Not Found",
+		lang: Language.English,
+		cover: "",
+		slug: "/404",
+	};
 	return (
-		<main className="p-24 font-sans text-gray-900">
-			<h1 className="max-w-3xl mt-0 mb-16">Page not found</h1>
-			<p className="mb-16">
-				Sorry 😔, we couldn’t find what you were looking for.
-				<br />
-				Please <Link to="/">Go home</Link>.
-			</p>
-		</main>
+		<Layout pageContext={pageContext}>
+			<article>
+				<p className="m-8 text-primary">
+					Sorry 😔, we couldn’t find what you were looking for.
+					<br />
+					Please <Link to="/">Go home</Link>.
+				</p>
+			</article>
+		</Layout>
 	);
 };
 
