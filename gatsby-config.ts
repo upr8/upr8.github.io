@@ -39,6 +39,18 @@ const config: GatsbyConfig = {
 			},
 		},
 		{
+			resolve: "gatsby-plugin-manifest",
+			options: {
+				name: "Saeed Asaiyan",
+				short_name: "Saeed",
+				start_url: "/",
+				background_color: "#f7f0eb",
+				theme_color: "#a2466c",
+				display: "standalone",
+				icon: "assets/images/favicon.svg",
+			},
+		},
+		{
 			resolve: "gatsby-plugin-feed",
 			options: {
 				query: `
