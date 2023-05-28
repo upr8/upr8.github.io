@@ -6,19 +6,19 @@ const NavBar: React.FC<{}> = () => {
 	return (
 		<ul className="flex justify-between px-4 bg-nav text-primary">
 			<li>
-				<Link to="/en/blog">Blog</Link>
+				<Link to="/">Home</Link>
 			</li>
 			<li>
-				<Link to="/en/library">Library</Link>
+				<Link to="/en/blog">Blog</Link>
 			</li>
 			<li>
 				<ThemeSwitcher />
 			</li>
 			<li>
-				<Link to="/en/archive">Archive</Link>
+				<Link to="/en/library">Library</Link>
 			</li>
 			<li>
-				<Link to="/">Home</Link>
+				<Link to="/en/archive">Archive</Link>
 			</li>
 		</ul>
 	);
