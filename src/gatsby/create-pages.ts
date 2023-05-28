@@ -26,8 +26,8 @@ const createPages: GatsbyNode["createPages"] = async ({
 
 	const homePageContext: PageContext = {
 		lang: Language.English,
-		title: "Hello 👋!",
-		desc: "Home page",
+		title: "/dev/home",
+		desc: "Hello 👋!",
 		slug: "/",
 		cover: "",
 	};
@@ -39,7 +39,7 @@ const createPages: GatsbyNode["createPages"] = async ({
 
 	const blogIndexPageContext: PageContext = {
 		lang: Language.English,
-		title: "Blog posts",
+		title: "/dev/log",
 		desc: "List of Blog posts",
 		slug: "/en/blog",
 		cover: "",
@@ -53,8 +53,8 @@ const createPages: GatsbyNode["createPages"] = async ({
 
 	const archiveIndexPageContext: PageContext = {
 		lang: Language.English,
-		title: "Archive posts",
-		desc: "List of Archive posts",
+		title: "$> find . -type l -ls",
+		desc: "List of links",
 		slug: "/en/archive",
 		cover: "",
 	};
@@ -67,9 +67,9 @@ const createPages: GatsbyNode["createPages"] = async ({
 
 	const libraryIndexPageContext: PageContext = {
 		lang: Language.English,
-		title: "Library posts",
-		desc: "List of Library posts",
-		slug: "/en/archive",
+		title: "$> ldconfig -p",
+		desc: "List of book that I read",
+		slug: "/en/library",
 		cover: "",
 	};
 
@@ -113,8 +113,8 @@ const createPages: GatsbyNode["createPages"] = async ({
 				const pageContext: PageContext = {
 					lang: Language.English,
 					slug: node.fields.slug,
-					title: "About me",
-					desc: "Who am I?",
+					title: "$> who am i",
+					desc: "About me",
 					cover: "",
 				};
 				createPage({
