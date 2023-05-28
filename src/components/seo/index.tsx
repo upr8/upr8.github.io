@@ -21,7 +21,6 @@ const SEO: React.FC<Props> = ({ pageContext }) => {
 		<Helmet title={pageContext.title} titleTemplate={`%s | ${title}`}>
 			<link rel="icon" href={favIcon} type="image/x-icon" />
 			<link rel="shortcut icon" href={favIcon} type="image/x-icon" />
-			<meta name="robots" content="noindex" />
 			<meta name="description" content={pageContext.desc} />
 			<meta property="og:title" content={pageContext.title} />
 			<meta name="twitter:title" content={pageContext.title} />
