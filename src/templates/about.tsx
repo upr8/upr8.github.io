@@ -6,9 +6,9 @@ import { PageContext } from "../gatsby/types";
 
 export { Head } from "../components/gatsby-head";
 
-interface Props extends PageProps {
+interface Props extends Omit<PageProps, "children"> {
 	data: Queries.Query;
-	childern: React.ReactNode;
+	children: React.ReactNode;
 	pageContext: PageContext;
 }
 
