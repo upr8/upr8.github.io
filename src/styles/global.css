@@ -9,3 +9,21 @@
     direction: ltr;
     text-align: left;
 }
+
+a {
+    &:hover,
+    *:hover,
+    &:focus,
+    & *:focus {
+        @apply text-indigo-700;
+    }
+
+    &:active,
+    & *:active {
+        @apply text-indigo-400;
+    }
+
+    &:active {
+        @apply outline-none;
+    }
+}
