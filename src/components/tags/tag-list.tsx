@@ -10,7 +10,7 @@ interface Props {
 
 const TagList: React.FC<Props> = ({ tags }) => {
 	return (
-		<ul className="flex flex-wrap items-baseline justify-center mt-2 mis-4 md:mt-0">
+		<ul className="flex flex-wrap items-baseline justify-center mt-2 ms-1 md:mt-0">
 			{tags?.map((tag) => (
 				<li
 					key={tag?.tag}
