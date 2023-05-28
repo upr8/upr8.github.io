@@ -48,6 +48,15 @@ const config: GatsbyConfig = {
 				theme_color: "#a2466c",
 				display: "standalone",
 				icon: "assets/images/favicon.svg",
+				cache_busting_mode: "none",
+			},
+		},
+		{
+			resolve: "gatsby-plugin-offline",
+			options: {
+				workboxConfig: {
+					globPatterns: ["assets/images/favicon.svg"],
+				},
 			},
 		},
 		{
