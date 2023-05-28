@@ -1,10 +1,10 @@
 import * as React from "react";
 import { PageProps, graphql } from "gatsby";
-import Layout from "../components/layout";
-import { PageContext } from "../gatsby/types";
-import { ArchivePostCard } from "../components/cards";
+import Layout from "@/components/layout";
+import { PageContext } from "@/gatsby/types";
+import { ArchivePostCard } from "@/components/cards";
 
-export { Head } from "../components/gatsby-head";
+export { Head } from "@/components/gatsby-head";
 
 interface Props extends PageProps {
 	data: Queries.Query;

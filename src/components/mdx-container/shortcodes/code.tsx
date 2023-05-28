@@ -4,7 +4,7 @@ import {
 	solarizedDark,
 	solarizedLight,
 } from "react-syntax-highlighter/dist/esm/styles/hljs";
-import { SiteContext, Theme } from "../../../states";
+import { SiteContext, Theme } from "@/states";
 
 interface Props {
 	className: string;

@@ -1,8 +1,8 @@
 import React from "react";
 import { Link, graphql } from "gatsby";
 
-import { TagList } from "../tags";
-import Stars from "../tags/stars";
+import { TagList } from "@/components/tags";
+import Stars from "@/components/tags/stars";
 
 interface Props {
 	BookNode: Queries.BookNodeFragment;

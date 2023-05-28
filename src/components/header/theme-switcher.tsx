@@ -1,5 +1,5 @@
 import * as React from "react";
-import { SiteContext, Theme, toggleTheme } from "../../states";
+import { SiteContext, Theme, toggleTheme } from "@/states";
 
 import { icon, toggleDot } from "./theme-switcher.module.css";
 

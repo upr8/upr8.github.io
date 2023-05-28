@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, graphql } from "gatsby";
 
-import { TagList } from "../tags";
+import { TagList } from "@/components/tags";
 
 interface Props {
 	BlogNode: Queries.BlogNodeFragment;

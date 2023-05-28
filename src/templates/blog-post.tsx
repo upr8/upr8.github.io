@@ -1,11 +1,11 @@
 import * as React from "react";
 import { graphql, PageProps } from "gatsby";
-import MdxContainer from "../components/mdx-container";
-import Layout from "../components/layout";
-import { PageContext } from "../gatsby/types";
-import { TagList } from "../components/tags";
+import MdxContainer from "@/components/mdx-container";
+import Layout from "@/components/layout";
+import { PageContext } from "@/gatsby/types";
+import { TagList } from "@/components/tags";
 
-export { Head } from "../components/gatsby-head";
+export { Head } from "@/components/gatsby-head";
 
 interface Props extends Omit<PageProps, "children"> {
 	data: Queries.Query;

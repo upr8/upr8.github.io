@@ -1,11 +1,11 @@
 import * as React from "react";
-import Header from "../header";
-import Main from "../main";
-import Footer from "../footer";
-import SEO from "../seo";
-import { PageContext } from "../../gatsby/types";
-import HtmlHead from "../html-head";
-import { SiteContext, Theme } from "../../states";
+import Header from "@/components/header";
+import Main from "@/components/main";
+import Footer from "@/components/footer";
+import SEO from "@/components/seo";
+import HtmlHead from "@/components/html-head";
+import { PageContext } from "@/gatsby/types";
+import { SiteContext, Theme } from "@/states";
 
 interface Props {
 	children: React.ReactNode;

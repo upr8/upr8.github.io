@@ -1,6 +1,6 @@
 import * as React from "react";
 import type { PageProps } from "gatsby";
-import { SiteContext, getInitialSiteState, siteReducer } from "../../states";
+import { SiteContext, getInitialSiteState, siteReducer } from "@/states";
 
 interface Props extends Omit<PageProps, "children"> {
 	children: React.ReactElement;
