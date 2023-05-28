@@ -5,6 +5,7 @@ import Footer from "../footer";
 import SEO from "../seo";
 import { PageContext } from "../../gatsby/types";
 import HtmlHead from "../html-head";
+import { SiteContext, Theme } from "../../states";
 
 interface Props {
 	children: React.ReactNode;
@@ -17,11 +18,14 @@ const Layout: React.FC<Props> = ({
 	justSeo = false,
 	children,
 }) => {
+	const { state } = React.useContext(SiteContext);
 	return (
 		<>
 			<HtmlHead pageContext={pageContext} />
 			<SEO pageContext={pageContext} />
-			<div className="antialiased">
+			<div
+				className={`antialiased ${state.theme === Theme.Dark ? "dark" : ""}`}
+			>
 				{justSeo ? (
 					<div>{children}</div>
 				) : (
