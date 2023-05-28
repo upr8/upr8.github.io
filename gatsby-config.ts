@@ -2,6 +2,9 @@ import { Edge } from "@/gatsby/types";
 import type { GatsbyConfig } from "gatsby";
 
 const config: GatsbyConfig = {
+	// flags: {
+	// 	DEV_SSR: true, //https://www.gatsbyjs.com/docs/debugging-html-builds/#ssr-during-gatsby-develop
+	// },
 	siteMetadata: {
 		title: "Saeed Asaiyan",
 		siteUrl: "https://www.asaiyan.com",
