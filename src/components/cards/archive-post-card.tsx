@@ -20,19 +20,28 @@ const ArchivePostCard: React.FC<Props> = ({ ArchiveNode }) => (
 					{ArchiveNode.frontmatter?.title}
 				</h3>
 			</Link>
-			<Link
-				to={
-					(ArchiveNode.frontmatter?.hasReview && ArchiveNode.fields?.slug) ||
-					"#"
-				}
-			>
-				<div className="md:flex">
+			{ArchiveNode.frontmatter?.hasReview ? (
+				<Link
+					to={
+						(ArchiveNode.frontmatter?.hasReview && ArchiveNode.fields?.slug) ||
+						"#"
+					}
+				>
+					<div className="md:flex">
+						<p className="text-secondary">{ArchiveNode.frontmatter?.desc}</p>
+						{ArchiveNode.fields?.slugTagList && (
+							<TagList tags={ArchiveNode.fields?.slugTagList} />
+						)}
+					</div>
+				</Link>
+			) : (
+				<div className="">
 					<p className="text-secondary">{ArchiveNode.frontmatter?.desc}</p>
 					{ArchiveNode.fields?.slugTagList && (
 						<TagList tags={ArchiveNode.fields?.slugTagList} />
 					)}
 				</div>
-			</Link>
+			)}
 		</div>
 	</div>
 );
