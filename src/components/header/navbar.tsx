@@ -18,7 +18,7 @@ const NavBar: React.FC<{}> = () => {
 				<Link to="/en/archive">Archive</Link>
 			</li>
 			<li>
-				<Link to="/en/about">About</Link>
+				<Link to="/">Home</Link>
 			</li>
 		</ul>
 	);
