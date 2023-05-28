@@ -6,60 +6,6 @@
 
     unicode-bidi: bidi-override;
 
-    p {
-        text-indent: 1rem;
-
-        @apply leading-relaxed;
-        @apply pt-4;
-        @apply text-justify;
-    }
-
-    em {
-        @apply italic;
-    }
-
-    strong {
-        @apply font-bold;
-    }
-
-    h2 {
-        @apply font-semibold;
-        @apply text-2xl;
-        @apply pt-6;
-    }
-
-    h3 {
-        @apply font-semibold;
-        @apply text-xl;
-        @apply pt-5;
-    }
-
-    h4 {
-        @apply font-semibold;
-        @apply text-lg;
-        @apply pt-5;
-    }
-
-    a {
-        @apply underline;
-    }
-
-    ul {
-        @apply list-disc;
-        @apply ps-10;
-        @apply text-justify;
-
-        text-indent: 0.5rem;
-    }
-
-    ol {
-        @apply list-decimal;
-        @apply ps-10;
-        @apply text-justify;
-
-        text-indent: 0.5rem;
-    }
-
     table {
         @apply w-5/6 mx-auto table-auto;
         @apply border border-collapse border-gray-700;
