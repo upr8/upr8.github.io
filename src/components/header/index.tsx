@@ -12,7 +12,9 @@ const Header: React.FC<Props> = ({ pageTitle, pageSubtitle }) => {
 			<NavBar />
 			<div className="pt-32 pb-16 text-center">
 				<h1 className="text-4xl font-extrabold text-primary">{pageTitle}</h1>
-				<div className="text-xl font-bold text-secondary">{pageSubtitle}</div>
+				<div className="mt-4 text-xl font-bold text-secondary">
+					{pageSubtitle}
+				</div>
 			</div>
 		</header>
 	);
