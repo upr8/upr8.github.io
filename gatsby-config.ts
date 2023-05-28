@@ -47,17 +47,16 @@ const config: GatsbyConfig = {
 				background_color: "#f7f0eb",
 				theme_color: "#a2466c",
 				display: "standalone",
-				icon: "assets/images/favicon.svg",
+				icon: "static/images/favicon/favicon.svg",
+				icon_options: {
+					purpose: "any maskable",
+				},
 				cache_busting_mode: "none",
 			},
 		},
 		{
 			resolve: "gatsby-plugin-offline",
-			options: {
-				workboxConfig: {
-					globPatterns: ["assets/images/favicon.svg"],
-				},
-			},
+			options: {},
 		},
 		{
 			resolve: "gatsby-plugin-feed",
