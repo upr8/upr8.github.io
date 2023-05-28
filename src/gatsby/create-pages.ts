@@ -12,7 +12,10 @@ const libraryTemplate = path.resolve("./src/templates/library-index.tsx");
 const blogTemplate = path.resolve("./src/templates/blog-index.tsx");
 const postTemplate = path.resolve("./src/templates/blog-post.tsx");
 const aboutTemplate = path.resolve("./src/templates/about.tsx");
+const homeTemplate = path.resolve("./src/templates/home.tsx");
 const tagTemplate = path.resolve("./src/templates/tag.tsx");
+
+const homeMdx = path.resolve("./data/pages/home/index.en.mdx");
 
 const createPages: GatsbyNode["createPages"] = async ({
 	actions,
@@ -20,6 +23,19 @@ const createPages: GatsbyNode["createPages"] = async ({
 	reporter,
 }) => {
 	const { createPage } = actions;
+
+	const homePageContext: PageContext = {
+		lang: Language.English,
+		title: "Hello 👋!",
+		desc: "Home page",
+		slug: "/",
+		cover: "",
+	};
+	createPage({
+		path: "/",
+		component: `${homeTemplate}?__contentFilePath=${homeMdx}`,
+		context: homePageContext,
+	});
 
 	const blogIndexPageContext: PageContext = {
 		lang: Language.English,
