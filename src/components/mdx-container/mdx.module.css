@@ -6,6 +6,10 @@
 
     unicode-bidi: bidi-override;
 
+    a {
+        @apply underline underline-offset-4 hover:no-underline;
+    }
+
     table {
         @apply w-5/6 mx-auto table-auto;
         @apply border border-collapse border-gray-700;

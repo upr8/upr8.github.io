@@ -11,9 +11,6 @@ export const mdxShortCodes = {
 	p: (props: React.PropsWithChildren) => (
 		<p className="pt-4 leading-relaxed text-justify indent-4" {...props} />
 	),
-	a: (props: React.PropsWithChildren) => (
-		<a className="underline underline-offset-4 hover:no-underline" {...props} />
-	),
 	strong: (props: React.PropsWithChildren) => (
 		<strong className="font-bold" {...props} />
 	),
