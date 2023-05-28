@@ -35,4 +35,10 @@ export const mdxShortCodes = {
 	ul: (props: React.PropsWithChildren) => (
 		<ul className="text-justify list-disc ps-10 indent-2" {...props} />
 	),
+	hr: (props: React.PropsWithChildren) => (
+		<hr
+			className="h-px mx-4 my-8 bg-gray-300 border-0 dark:bg-gray-600"
+			{...props}
+		/>
+	),
 };
