@@ -20,6 +20,7 @@ const SEO: React.FC<Props> = ({ pageContext }) => {
 	return (
 		<Helmet title={pageContext.title} titleTemplate={`%s | ${title}`}>
 			<meta name="description" content={pageContext.desc} />
+			<meta http-equiv="Permissions-Policy" content="interest-cohort=()" />
 			<meta property="og:title" content={pageContext.title} />
 			<meta name="twitter:title" content={pageContext.title} />
 			<meta property="og:description" content={pageContext.desc} />
