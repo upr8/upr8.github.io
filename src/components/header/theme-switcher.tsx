@@ -8,11 +8,11 @@ const ThemeSwitcher: React.FC<{}> = () => {
 
 	return (
 		<label
-			htmlFor="toogleTheme"
+			htmlFor="toggleTheme"
 			className="relative flex items-center justify-center pt-1 cursor-pointer"
 		>
 			<input
-				id="toogleTheme"
+				id="toggleTheme"
 				type="checkbox"
 				className="hidden"
 				onClick={() => dispatch(toggleTheme())}
