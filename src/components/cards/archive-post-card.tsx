@@ -30,7 +30,10 @@ const ArchivePostCard: React.FC<Props> = ({ ArchiveNode }) => (
 					<div className="md:flex">
 						<p className="text-secondary">{ArchiveNode.frontmatter?.desc}</p>
 						{ArchiveNode.fields?.slugTagList && (
-							<TagList tags={ArchiveNode.fields?.slugTagList} />
+							<TagList
+								tags={ArchiveNode.fields?.slugTagList}
+								isCenter={false}
+							/>
 						)}
 					</div>
 				</Link>
@@ -38,7 +41,7 @@ const ArchivePostCard: React.FC<Props> = ({ ArchiveNode }) => (
 				<div className="">
 					<p className="text-secondary">{ArchiveNode.frontmatter?.desc}</p>
 					{ArchiveNode.fields?.slugTagList && (
-						<TagList tags={ArchiveNode.fields?.slugTagList} />
+						<TagList tags={ArchiveNode.fields?.slugTagList} isCenter={false} />
 					)}
 				</div>
 			)}

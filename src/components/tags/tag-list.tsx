@@ -6,11 +6,16 @@ interface Props {
 		readonly tag: string | null;
 		readonly slug: string | null;
 	} | null)[];
+	isCenter?: boolean;
 }
 
-const TagList: React.FC<Props> = ({ tags }) => {
+const TagList: React.FC<Props> = ({ tags, isCenter = true }) => {
 	return (
-		<ul className="flex flex-wrap items-baseline justify-center mt-2 ms-1 md:mt-0">
+		<ul
+			className={`flex flex-wrap items-baseline mt-2 ms-1 md:mt-0 ${
+				isCenter ? "justify-center" : "justify-start"
+			}`}
+		>
 			{tags?.map((tag) => (
 				<li
 					key={tag?.tag}
