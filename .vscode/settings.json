@@ -27,14 +27,22 @@
     "cSpell.enabled": true,
     "cSpell.words": [
         "bradlc",
+        "codepaths",
         "csstools",
+        "devcontainer",
         "devcontainers",
         "frontmatter",
+        "heroicon",
         "heybourn",
+        "localstorage",
         "oderwat",
         "ppas",
+        "shortcodes",
         "slugtag",
         "tailwindcss",
+        "tsbuildinfo",
+        "typecheck",
+        "Typegen",
         "unifiedjs",
         "vtop"
     ]
