@@ -9,7 +9,6 @@ export const useSiteMetadata = (): SiteMetadata => {
                     siteMetadata {
                         title
                         siteUrl
-                        favIcon
                     }
                 }
         }`,

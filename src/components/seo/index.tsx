@@ -14,13 +14,11 @@ interface Props {
 }
 
 const SEO: React.FC<Props> = ({ pageContext }) => {
-	const { title, favIcon, siteUrl } = useSiteMetadata();
+	const { title, siteUrl } = useSiteMetadata();
 	const url = `${siteUrl}${pageContext.slug}`;
 	const locale = getLocaleFromLang(pageContext.lang);
 	return (
 		<Helmet title={pageContext.title} titleTemplate={`%s | ${title}`}>
-			<link rel="icon" href={favIcon} type="image/x-icon" />
-			<link rel="shortcut icon" href={favIcon} type="image/x-icon" />
 			<meta name="description" content={pageContext.desc} />
 			<meta property="og:title" content={pageContext.title} />
 			<meta name="twitter:title" content={pageContext.title} />
