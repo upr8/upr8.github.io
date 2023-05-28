@@ -26,7 +26,7 @@ const createPages: GatsbyNode["createPages"] = async ({
 
 	const homePageContext: PageContext = {
 		lang: Language.English,
-		title: "/dev/home",
+		title: "/home/saeed",
 		desc: "Hello 👋!",
 		slug: "/",
 		cover: "",
