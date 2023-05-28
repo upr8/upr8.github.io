@@ -25,6 +25,7 @@ interface Fields {
 interface Node extends GatsbyNode {
 	fields?: Fields;
 	frontmatter?: Frontmatter;
+	excerpt?: string;
 }
 
 interface Edge {

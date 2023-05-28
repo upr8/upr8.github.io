@@ -1,3 +1,4 @@
+import { Edge } from "@/gatsby/types";
 import type { GatsbyConfig } from "gatsby";
 
 const config: GatsbyConfig = {
@@ -33,6 +34,71 @@ const config: GatsbyConfig = {
 							linkImagesToOriginal: false,
 							// showCaptions: true,
 						},
+					},
+				],
+			},
+		},
+		{
+			resolve: "gatsby-plugin-feed",
+			options: {
+				query: `
+				{
+					site {
+						siteMetadata {
+							siteUrl
+						}
+					}
+				}
+				`,
+				feeds: [
+					{
+						serialize: ({
+							query: { site, allMdx },
+						}: {
+							query: {
+								site: {
+									siteMetadata: {
+										siteUrl: string;
+									};
+								};
+								allMdx: {
+									edges: Array<Edge>;
+								};
+							};
+						}) =>
+							allMdx.edges.map(({ node }) => ({
+								...node.frontmatter,
+								date: node?.frontmatter?.date,
+								description: node?.frontmatter?.desc,
+								url: site.siteMetadata.siteUrl + node.fields?.slug,
+								guid: site.siteMetadata.siteUrl + node.fields?.slug,
+								custom_elements: [{ "content:encoded": node?.excerpt }],
+							})),
+						query: `
+					{
+						allMdx(
+							limit: 1000,
+							sort: {frontmatter: {date: DESC}},
+							filter: { frontmatter: { type: { eq: "blog" }, published: { eq: true } } }
+						) {
+							edges {
+								node {
+									body
+									fields {
+										slug
+									}
+									frontmatter {
+										date
+										title
+										desc
+									}
+									excerpt(pruneLength: 200)
+								}
+							}
+						}
+					}`,
+						output: "/rss.xml",
+						title: "Rss Feed",
 					},
 				],
 			},
