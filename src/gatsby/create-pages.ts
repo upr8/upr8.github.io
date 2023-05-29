@@ -132,7 +132,14 @@ const createPages: GatsbyNode["createPages"] = async ({
 
 	const pagesQueryResult: CreatePagesQueryResult = await graphql(`
         query {
-            allMdx(filter: { frontmatter: { published: { eq: true }, type: {ne: "single-page"} } }) {
+            allMdx(filter: { frontmatter: {
+								published: { eq: true },
+								hasReview: {ne: false}
+								type: {ne: "single-page"} 
+								}
+							}
+				)
+			{
                 edges {
                     node {
 						frontmatter{
