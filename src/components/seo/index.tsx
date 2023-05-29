@@ -29,12 +29,6 @@ const SEO: React.FC<Props> = ({ pageContext }) => {
 			<meta property="og:type" content={OgTypes.website} />
 			<meta property="og:url" content={url} />
 			<meta name="twitter:site" content={url} />
-			{pageContext.cover && (
-				<meta name="og:image" content={pageContext.cover} />
-			)}
-			{pageContext.cover && (
-				<meta name="twitter:card" content={pageContext.cover} />
-			)}
 		</Helmet>
 	);
 };

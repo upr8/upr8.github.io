@@ -9,7 +9,6 @@ const NotFoundPage: React.FC<PageProps> = () => {
 		title: "Error 404",
 		desc: "Page Not Found",
 		lang: Language.English,
-		cover: "",
 		slug: "/404",
 	};
 	return (

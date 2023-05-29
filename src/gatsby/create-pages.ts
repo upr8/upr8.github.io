@@ -29,7 +29,6 @@ const createPages: GatsbyNode["createPages"] = async ({
 		title: "/home/saeed",
 		desc: "Hello 👋!",
 		slug: "/",
-		cover: "",
 	};
 	createPage({
 		path: "/",
@@ -42,7 +41,6 @@ const createPages: GatsbyNode["createPages"] = async ({
 		title: "/dev/log",
 		desc: "List of Blog posts",
 		slug: "/en/blog",
-		cover: "",
 	};
 
 	createPage({
@@ -56,7 +54,6 @@ const createPages: GatsbyNode["createPages"] = async ({
 		title: "$> find . -type l -ls",
 		desc: "List of links",
 		slug: "/en/archive",
-		cover: "",
 	};
 
 	createPage({
@@ -70,7 +67,6 @@ const createPages: GatsbyNode["createPages"] = async ({
 		title: "$> ldconfig -p",
 		desc: "List of book that I read",
 		slug: "/en/library",
-		cover: "",
 	};
 
 	createPage({
@@ -115,7 +111,6 @@ const createPages: GatsbyNode["createPages"] = async ({
 					slug: node.fields.slug,
 					title: "$> who am i",
 					desc: "About me",
-					cover: "",
 				};
 				createPage({
 					path: "/en/about",
@@ -145,7 +140,6 @@ const createPages: GatsbyNode["createPages"] = async ({
 						frontmatter{
 							title
 							desc
-							cover
 						}
                         fields {
                             slug
@@ -175,7 +169,6 @@ const createPages: GatsbyNode["createPages"] = async ({
 					slug: node.fields.slug,
 					title: node.frontmatter.title,
 					desc: node.frontmatter.desc || "",
-					cover: node.frontmatter.cover || "",
 				};
 				createPage({
 					path: node.fields.slug,
@@ -195,7 +188,6 @@ const createPages: GatsbyNode["createPages"] = async ({
 							title: `"${slugtag.tag}"`,
 							desc: `List of content tagged with "${slugtag.tag}"`,
 							slug: slugtag.slug,
-							cover: "",
 						};
 						createPage({
 							path: slugtag.slug,
