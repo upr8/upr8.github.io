@@ -9,7 +9,7 @@ const Footer: React.FC<{}> = () => {
 			</p>
 			<ul className="flex justify-center">
 				<li className="mx-4">
-					<a href={"https://github.com/yruc"}>
+					<a href={"https://github.com/upr8"}>
 						<svg
 							className="w-8 h-8 fill-current text-secondary "
 							viewBox="0 0 24 24"
