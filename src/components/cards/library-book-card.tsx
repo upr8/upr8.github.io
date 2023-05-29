@@ -19,8 +19,8 @@ const LibraryBookCard: React.FC<Props> = ({ BookNode }) => {
 		<div
 			className="z-10 flex mx-4 mt-4 overflow-hidden border rounded-lg shadow-md border-primary"
 			style={{
-				width: "26rem",
-				height: "18rem",
+				width: "24rem",
+				height: "16rem",
 			}}
 		>
 			<div
