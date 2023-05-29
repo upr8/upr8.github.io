@@ -12,27 +12,27 @@
 
     table {
         @apply w-5/6 mx-auto table-auto;
-        @apply border border-collapse border-gray-700;
+        @apply border border-collapse border-table;
 
         & thead {
-            @apply bg-gray-300 border border-gray-700;
+            @apply bg-table-head border border-table;
 
             & tr > th {
-                @apply border border-gray-700;
+                @apply border border-table;
             }
         }
 
         & tbody {
             & tr:nth-child(odd) {
-                @apply bg-gray-50;
+                @apply bg-table-odd;
             }
 
             & tr:nth-child(even) {
-                @apply bg-gray-100;
+                @apply bg-table-even;
             }
 
             & td {
-                @apply border border-gray-700;
+                @apply border border-table;
             }
         }
     }

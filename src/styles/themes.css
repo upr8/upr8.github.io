@@ -23,6 +23,10 @@
     --color-border-secondary: #bae6fd; /* sky 200 */
     --color-text-primary: #262626; /* natural 800 */
     --color-text-secondary: #4b5563; /* gray 600 */
+    --color-bg-table-head: #cbd5e1; /* slate 300 */
+    --color-bg-table-even: #f1f5f9; /* slate 100 */
+    --color-bg-table-odd: #f8fafc; /* slate 50*/
+    --color-border-table: #334155; /* slate 700 */
 }
 
 .body-theme-dark {
@@ -33,4 +37,9 @@
     --color-border-secondary: #075985; /* sky 800 */
     --color-text-primary: #f5f5f5; /* natural 100 */
     --color-text-secondary: #d1d5db; /* gray 300 */
+    --color-bg-table-head: #334155; /* slate 700 */
+    --color-bg-table-even: #0f172a; /* slate 900 */
+    --color-bg-table-odd: #020617; /* slate 950 */
+    --color-border-table: #cbd5e1; /* slate 300 */
+    
 }

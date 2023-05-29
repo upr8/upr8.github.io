@@ -10,10 +10,16 @@ module.exports = {
 				body: "var(--color-bg-body)",
 				nav: "var(--color-bg-nav)",
 				bq: "var(--color-bg-bq)",
+				table: {
+					head: "var(--color-bg-table-head)",
+					even: "var(--color-bg-table-even)",
+					odd: "var(--color-bg-table-odd)",
+				},
 			},
 			borderColor: {
 				primary: "var(--color-border-primary)",
 				secondary: "var(--color-border-secondary)",
+				table: "var(--color-border-table)",
 			},
 			textColor: {
 				primary: "var(--color-text-primary)",
