@@ -28,6 +28,9 @@ const config: GatsbyConfig = {
 		{
 			resolve: "gatsby-plugin-mdx",
 			options: {
+				mdxOptions: {
+					remarkPlugins: [require("remark-gfm")],
+				},
 				gatsbyRemarkPlugins: [
 					{
 						resolve: "gatsby-remark-images",
