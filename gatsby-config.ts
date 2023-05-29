@@ -40,6 +40,13 @@ const config: GatsbyConfig = {
 							// showCaptions: true,
 						},
 					},
+					{
+						resolve: "gatsby-remark-copy-linked-files",
+						options: {
+							destinationDir: "files",
+							ignoreFileExtensions: ["png", "jpg", "jpeg", "bmp", "tiff"],
+						},
+					},
 				],
 			},
 		},
