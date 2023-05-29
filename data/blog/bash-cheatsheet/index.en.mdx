@@ -1,0 +1,278 @@
+---
+title: 'An Overview of Bash Scripting'
+date: '2021-08-05'
+lang: 'en'
+type: 'blog'
+published: true
+desc: 'Or Maybe Cheatsheet'
+tags: ['bash', 'linux']
+---
+
+## Table of contents
+
+```toc
+# This code block gets replaced with the TOC
+```
+
+## Performance evaluation
+
+### Runtime
+
+One of the methods for scpecifying the runtime of an application (Program?) is to use SECONDS valriable.
+
+```bash
+SECONDS=0; sleep 3; echo $SECONDS;
+```
+
+## Condition
+
+### Conditional structure
+
+The general structure of a conditional statement in Bash is as follows:
+
+```bash
+val=14
+if test $val -eq 14 ; then
+    echo "exit value of a command"
+elif (( $val + 6 > 20 )); then
+    echo "Mathematical expressions"
+elif [ $val -gt 10 ] ; then
+    echo "single bracket (POSIX standard)"
+elif [[ $val -gt 10 ]]; then
+    echo "double bracket (Bash and some others)"
+else
+    echo "else condition"
+fi
+```
+
+### Comparison conditions
+
+#### File Operators 
+The conditional operators for checking the status of files are visible in the table below:
+
+| Operator | Example | Description |
+|:--------:|:--------|:------------|
+| `-e`     | `-e $fileName`      | Checks if a file exists.                           |
+| `-d`     | `-d $directoryName` | Checks if a file exists and it is a directory.     |
+| `-f`     | `-f $fileName`      | Checks if a file exists and it is a regular file.  |
+| `-h`     | `-h $linkName`      | Checks if a file exists and it is a symbolic link. |
+| `-r`     | `-r $fileName`      | Checks if a file is readable.                      |
+| `-W`     | `-W $fileName`      | Checks if a file is writable.                      |
+| `-X`     | `-X $fileName`      | Checks if a file is executable.                    |
+| `-s`     | `-S $fileName`      | Checks if size of a file is non-zero.              |
+
+#### String Operators 
+Conditional operators for comparing strings is visible in the table below:
+
+| Operator | Example  | Description |
+| :------: | :------: | :--------------------- |
+| `-z` | `-z $str`        | Check if the length of the string is zero. |
+| `-n` | `-n $str`        | Check if the length of the string is not zero.|
+| `==` | `$str1 == $str2` | Check if the two strings are the same.|
+| `!=` | `$str1 != $str2` | Check if the two strings are not the same.|
+| `>`  | `$str1 > $str2`  | Check if str1 is lexicographically greater than str2. |
+| `<`  | `$str1 < $str2`  | Check if str1 is lexicographically less than str2. |
+
+#### Arithmatic Operators 
+Arithmatic comparisons can be performed using the following operators:
+
+| Operator | Example |  Description |
+| :------: | :-----: | :------------------------------- |
+| `-eq`    | `$int1 -eq $int2` |           Check if int1 and int2 are equal. |
+| `-ne`    | `$int1 -ne $int2` |         Check if int1 and int2 are not equal. |
+| `-gt`    | `$int1 -gt $int2` |  Check if int1 is greater than int2.|
+| `-ge`    | `$int1 -ge $int2` |  Check if int1 is greater than or equal to int2.|
+| `-lt`    | `$int1 -lt $int2` |     Check if int1 is less than int2. |
+| `-le`    | `$int1 -le $int2` | Check if int1 is less than or equal to int2. |
+
+
+### Conditional execution
+
+If execution of the first command was successfull, the second command will be executed:
+
+```bash
+true && echo "this message should show"
+```
+
+If a command encounters an error, another command will be executed:
+
+```bash
+false || echo "this message should show"
+```
+
+If the previous command or function returned an error code, the next command will be executed:
+
+```bash
+false
+[[ $? -ne 0 ]] && echo "this message should show"
+```
+
+## Loops
+
+The following two loops have the same functionality:
+
+```bash
+for i in `seq 1 10`
+do
+    echo "\$i is $i"
+done
+
+for s in foo bar baz
+do
+    echo $s
+done
+
+for (( i = 0; i < 10; i++ ))
+do
+    echo "\$i is $i"
+done
+```
+
+## Working with arrays
+
+```bash
+array=(zero one two three)
+echo "${array[0]}"          # shows the first element
+echo "${array[-1]}"         # shows the last element
+echo "${array[@]}"          # shows all elements
+echo "${array[@]:1:2}"      # shows two elements (:2), starting from element with index of 1 (which is the 2nd element (:1))
+array[4]='fifth element'    # inserts an element at index 4
+echo "${array[4]}"
+array+=('sixth')            # appends an element to array
+unset -v 'array[2]'         # deletes element with index of 2 from array
+array=("${array[@]}")       # re-indexing an array
+echo "${#array[@]}"         # shows the length of array
+```
+
+To add an element to index 3 of an array, use the following code:
+
+```bash
+array=("${array[@]:0:2}" '2.5' "${array[@]:2}")
+echo "${array[2]}" #output: new
+echo "${array[@]}"
+```
+Extract an array from a string(?):
+
+```bash
+theStr="Zero,One,Two"
+array=(${theStr//,/ })
+echo ${array[0]}
+echo ${array[2]}
+```
+
+Reading elements of an array:
+
+```bash
+array=(1 2 3 4)
+# foreach loop
+for y in "${array[@]}"; do
+    # act on $y
+    echo "$y"
+done
+
+# for loop with index
+for ((idx=0; idx < ${#array[@]}; ++idx)); do
+    # act on ${array[$idx]}
+    echo "${array[$idx]}"
+done
+```
+
+Recieving the output of a command as an array, and then reading that array using Foreach loop(?):
+
+```bash
+array=($(tr ',' ' ' <<<"0,1,2,3,4"))
+for y in "${array[@]}"; do
+    echo "$y"
+done
+```
+
+Filling an array based on the output of a command:
+
+```bash
+while read -r; do
+    #array+=("$REPLY")     # Array append
+    array[$i]="$REPLY"     # Assignment by index
+    let i++                # Increment index
+done < <(seq 1 10)  # command substitution
+echo ${array[@]}    # output: 1 2 3 4 5 6 7 8 9 10
+```
+
+## Working with Map (Associative Array)
+
+The first step is to create a _map_(?):
+
+```bash
+declare -A mp       # declare (This line is mandatory)
+mp[hello]=world     # insert
+mp["a long key"]=v  # insert with a long key
+echo ${mp[hello]}   # access
+echo "${!mp[@]}"    # access all keys
+echo "${mp[@]}"     # access all values
+echo "${#mp[@]}"    # count of elements in a map
+
+for key in "${!mp[@]}"; do # Iterate Over map
+    echo "Key:   ${key}"
+    echo "Value: ${mp[$key]}"
+done
+
+unset mp            # destroy a map/array
+```
+
+## working with file:
+
+Reading a file line by line and converting it into an array:
+
+```bash
+IFS=$'\n' read -r -a arr < file
+```
+
+Reading an entire file until reaching an empty line:
+
+```bash
+while read line || [ -n "$line" ]; do
+    echo $line
+done < file
+```
+
+## Processing input parameters
+
+If no parameter is passed to _for_ loop, it will be executed on the input file. 
+The following two loops have the same results:
+
+```bash
+for arg; do
+    echo arg=$arg
+done
+
+for arg in "$@"; do
+    echo arg=$arg
+done
+```
+
+The following code from [stackoverflow](https://stackoverflow.com/a/16496491) demonstrates various
+use casess for utilizing _getopts_ for processing input parameters:
+
+```bash
+#!/bin/bash
+usage() { echo "Usage: $0 [-s <45|90>] [-p <string>]" 1>&2; exit 1; }
+
+while getopts ":s:p:" o; do
+    case "${o}" in
+        s)
+            s=${OPTARG}
+            ((s == 45 || s == 90)) || usage
+            ;;
+        p)
+            p=${OPTARG}
+            ;;
+        *)
+            usage
+            ;;
+    esac
+done
+shift $((OPTIND-1))
+
+if [ -z "${s}" ] || [ -z "${p}" ]; then
+    usage
+fi
+```
