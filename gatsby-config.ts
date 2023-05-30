@@ -66,8 +66,8 @@ const config: GatsbyConfig = {
 				name: "Saeed Asaiyan",
 				short_name: "Saeed",
 				start_url: "/",
-				background_color: "#f7f0eb",
-				theme_color: "#a2466c",
+				background_color: "#f5f5f5",
+				theme_color: "#bfdbfe",
 				display: "standalone",
 				icon: "static/images/favicon/favicon.svg",
 				icon_options: {
