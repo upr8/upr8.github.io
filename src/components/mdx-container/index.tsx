@@ -7,7 +7,7 @@ import { TableOfContentsList } from "./table-of-content";
 
 interface Props {
 	children: React.ReactNode;
-	TableOfContents?: any;
+	TableOfContents?: Queries.TableOfContentsFragment;
 }
 
 const MdxContainer: React.FC<Props> = ({ TableOfContents, children }) => {

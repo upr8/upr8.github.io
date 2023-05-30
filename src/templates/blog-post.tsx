@@ -8,17 +8,21 @@ import { TagList } from "@/components/tags";
 export { Head } from "@/components/gatsby-head";
 
 interface Props extends Omit<PageProps, "children"> {
-	data: Queries.Query;
+	data: Queries.BlogPostQuery;
 	children: React.ReactNode;
 	pageContext: PageContext;
 }
 
 const BlogPostTemplate: React.FC<Props> = ({ data, pageContext, children }) => {
+	const toc = data.mdx?.tableOfContents
+		? {
+				TableOfContents: data.mdx
+					?.tableOfContents as Queries.TableOfContentsFragment,
+		  }
+		: {};
 	return (
 		<Layout pageContext={pageContext}>
-			<MdxContainer TableOfContents={data.mdx?.tableOfContents}>
-				{children}
-			</MdxContainer>
+			<MdxContainer {...toc}>{children}</MdxContainer>
 			{data.mdx?.fields?.slugTagList && (
 				<div className="mt-32">
 					<p className="mt-8 text-center text-secondary">Tags of this Post:</p>
@@ -32,7 +36,7 @@ const BlogPostTemplate: React.FC<Props> = ({ data, pageContext, children }) => {
 export default BlogPostTemplate;
 
 export const query = graphql`
-    query ($slug: String!) {
+    query BlogPost($slug: String!) {
         mdx(fields: { slug: { eq: $slug } }) {
             frontmatter {
                 title

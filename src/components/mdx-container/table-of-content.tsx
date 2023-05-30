@@ -3,18 +3,10 @@ import React from "react";
 import { useActiveId } from "@/hooks/use-active-id";
 import { graphql } from "gatsby";
 
-export interface TableOfContents {
-	items: TableOfContentsItem[];
-}
-
 export interface TableOfContentsItem {
 	url?: string;
 	title?: string;
 	items?: TableOfContentsItem[];
-}
-
-interface Props {
-	tableOfContents: TableOfContents;
 }
 
 function getIds(items: TableOfContentsItem[]) {
@@ -61,8 +53,10 @@ function renderItems(
 	);
 }
 
-const TableOfContentsList: React.FC<Props> = ({ tableOfContents }) => {
-	const { items } = tableOfContents;
+const TableOfContentsList: React.FC<Queries.TableOfContentsFragment> = ({
+	tableOfContents,
+}) => {
+	const { items } = tableOfContents as Record<string, TableOfContentsItem[]>;
 	if (!items) {
 		return <></>;
 	}
