@@ -18,7 +18,7 @@ const TagIndexTemplate: React.FC<Props> = ({ data, pageContext }) => {
 		<Layout pageContext={pageContext}>
 			<article>
 				<section>
-					<h4 className="mt-8 text-xl italic font-semibold text-secondary">
+					<div className="mt-8 text-xl italic font-semibold text-secondary">
 						{data.blog.totalCount > 0 ? (
 							<>
 								Posts in my{" "}
@@ -42,14 +42,14 @@ const TagIndexTemplate: React.FC<Props> = ({ data, pageContext }) => {
 								with this tag.
 							</>
 						)}
-					</h4>
+					</div>
 					{data.blog.edges.map(({ node }) => (
 						<BlogCard key={node.id} BlogNode={node} />
 					))}
 				</section>
 				<hr className="h-px mx-4 my-8 bg-gray-300 border-0 dark:bg-gray-600" />
 				<section>
-					<h4 className="mt-8 text-xl italic font-semibold text-secondary">
+					<div className="mt-8 text-xl italic font-semibold text-secondary">
 						{data.library.totalCount > 0 ? (
 							<>
 								Books in my{" "}
@@ -73,7 +73,7 @@ const TagIndexTemplate: React.FC<Props> = ({ data, pageContext }) => {
 								with this tag.
 							</>
 						)}
-					</h4>
+					</div>
 					<div className="flex flex-wrap justify-around">
 						{data.library.edges.map(({ node }) => (
 							<LibraryBookCard key={node.id} BookNode={node} />
@@ -82,7 +82,7 @@ const TagIndexTemplate: React.FC<Props> = ({ data, pageContext }) => {
 				</section>
 				<hr className="h-px mx-4 my-8 bg-gray-300 border-0 dark:bg-gray-600" />
 				<section>
-					<h4 className="mt-8 text-xl italic font-semibold text-secondary">
+					<div className="mt-8 text-xl italic font-semibold text-secondary">
 						{data.archive.totalCount > 0 ? (
 							<>
 								Links in my{" "}
@@ -106,7 +106,7 @@ const TagIndexTemplate: React.FC<Props> = ({ data, pageContext }) => {
 								with this tag.
 							</>
 						)}
-					</h4>
+					</div>
 					{data.archive.edges.map(({ node }) => (
 						<ArchivePostCard key={node.id} ArchiveNode={node} />
 					))}

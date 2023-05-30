@@ -16,9 +16,9 @@ const BlogPostCard: React.FC<Props> = ({ BlogNode }) => (
 		</div>
 		<div className="ps-6 pe-6">
 			<Link to={BlogNode.fields?.slug || "#"}>
-				<h3 className="text-xl font-semibold text-primary">
+				<div className="text-xl font-semibold text-primary">
 					{BlogNode.frontmatter?.title}
-				</h3>
+				</div>
 			</Link>
 			<div className="md:flex">
 				<p className="text-secondary">{BlogNode.frontmatter?.desc}</p>

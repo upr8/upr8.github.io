@@ -21,9 +21,9 @@ const ArchivePostCard: React.FC<Props> = ({ ArchiveNode }) => (
 				target="_blank"
 				rel="noreferrer"
 			>
-				<h3 className="text-xl font-semibold text-primary">
+				<div className="text-xl font-semibold text-primary">
 					{ArchiveNode.frontmatter?.title} <ExternalLink />
-				</h3>
+				</div>
 			</Link>
 			{ArchiveNode.frontmatter?.hasReview ? (
 				<Link
