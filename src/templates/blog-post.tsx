@@ -16,7 +16,9 @@ interface Props extends Omit<PageProps, "children"> {
 const BlogPostTemplate: React.FC<Props> = ({ data, pageContext, children }) => {
 	return (
 		<Layout pageContext={pageContext}>
-			<MdxContainer>{children}</MdxContainer>
+			<MdxContainer TableOfContents={data.mdx?.tableOfContents}>
+				{children}
+			</MdxContainer>
 			{data.mdx?.fields?.slugTagList && (
 				<div className="mt-32">
 					<p className="mt-8 text-center text-secondary">Tags of this Post:</p>
@@ -42,6 +44,7 @@ export const query = graphql`
                 slug
                 ...Tags
             }
+            ...TableOfContents
         }
     }
 `;
