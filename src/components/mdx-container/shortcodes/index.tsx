@@ -1,11 +1,13 @@
 import * as React from "react";
 import { Link } from "gatsby";
 import CodeWithHighlight from "./code";
+import A from "./a";
 
 export const mdxShortCodes = {
 	// Short codes
 	Link,
 	// HTML elements
+	a: A,
 	code: CodeWithHighlight,
 	em: (props: React.PropsWithChildren) => <em className="italic" {...props} />,
 	p: (props: React.PropsWithChildren) => (
