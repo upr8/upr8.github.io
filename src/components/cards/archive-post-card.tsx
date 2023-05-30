@@ -2,6 +2,7 @@ import React from "react";
 import { Link, graphql } from "gatsby";
 
 import { TagList } from "@/components/tags";
+import { ExternalLink } from "@/components/icons";
 
 interface Props {
 	ArchiveNode: Queries.ArchiveNodeFragment;
@@ -17,7 +18,7 @@ const ArchivePostCard: React.FC<Props> = ({ ArchiveNode }) => (
 		<div className="ps-6 pe-6">
 			<Link to={ArchiveNode.frontmatter?.externalLink || "#"}>
 				<h3 className="text-xl font-semibold text-primary">
-					{ArchiveNode.frontmatter?.title}
+					{ArchiveNode.frontmatter?.title} <ExternalLink />
 				</h3>
 			</Link>
 			{ArchiveNode.frontmatter?.hasReview ? (
