@@ -16,7 +16,7 @@ const ArchivePostCard: React.FC<Props> = ({ ArchiveNode }) => (
 			</p>
 		</div>
 		<div className="ps-6 pe-6">
-			<Link to={ArchiveNode.frontmatter?.externalLink || "#"}>
+			<Link to={ArchiveNode.frontmatter?.externalLink || "#"} target="_blank">
 				<h3 className="text-xl font-semibold text-primary">
 					{ArchiveNode.frontmatter?.title} <ExternalLink />
 				</h3>
