@@ -10,10 +10,17 @@ interface Props {
 
 const A = ({ href, title, className, children }: Props) => {
 	const { siteUrl } = useSiteMetadata();
-	const target =
-		href.startsWith(siteUrl) || href.startsWith("#") ? "_self" : "_blank";
+	const targetRel =
+		href.startsWith(siteUrl) || href.startsWith("#")
+			? {
+					target: "_self",
+			  }
+			: {
+					target: "_blank",
+					rel: "noreferrer",
+			  };
 	return (
-		<a href={href} title={title} target={target} className={className}>
+		<a href={href} title={title} {...targetRel} className={className}>
 			{children}
 		</a>
 	);
