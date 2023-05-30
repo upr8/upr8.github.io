@@ -72,10 +72,11 @@
     h2,
     h3,
     h4,
-    h5 {
+    h5
+    h6 {
         @apply flex;
 
-        & > :global(a.autolink-hdrs) > svg {
+        & > :global(a.autolink-hdrs) > span > svg {
             @apply inline-block;
             @apply ms-2;
             @apply w-4 h-4;
