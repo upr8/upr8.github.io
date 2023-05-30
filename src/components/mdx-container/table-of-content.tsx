@@ -63,6 +63,9 @@ function renderItems(
 
 const TableOfContentsList: React.FC<Props> = ({ tableOfContents }) => {
 	const { items } = tableOfContents;
+	if (!items) {
+		return <></>;
+	}
 	const activeId = useActiveId(getIds(items));
 	return (
 		<section>
