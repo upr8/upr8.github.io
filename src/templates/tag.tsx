@@ -1,5 +1,5 @@
 import * as React from "react";
-import { PageProps, graphql } from "gatsby";
+import { Link, PageProps, graphql } from "gatsby";
 import Layout from "@/components/layout";
 import { PageContext } from "@/gatsby/types";
 import BlogCard from "@/components/cards/blog-post-card";
@@ -20,9 +20,27 @@ const TagIndexTemplate: React.FC<Props> = ({ data, pageContext }) => {
 				<section>
 					<h4 className="mt-8 text-xl italic font-semibold text-secondary">
 						{data.blog.totalCount > 0 ? (
-							<>Blog posts:</>
+							<>
+								Posts in my{" "}
+								<Link
+									className="underline underline-offset-4 hover:no-underline"
+									to="/en/blog"
+								>
+									blog
+								</Link>{" "}
+								:
+							</>
 						) : (
-							<>There is no blog post with this tag</>
+							<>
+								There is no post in my{" "}
+								<Link
+									className="underline underline-offset-4 hover:no-underline"
+									to="/en/blog"
+								>
+									blog
+								</Link>{" "}
+								with this tag.
+							</>
 						)}
 					</h4>
 					{data.blog.edges.map(({ node }) => (
@@ -33,9 +51,27 @@ const TagIndexTemplate: React.FC<Props> = ({ data, pageContext }) => {
 				<section>
 					<h4 className="mt-8 text-xl italic font-semibold text-secondary">
 						{data.library.totalCount > 0 ? (
-							<>Books in my library:</>
+							<>
+								Books in my{" "}
+								<Link
+									className="underline underline-offset-4 hover:no-underline"
+									to="/en/library"
+								>
+									library
+								</Link>
+								:
+							</>
 						) : (
-							<>There is no books in my library with this tag</>
+							<>
+								There is no books in my{" "}
+								<Link
+									className="underline underline-offset-4 hover:no-underline"
+									to="/en/library"
+								>
+									library
+								</Link>{" "}
+								with this tag.
+							</>
 						)}
 					</h4>
 					<div className="flex flex-wrap justify-around">
@@ -48,9 +84,27 @@ const TagIndexTemplate: React.FC<Props> = ({ data, pageContext }) => {
 				<section>
 					<h4 className="mt-8 text-xl italic font-semibold text-secondary">
 						{data.archive.totalCount > 0 ? (
-							<>Links in archive:</>
+							<>
+								Links in my{" "}
+								<Link
+									className="underline underline-offset-4 hover:no-underline"
+									to="/en/archive"
+								>
+									archive
+								</Link>
+								:
+							</>
 						) : (
-							<>There is no link in my archive with this tag</>
+							<>
+								There is no link in my{" "}
+								<Link
+									className="underline underline-offset-4 hover:no-underline"
+									to="/en/archive"
+								>
+									archive
+								</Link>{" "}
+								with this tag.
+							</>
 						)}
 					</h4>
 					{data.archive.edges.map(({ node }) => (
