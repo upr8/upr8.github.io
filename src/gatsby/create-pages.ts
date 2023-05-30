@@ -129,7 +129,6 @@ const createPages: GatsbyNode["createPages"] = async ({
         query {
             allMdx(filter: { frontmatter: {
 								published: { eq: true },
-								hasReview: {ne: false}
 								type: {ne: "single-page"} 
 								}
 							}
@@ -140,6 +139,7 @@ const createPages: GatsbyNode["createPages"] = async ({
 						frontmatter{
 							title
 							desc
+							hasReview
 						}
                         fields {
                             slug
@@ -164,17 +164,19 @@ const createPages: GatsbyNode["createPages"] = async ({
 	if (createPagesNodes) {
 		createPagesNodes.forEach(({ node }) => {
 			if (node.fields?.slug && node.frontmatter?.title) {
-				const pageContext: PageContext = {
-					lang: Language.English,
-					slug: node.fields.slug,
-					title: node.frontmatter.title,
-					desc: node.frontmatter.desc || "",
-				};
-				createPage({
-					path: node.fields.slug,
-					component: `${postTemplate}?__contentFilePath=${node.internal.contentFilePath}`,
-					context: pageContext,
-				});
+				if (node.frontmatter?.hasReview !== false) {
+					const pageContext: PageContext = {
+						lang: Language.English,
+						slug: node.fields.slug,
+						title: node.frontmatter.title,
+						desc: node.frontmatter.desc || "",
+					};
+					createPage({
+						path: node.fields.slug,
+						component: `${postTemplate}?__contentFilePath=${node.internal.contentFilePath}`,
+						context: pageContext,
+					});
+				}
 			} else {
 				reporter.panicOnBuild("🚨  ERROR: Page without fields?");
 			}
@@ -185,7 +187,7 @@ const createPages: GatsbyNode["createPages"] = async ({
 						const pageContext: PageContext = {
 							lang: Language.English,
 							tag: slugtag.tag,
-							title: `"${slugtag.tag}"`,
+							title: `#${slugtag.tag}`,
 							desc: `List of content tagged with "${slugtag.tag}"`,
 							slug: slugtag.slug,
 						};

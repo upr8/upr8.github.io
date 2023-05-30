@@ -6,6 +6,7 @@ interface Frontmatter {
 	lang?: string;
 	type?: string;
 	published?: boolean;
+	hasReview?: boolean;
 	desc?: string;
 	tags?: Array<string>;
 }
