@@ -16,7 +16,7 @@ const Footer: React.FC<{}> = () => {
 			</p>
 			<ul className="flex justify-center">
 				<li className="mx-4">
-					<a href={"https://github.com/upr8"}>
+					<a href={"https://github.com/upr8"} target="_blank" rel="noreferrer">
 						<svg
 							className="w-8 h-8 fill-current text-secondary "
 							viewBox="0 0 24 24"
@@ -30,7 +30,11 @@ const Footer: React.FC<{}> = () => {
 					</a>
 				</li>
 				<li className="mx-4">
-					<a href={"https://linkedin.com/in/asaiyan"}>
+					<a
+						href={"https://linkedin.com/in/asaiyan"}
+						target="_blank"
+						rel="noreferrer"
+					>
 						<svg
 							className="w-8 h-8 text-blue-700 fill-current"
 							viewBox="0 0 24 24"
