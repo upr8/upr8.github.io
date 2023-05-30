@@ -21,6 +21,7 @@ const CodeWithHighlight = ({ className, children }: Props) => {
 			wrapLongLines={true}
 			showLineNumbers={true}
 			style={state.theme === Theme.Dark ? solarizedDark : solarizedLight}
+			customStyle={{ marginTop: "0.5em" }}
 		>
 			{children}
 		</SyntaxHighlighter>
