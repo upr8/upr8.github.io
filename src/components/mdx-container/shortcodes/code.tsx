@@ -23,7 +23,7 @@ const CodeWithHighlight = ({ className, children }: Props) => {
 			style={state.theme === Theme.Dark ? solarizedDark : solarizedLight}
 			customStyle={{ marginTop: "0.5em" }}
 		>
-			{children}
+			{children.trimEnd()}
 		</SyntaxHighlighter>
 	) : (
 		<code className={className}>{children}</code>
