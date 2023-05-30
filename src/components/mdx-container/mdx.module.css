@@ -8,6 +8,11 @@
 
     a {
         @apply underline underline-offset-4 hover:no-underline;
+
+        &[href*="//"]:not([href*="www.asaiyan.com"]):after {
+            /* https://stackoverflow.com/a/5379820 */
+            content: "↗";
+        }
     }
 
     table {
