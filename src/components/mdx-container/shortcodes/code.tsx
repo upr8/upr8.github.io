@@ -1,8 +1,8 @@
 import * as React from "react";
 import SyntaxHighlighter from "react-syntax-highlighter";
 import {
-	solarizedDark,
-	solarizedLight,
+	a11yLight as lightTheme,
+	a11yDark as darkTheme,
 } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import { SiteContext, Theme } from "@/states";
 
@@ -20,13 +20,15 @@ const CodeWithHighlight = ({ className, children }: Props) => {
 			PreTag="div"
 			wrapLongLines={true}
 			showLineNumbers={true}
-			style={state.theme === Theme.Dark ? solarizedDark : solarizedLight}
+			style={state.theme === Theme.Dark ? darkTheme : lightTheme}
 			customStyle={{ marginTop: "0.5em" }}
 		>
 			{children.trimEnd()}
 		</SyntaxHighlighter>
 	) : (
-		<code className={className}>{children}</code>
+		<code className={`bg-nav rounded-md px-1 mx-1 ${className}`}>
+			{children}
+		</code>
 	);
 };
 
