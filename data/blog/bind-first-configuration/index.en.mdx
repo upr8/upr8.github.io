@@ -1,0 +1,352 @@
+---
+title: 'BIND: A Sample Configuration'
+date: '2022-04-24'
+lang: 'en'
+type: 'blog'
+published: true
+desc: 'Installing and configuring a BIND DNS Server'
+tags: ['dns', 'bind', 'linux']
+---
+
+## Introduction
+
+BIND is one of the oldest and most widely used DNS server software.
+It has been around for many years and has evolved into a stable and reliable solution.
+Its long history and extensive use in production environments make it a trusted choice.
+
+BIND offers a wide range of features, making it suitable for various DNS server configurations.
+It supports both authoritative and recursive modes, DNSSEC for enhanced security,
+dynamic updates, zone transfers, IPv6, and more.
+BIND also provides extensive logging and statistics capabilities for monitoring
+and troubleshooting.
+
+BIND allows fine-grained control over DNS configurations.
+It supports complex zone configurations, including the ability to define different
+types of records (A, AAAA, CNAME, MX, NS, etc.) and DNSSEC-related records.
+You can customize BIND to meet your specific requirements and integrate it into
+existing network setups.
+
+## Installation
+
+### Installation of BIND for Debian distribution
+
+```bash
+sudo apt -y install bind9 bind9utils dnsutils
+```
+
+## General configuration
+
+### Applying configuration structure
+
+The main configuration file for BIND is typically located at `/etc/named.conf` or `/etc/bind/named.conf`.
+This file contains global server options and specifies zone configurations.
+Make sure to take a backup of the original file before making any changes.
+
+Configurations can be divided into four main categories:
+- General configurations in the `named.conf.options` section 
+- Configuration of log files in the `named.conf.logs` section 
+- Configurations of displaying domain for internal networks in the `named.conf.internal-zones` section 
+- Configurations for public and external networks in the `named.conf.external-zones`. 
+Therefore, the `/etc/bind/named.conf` file will look like as follows:
+
+```dns-zone
+include "/etc/bind/named.conf.options";
+include "/etc/bind/named.conf.logs";
+include "/etc/bind/named.conf.internal-zones";
+include "/etc/bind/named.conf.external-zones";
+```
+
+### named.conf.options: General service settings
+
+General settings(`/etc/bind/named.conf.options`), also known as _options_, are configured as follows:
+
+```dns-zone
+options {
+        directory "/var/cache/bind";
+
+        recursion no;
+        allow-transfer { none; };
+
+        forwarders {
+                8.8.8.8;
+        };
+        forward only;
+
+        //========================================================================
+        // If BIND logs error messages about the root key being expired,
+        // you will need to update your keys.  See https://www.isc.org/bind-keys
+        //========================================================================
+        dnssec-validation auto;
+        auth-nxdomain no;        // conform to RFC1035
+        listen-on-v6 { any; };
+};
+```
+
+### named.conf.internal-zones: internal network settings
+
+```dns-zone
+view "internal" {
+        match-clients {
+                localhost;
+                192.168.1.0/24;
+        };
+        # set zone for internal
+        zone "example.com" {
+                type master;
+                file "/etc/bind/zones/db.example.com";
+        };
+        # set zone for internal *note
+        zone "1.168.192.in-addr.arpa" {
+                type master;
+                file "/etc/bind/zones/db.1.168.192";
+        };
+        include "/etc/bind/named.conf.default-zones";
+};
+```
+### Sample Zone Files
+
+BIND uses zone files to define DNS records for domains.
+Each domain typically has two zone files: a forward zone file and a reverse zone file.
+
+#### Forward zone settings
+
+Configure the forward zone file (e.g., db.example.com or example.com.zone) to define the DNS records for your domain.
+This includes specifying the domain name, nameservers, A records, CNAME records, MX records, etc.
+
+For example, `/etc/bind/zones/db.example.com` can contain the following record:
+
+```dns-zone
+;
+$TTL    604800
+@       IN      SOA     ns1.example.com. admin.example.com (
+                            1           ; Serial
+                            604800      ; Refresh
+                            86400       ; Retry
+                            2419200     ; Expire
+                            604800      ; Negative Cache TTL
+                            )
+;
+@       IN      NS      ns1.example.com.
+
+; edit this line!
+edit-this     IN      A       192.168.1.80
+```
+
+#### Reverse zone settings
+
+Configure the reverse zone file (e.g., db.1.168.192) to map IP addresses to domain names.
+This is commonly used for reverse DNS lookup. Specify PTR records to map IP addresses to hostnames.
+
+For example, `/etc/bind/zones/db.1.168.192` can contain the following record:
+
+```dns-zone
+;
+$TTL    604800
+@       IN      SOA     ns1.example.com. admin.example.com (
+                            1           ; Serial
+                            604800      ; Refresh
+                            86400       ; Retry
+                            2419200     ; Expire
+                            604800      ; Negative Cache TTL
+                            )
+;
+@       IN      NS      ns1.example.com.
+1.      IN      PTR     ns1.example.com.
+```
+
+### named.conf.logs: logging settings
+
+<details>
+<summary>Click to see the code</summary>
+
+```bash
+mkdir /var/log/named/
+chown bind:bind /var/log/named/
+```
+
+```dns-zone
+logging {
+    channel default_file {
+        file "/var/log/named/default.log" versions 3 size 5m;
+        severity dynamic;
+        print-time yes;
+    };
+    channel general_file {
+        file "/var/log/named/general.log" versions 3 size 5m;
+        severity dynamic;
+        print-time yes;
+    };
+    channel database_file {
+        file "/var/log/named/database.log" versions 3 size 5m;
+        severity dynamic;
+        print-time yes;
+    };
+    channel security_file {
+        file "/var/log/named/security.log" versions 3 size 5m;
+        severity dynamic;
+        print-time yes;
+    };
+    channel config_file {
+        file "/var/log/named/config.log" versions 3 size 5m;
+        severity dynamic;
+        print-time yes;
+    };
+    channel resolver_file {
+        file "/var/log/named/resolver.log" versions 3 size 5m;
+        severity dynamic;
+        print-time yes;
+    };
+    channel xfer-in_file {
+        file "/var/log/named/xfer-in.log" versions 3 size 5m;
+        severity dynamic;
+        print-time yes;
+    };
+    channel xfer-out_file {
+        file "/var/log/named/xfer-out.log" versions 3 size 5m;
+        severity dynamic;
+        print-time yes;
+    };
+    channel notify_file {
+        file "/var/log/named/notify.log" versions 3 size 5m;
+        severity dynamic;
+        print-time yes;
+    };
+    channel client_file {
+        file "/var/log/named/client.log" versions 3 size 5m;
+        severity dynamic;
+        print-time yes;
+    };
+    channel unmatched_file {
+        file "/var/log/named/unmatched.log" versions 3 size 5m;
+        severity dynamic;
+        print-time yes;
+    };
+    channel queries_file {
+        file "/var/log/named/queries.log" versions 3 size 5m;
+        severity dynamic;
+        print-time yes;
+    };
+    channel network_file {
+        file "/var/log/named/network.log" versions 3 size 5m;
+        severity dynamic;
+        print-time yes;
+    };
+    channel update_file {
+        file "/var/log/named/update.log" versions 3 size 5m;
+        severity dynamic;
+        print-time yes;
+    };
+    channel dispatch_file {
+        file "/var/log/named/dispatch.log" versions 3 size 5m;
+        severity dynamic;
+        print-time yes;
+    };
+    channel dnssec_file {
+        file "/var/log/named/dnssec.log" versions 3 size 5m;
+        severity dynamic;
+        print-time yes;
+    };
+    channel lame-servers_file {
+        file "/var/log/named/lame-servers.log" versions 3 size 5m;
+        severity dynamic;
+        print-time yes;
+    };
+
+    category default { default_file; };
+    category general { general_file; };
+    category database { database_file; };
+    category security { security_file; };
+    category config { config_file; };
+    category resolver { resolver_file; };
+    category xfer-in { xfer-in_file; };
+    category xfer-out { xfer-out_file; };
+    category notify { notify_file; };
+    category client { client_file; };
+    category unmatched { unmatched_file; };
+    category queries { queries_file; };
+    category network { network_file; };
+    category update { update_file; };
+    category dispatch { dispatch_file; };
+    category dnssec { dnssec_file; };
+    category lame-servers { lame-servers_file; };
+};
+
+```
+
+</details>
+
+## Troubleshooting
+
+### Validating "configuration file"
+
+For configuration files validation, the following commands can be useful:
+
+```bash
+named-checkconf
+```
+
+```bash
+named-checkzone example.com /etc/bind/zones/db.example.com
+named-checkzone 1.0.0.in-addr.arpa /etc/bind/zones/db.127
+```
+
+### dig
+
+To check if BIND is configured correctly, you can use the dig command-line tool,
+which is commonly available on Linux systems.
+
+#### Check if the DNS server is running
+
+By using the following command, if the DNS server is running and reachable,
+you will see the server's version and some query-related information:
+
+```bash
+dig @dns_server_ip
+```
+
+#### Perform a basic DNS lookup
+
+This command queries your DNS server for the IP address associated with the domain "example.com".
+You should receive a response with the IP address (A record) of the domain.
+
+```bash
+dig @dns_server_ip example.com
+```
+
+#### Reverse DNS lookup
+
+The response should include the domain name (PTR record) associated with the IP address.
+
+```bash
+dig @dns_server_ip -x your_ip_address
+```
+
+### nslookup
+
+To check if BIND is configured correctly using the nslookup command, you can follow these steps:
+
+1. Start the `nslookup` command-line tool
+    ```bash
+    nslookup
+    ```
+2. By default, nslookup uses your system's configured DNS server for lookups.
+    To specify a specific DNS server, use the following command, replacing "your_dns_server_ip"
+    with the IP address of your DNS server:
+    ```bash
+    server your_dns_server_ip
+    ```
+3. Once you have set the DNS server, you can perform DNS lookups. Type the domain name you want to query, such as:
+    ```bash
+    example.com
+    ```
+    You will receive a response with various details, including the IP address (A record) associated
+    with the domain, the authoritative DNS server, and additional records if available.
+4. To query a specific record type, for example, to query the CNAME records for a domain, you would use:
+    ```bash
+    set type=CNAME
+    ```
+    Then, you can query the domain again to retrieve the specific record information.
+    ```bash
+    example.com
+    ```
+5. To exit the nslookup tool, type exit.
