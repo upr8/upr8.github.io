@@ -20,10 +20,10 @@ const BlogPostCard: React.FC<Props> = ({ BlogNode }) => (
 					{BlogNode.frontmatter?.title}
 				</div>
 			</Link>
-			<div className="md:flex">
+			<div className="">
 				<p className="text-secondary">{BlogNode.frontmatter?.desc}</p>
 				{BlogNode.fields?.slugTagList && (
-					<TagList tags={BlogNode.fields?.slugTagList} />
+					<TagList tags={BlogNode.fields?.slugTagList} isCenter={false} />
 				)}
 			</div>
 		</div>
