@@ -1,0 +1,150 @@
+---
+title: 'sed command and its commonly usage'
+date: '2022-05-09'
+lang: 'en'
+type: 'blog'
+published: true
+desc: 'Stream EDitor usage instruction'
+tags: ['linux', 'bash', 'sed', 'coreutils', 'programming']
+---
+
+## Introduction
+
+`sed` is a powerful stream editor that allows you to perform text transformations
+on input streams or files. It is commonly used in Bash scripts for tasks like
+*search* and *replace*, *text substitution*, and *pattern matching*.
+
+## Various ways of using `sed`
+
+```bash
+# multi command
+echo "hello world" | sed -e 's/hello/Hello/g' -e 's/world/Stream EDitor/g'
+```
+
+```bash
+# read patterns from sed file
+echo 's/hello/Hello/g' >> hello.sed
+echo 's/world/Stream EDitor/g' >> hello.sed
+echo "hello world" | sed -f hello.sed
+Hello World
+```
+
+```bash
+# create backup befor any change
+echo "hello world" > hello.txt
+sed 's/world/sed/g' -i.bk hello.txt
+
+# inline change without backup
+sed 's/world/sed/g' -i hello.txt
+```
+
+## Repeated patterns
+
+### print lines
+
+```bash
+sed -n '1,10p' input_file
+```
+
+This command prints lines 1 to 10 from the input file. The `-n` flag suppresses
+automatic printing, and the `p` command explicitly prints the specified range of
+lines.
+
+### Insert and Append
+
+```bash
+sed '2i\This is a new line' input_file
+```
+
+This command inserts "This is a new line" before line 2 in the input file. The
+`i` command is used for inserting text at a specified line number.
+Similarly, you can use the `a` command to append text after a specific line.
+
+### delete lines
+
+```bash
+# delete the last line of a file
+sed '$d'
+
+# delete the first 5 lines of a file
+sed '1,5d'
+
+# delete from the 10th line to the last line of a file
+sed '10,$d'
+
+# delete ALL lines matched pattern from a file
+sed '/pattern/d'
+
+# delete ALL blank lines from a file
+sed '/^$/d'
+
+# delete all leading blank lines at top of file
+sed '/./,$!d'
+
+# delete all trailing blank lines at end of file
+sed -e :a -e '/^\n*$/{$d;N;ba' -e '}'  # works on all seds
+```
+
+### comment/uncommend
+
+```bash
+sed '/<pattern>/s/^/#/g'           # (to comment out)
+
+sed '/<pattern>/s/^#//g'           # (to uncomment)
+
+sed '3,5s/^#//'                    # (to uncomment lines between 3 and 5)
+```
+
+### change variable value
+
+```bash
+sed 's/var=.*/var=new_value/'
+```
+
+### convert CRLF to LF
+
+```bash
+# DOS/Windows to Unix
+sed 's/\r$//'
+
+# Unix to DOS/Windows
+sed 's/$/\r/'
+```
+
+### substitute first or last in file
+
+```bash
+# substitute first
+sed '1 s/foo/bar/g'
+
+# substitute last
+sed '$s/foo/bar/g'
+```
+
+### substitute if pattern
+
+```bash
+# substitute if pattern matched
+sed '/pattern/ s/foo/bar/g'
+
+# substitute if pattern not matched
+sed '/pattern/! s/foo/bar/g'
+```
+
+## Resources
+
+[sed1line](http://sed.sourceforge.net/sed1line.txt)
+
+[catonmat sed.stream.editor.cheat.sheet](https://catonmat.net/ftp/sed.stream.editor.cheat.sheet.txt)
+
+[au-bio-bootcamp cheatsheet_sed](https://au-bio-bootcamp.github.io/cheatsheet_sed.pdf)
+
+[eriklievaart sed](http://eriklievaart.com/cheat/linux/shell/sed.html)
+
+[Doing cut and paste with sed](https://opensource.com/article/21/3/sed-cheat-sheet)
+
+[lzone cheat-sheet/sed](https://lzone.de/cheat-sheet/sed)
+
+[quickref sed](https://quickref.me/sed)
+
+[Linuxhint - 50 sed command example ](https://linuxhint.com/50_sed_command_examples/)
