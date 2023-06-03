@@ -18,8 +18,8 @@ const CodeWithHighlight = ({ className, children }: Props) => {
 		<SyntaxHighlighter
 			language={match[1]}
 			PreTag="div"
-			wrapLongLines={true}
-			showLineNumbers={true}
+			wrapLongLines={false}
+			showLineNumbers={false}
 			style={state.theme === Theme.Dark ? darkTheme : lightTheme}
 			customStyle={{ marginTop: "0.5em" }}
 		>
