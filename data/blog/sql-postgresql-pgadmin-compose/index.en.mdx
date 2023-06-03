@@ -1,0 +1,89 @@
+---
+title: 'PostgreSQL and pgAdmin with docker-compose'
+date: '2021-07-20'
+lang: 'en'
+type: 'blog'
+published: true
+desc: 'Quick setup for using PostgreSQL'
+tags: ['programming', 'data', 'sql', 'docker']
+---
+
+
+## docker-compose.yml
+
+In order to prepare the testbed, we can use _docker-compose.yml_ file to ceate a _postgresql_ database server with a _pgAdmin_ user interface. 
+You only need to use the code in _docker-compose.yml_ file:
+
+
+```docker-compose
+version: '3.7'
+
+services:
+    pgdb:
+        container_name: pg_container
+        image: 'postgres:13'
+        environment:
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: postgres
+            POSTGRES_DB: testdb
+        volumes:
+            - pgdb-data:/var/lib/postgresql/data
+        ports:
+            - '127.0.0.1:5432:5432'
+
+    pgadmin:
+        container_name: pgadmin4_container
+        image: dpage/pgadmin4
+        restart: always
+        environment:
+            PGADMIN_DEFAULT_EMAIL: admin@admin.com
+            PGADMIN_DEFAULT_PASSWORD: VERYlongPASSWORD
+        ports:
+            - '127.0.0.1:5050:80'
+        volumes:
+            - pgadmin-data:/var/lib/pgadmin
+        links:
+            - 'pgdb:pgsql-server'
+
+volumes:
+    pgdb-data:
+    pgadmin-data:
+```
+
+You can download this file from this [link](./docker-compose.yml)
+
+## up and connect
+
+First, execute the following single command:
+
+    ```bash
+    docker-compose up -d
+    ```
+
+After bringing the DB server up, we can access the database in three different ways.
+
+1. Using different clients utilizing the following string
+
+    `postgresql://postgres:postgres@localhost:5432/testdb`
+
+2. Connecting to the _container_ itself and using command-line tool `psql`:
+
+    ```bash
+    docker-compose exec pgdb psql -U postgres -d testdb
+    ```
+
+3. Using *pgAdmin* user interface which is available at http://localhost:5050/ URL.
+
+
+## pgAdmin: Initial configuration for connecting to server
+
+After bringing up the `docker-compose` in the second section, the `pgAdmin` user interface will be available to use. 
+After entering the login credentials specified in the docker-compose file `(admin@admin.com/VERYlongPASSWORD)`, the following page will be displayed:
+
+![pgadmin-landing page](pgadmin-1-landingpage.png)
+
+On this page, by following the steps outlined in the figure below, you can connect to the PostgreSQL server specified in the `docker-compose.yml` file. 
+Please note that in step 3, you must enter the service name assigned to the database server in the `docker-compose.yml` file, 
+which is `pgdb` in this case. The username and password are also specified in the `docker-compose.yml` file.
+
+![pgAdmin-add server](pgadmin-2-add-server.png)
