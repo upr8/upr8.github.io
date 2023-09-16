@@ -23,6 +23,7 @@ interface Fields {
 }
 
 interface Node extends GatsbyNode {
+	id: string;
 	fields?: Fields;
 	frontmatter?: Frontmatter;
 	excerpt?: string;

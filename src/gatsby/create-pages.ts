@@ -136,6 +136,7 @@ const createPages: GatsbyNode["createPages"] = async ({
 			{
                 edges {
                     node {
+						id
 						frontmatter{
 							title
 							desc
