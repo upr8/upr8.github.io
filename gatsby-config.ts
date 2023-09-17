@@ -55,7 +55,7 @@ const config: GatsbyConfig = {
 			resolve: "gatsby-plugin-mdx",
 			options: {
 				mdxOptions: {
-					remarkPlugins: [require("remark-gfm")],
+					remarkPlugins: [require("remark-gfm")], // tables
 				},
 				gatsbyRemarkPlugins: [
 					{
