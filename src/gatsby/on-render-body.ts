@@ -1,4 +1,5 @@
 import { RenderBodyArgs } from "gatsby";
+import { newrelicHeadScript } from "./plugins/newrelic/newrelic";
 
 const HtmlAttributes = {
 	lang: "en",
@@ -10,9 +11,11 @@ const BodyAttributes = {
 };
 
 const onRenderBody = ({
+	setHeadComponents,
 	setHtmlAttributes,
 	setBodyAttributes,
 }: RenderBodyArgs) => {
+	setHeadComponents([newrelicHeadScript()]);
 	setHtmlAttributes(HtmlAttributes);
 	setBodyAttributes(BodyAttributes);
 };
