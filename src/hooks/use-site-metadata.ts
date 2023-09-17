@@ -9,6 +9,8 @@ export const useSiteMetadata = (): SiteMetadata => {
                     siteMetadata {
                         title
                         siteUrl
+                        linkedin
+                        github
                     }
                 }
         }`,
