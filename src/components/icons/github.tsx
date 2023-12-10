@@ -11,7 +11,7 @@ const Github: React.FC<Props> = ({ link }) => {
 				className="w-8 h-8 fill-current text-secondary "
 				viewBox="0 0 24 24"
 				xmlns="http://www.w3.org/2000/svg"
-				role="img"
+				role="button"
 				aria-label="title"
 			>
 				<title id="title-github">Github</title>
