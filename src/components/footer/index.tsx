@@ -3,7 +3,7 @@ import { Link } from "gatsby";
 import { useSiteMetadata } from "@/hooks/use-site-metadata";
 import { Github, Linkedin } from "@/components/icons";
 
-const Footer: React.FC<{}> = () => {
+const Footer: React.FC = () => {
 	const { linkedin, github } = useSiteMetadata();
 
 	return (

@@ -3,7 +3,7 @@ import { SiteContext, Theme, toggleTheme } from "@/states";
 
 import { icon, toggleDot } from "./theme-switcher.module.css";
 
-const ThemeSwitcher: React.FC<{}> = () => {
+const ThemeSwitcher: React.FC = () => {
 	const { state, dispatch } = React.useContext(SiteContext);
 
 	return (

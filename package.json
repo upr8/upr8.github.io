@@ -17,12 +17,12 @@
     "serve": "gatsby serve",
     "clean": "gatsby clean",
     "typecheck": "tsc --noEmit",
-    "rome:check": "rome check .",
-    "rome:check:apply": "rome check . --apply",
-    "rome:check:apply:unsafe": "rome check . --apply-unsafe",
-    "rome:format": "rome format . --write",
-    "fix": "npm run rome:format && npm run rome:check:apply",
-    "fix:unsafe": "npm run rome:format && npm run typecheck && npm run rome:check:apply:unsafe"
+    "biome:check": "biome check .",
+    "biome:check:apply": "biome check . --apply",
+    "biome:check:apply:unsafe": "biome check . --apply-unsafe",
+    "biome:format": "biome format . --write",
+    "fix": "npm run biome:format && npm run biome:check:apply",
+    "fix:unsafe": "npm run biome:format && npm run typecheck && npm run biome:check:apply:unsafe"
   },
   "license": "MIT",
   "dependencies": {
@@ -58,7 +58,7 @@
     "gatsby-plugin-postcss": "^6.12.0",
     "gh-pages": "^6.1.0",
     "postcss": "^8.4.32",
-    "rome": "12.1.3",
+    "@biomejs/biome": "1.4.1",
     "tailwindcss": "^3.3.6",
     "typescript": "^5.3.3",
     "typescript-plugin-css-modules": "^5.0.2"

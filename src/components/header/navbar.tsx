@@ -2,7 +2,7 @@ import * as React from "react";
 import { Link } from "gatsby";
 import ThemeSwitcher from "./theme-switcher";
 
-const NavBar: React.FC<{}> = () => {
+const NavBar: React.FC = () => {
 	return (
 		<ul className="flex justify-between px-4 bg-nav text-primary">
 			<li>

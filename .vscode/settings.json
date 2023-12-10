@@ -7,25 +7,26 @@
         "*.css": "postcss"
     },
     "[json]": {
-        "editor.defaultFormatter": "rome.rome"
+        "editor.defaultFormatter": "biomejs.biome"
     },
     "[jsonc]": {
-        "editor.defaultFormatter": "rome.rome"
+        "editor.defaultFormatter": "biomejs.biome"
     },
     "[javascript]": {
-        "editor.defaultFormatter": "rome.rome"
+        "editor.defaultFormatter": "biomejs.biome"
     },
     "[javascriptreact]": {
-        "editor.defaultFormatter": "rome.rome"
+        "editor.defaultFormatter": "biomejs.biome"
     },
     "[typescript]": {
-        "editor.defaultFormatter": "rome.rome"
+        "editor.defaultFormatter": "biomejs.biome"
     },
     "[typescriptreact]": {
-        "editor.defaultFormatter": "rome.rome"
+        "editor.defaultFormatter": "biomejs.biome"
     },
     "cSpell.enabled": true,
     "cSpell.words": [
+        "biomejs",
         "bradlc",
         "codepaths",
         "csstools",

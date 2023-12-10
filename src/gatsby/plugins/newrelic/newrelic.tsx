@@ -21,7 +21,7 @@ export const newrelicHeadScript = () => {
 	return (
 		<script
 			key="newrelic-head-script"
-			// rome-ignore lint/security/noDangerouslySetInnerHtml: <explanation>
+			// biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation>
 			dangerouslySetInnerHTML={{
 				__html: agent + configs,
 			}}
