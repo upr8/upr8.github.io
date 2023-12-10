@@ -104,7 +104,7 @@ const createPages: GatsbyNode["createPages"] = async ({
 	}
 	const aboutNodes = aboutPageQueryResult.data?.allMdx.edges;
 	if (aboutNodes) {
-		aboutNodes.forEach(({ node }) => {
+		for (const { node } of aboutNodes) {
 			if (node.fields?.slug) {
 				const pageContext: PageContext = {
 					lang: Language.English,
@@ -120,7 +120,7 @@ const createPages: GatsbyNode["createPages"] = async ({
 			} else {
 				reporter.panicOnBuild("🚨  ERROR: About Page without fields?");
 			}
-		});
+		}
 	} else {
 		reporter.panicOnBuild("🚨  ERROR: No About Page Found");
 	}
@@ -162,7 +162,7 @@ const createPages: GatsbyNode["createPages"] = async ({
 	const tagList = new Set();
 	const createPagesNodes = pagesQueryResult.data?.allMdx.edges;
 	if (createPagesNodes) {
-		createPagesNodes.forEach(({ node }) => {
+		for (const { node } of createPagesNodes) {
 			if (node.fields?.slug && node.frontmatter?.title) {
 				if (node.frontmatter?.hasReview !== false) {
 					const pageContext: PageContext = {
@@ -180,8 +180,8 @@ const createPages: GatsbyNode["createPages"] = async ({
 			} else {
 				reporter.panicOnBuild("🚨  ERROR: Page without fields?");
 			}
-			node.fields?.slugTagList?.forEach(
-				(slugtag: { tag: string; slug: string }) => {
+			if (node.fields?.slugTagList) {
+				for (const slugtag of node.fields.slugTagList) {
 					if (!tagList.has(slugtag.tag)) {
 						tagList.add(slugtag.tag);
 						const pageContext: PageContext = {
@@ -197,9 +197,9 @@ const createPages: GatsbyNode["createPages"] = async ({
 							context: pageContext,
 						});
 					}
-				},
-			);
-		});
+				}
+			}
+		}
 	} else {
 		reporter.panicOnBuild('🚨  ERROR: Empty "createPages" query result');
 	}

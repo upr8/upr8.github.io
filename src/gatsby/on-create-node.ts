@@ -37,12 +37,12 @@ const onCreateNode: GatsbyNode["onCreateNode"] = async ({
 
 		if (frontmatter?.tags) {
 			const slugTagList: { tag: string; slug: string }[] = [];
-			frontmatter.tags.forEach((tag: string) => {
+			for (const tag of frontmatter.tags) {
 				slugTagList.push({
 					tag,
 					slug: `/${frontmatter.lang}/tag/${tag}`,
 				});
-			});
+			}
 			createNodeField({
 				node,
 				name: "slugTagList",

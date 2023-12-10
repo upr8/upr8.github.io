@@ -12,29 +12,28 @@ export const useActiveId = (
 	useEffect(() => {
 		const observer = new IntersectionObserver(
 			(entries) => {
-				entries.forEach((entry) => {
+				for (const entry of entries) {
 					if (entry.isIntersecting) {
 						setActiveId(entry.target.id);
 					}
-				});
+				}
 			},
 			{ rootMargin: rootMargin || "0% 0% -80% 0%" },
 		);
-
-		itemIds.forEach((id) => {
+		for (const id of itemIds) {
 			const element = document.getElementById(id);
 			if (element) {
 				observer.observe(element);
 			}
-		});
+		}
 
 		return () => {
-			itemIds.forEach((id) => {
+			for (const id of itemIds) {
 				const element = document.getElementById(id);
 				if (element) {
 					observer.unobserve(element);
 				}
-			});
+			}
 		};
 	}, [itemIds, rootMargin]);
 
