@@ -49,7 +49,9 @@
 				"unifiedjs.vscode-mdx",
 				"csstools.postcss",
 				"streetsidesoftware.code-spell-checker",
-				"rome.rome"
+				"eamodio.gitlens",
+				"pflannery.vscode-versionlens",
+				"biomejs.biome"
 			]
 		}
 	}
