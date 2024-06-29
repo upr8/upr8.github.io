@@ -1,8 +1,8 @@
 import * as React from "react";
-import { graphql, PageProps } from "gatsby";
+import { graphql, type PageProps } from "gatsby";
 import MdxContainer from "@/components/mdx-container";
 import Layout from "@/components/layout";
-import { PageContext } from "@/gatsby/types";
+import type { PageContext } from "@/gatsby/types";
 import { TagList } from "@/components/tags";
 
 export { Head } from "@/components/gatsby-head";
@@ -18,7 +18,7 @@ const BlogPostTemplate: React.FC<Props> = ({ data, pageContext, children }) => {
 		? {
 				TableOfContents: data.mdx
 					?.tableOfContents as Queries.TableOfContentsFragment,
-		  }
+			}
 		: {};
 	return (
 		<Layout pageContext={pageContext}>

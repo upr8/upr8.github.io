@@ -1,4 +1,4 @@
-import { Edge } from "@/gatsby/types";
+import type { Edge } from "@/gatsby/types";
 import type { GatsbyConfig } from "gatsby";
 
 require("dotenv").config({

@@ -1,7 +1,7 @@
-import path from "path";
-import { GatsbyNode } from "gatsby";
+import path from "node:path";
+import type { GatsbyNode } from "gatsby";
 import { Language } from "../states";
-import {
+import type {
 	CreateAboutPageQueryResult,
 	CreatePagesQueryResult,
 	PageContext,

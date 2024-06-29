@@ -1,6 +1,6 @@
 import * as React from "react";
-import { HeadFC } from "gatsby";
-import { PageContext } from "@/gatsby/types";
+import type { HeadFC } from "gatsby";
+import type { PageContext } from "@/gatsby/types";
 import { getDirectionFromLang } from "@/utils";
 
 // biome-ignore lint/complexity/noBannedTypes: nothing but PageContext

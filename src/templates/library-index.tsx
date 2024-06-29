@@ -1,7 +1,7 @@
 import * as React from "react";
-import { PageProps, graphql } from "gatsby";
+import { type PageProps, graphql } from "gatsby";
 import Layout from "@/components/layout";
-import { PageContext } from "@/gatsby/types";
+import type { PageContext } from "@/gatsby/types";
 import { LibraryBookCard } from "@/components/cards";
 
 export { Head } from "@/components/gatsby-head";

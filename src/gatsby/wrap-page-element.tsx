@@ -1,5 +1,5 @@
 import * as React from "react";
-import { WrapPageElementBrowserArgs } from "gatsby";
+import type { WrapPageElementBrowserArgs } from "gatsby";
 
 import WrapGatsbyPage from "@/components/wrap-gatsby-page";
 

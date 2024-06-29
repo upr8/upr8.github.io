@@ -1,4 +1,4 @@
-import { Node as GatsbyNode } from "gatsby";
+import type { Node as GatsbyNode } from "gatsby";
 
 interface Frontmatter {
 	title?: string;

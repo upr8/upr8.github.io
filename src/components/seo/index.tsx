@@ -2,7 +2,7 @@ import React from "react";
 import Helmet from "react-helmet";
 import { useSiteMetadata } from "@/hooks/use-site-metadata";
 import { getLocaleFromLang } from "@/utils";
-import { PageContext } from "@/gatsby/types";
+import type { PageContext } from "@/gatsby/types";
 
 // https://ogp.me/#type_website
 export enum OgTypes {

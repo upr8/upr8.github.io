@@ -1,6 +1,6 @@
 import React from "react";
-import { SiteState, getInitialSiteState } from "./state";
-import { SiteActions } from "./actions";
+import { type SiteState, getInitialSiteState } from "./state";
+import type { SiteActions } from "./actions";
 
 export const SiteContext = React.createContext<{
 	state: SiteState;
