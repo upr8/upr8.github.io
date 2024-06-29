@@ -43,9 +43,11 @@ const TagIndexTemplate: React.FC<Props> = ({ data, pageContext }) => {
 							</>
 						)}
 					</div>
-					{data.blog.edges.map(({ node }) => (
-						<BlogCard key={node.id} BlogNode={node} />
-					))}
+					{data.blog.edges
+						.filter(({ node }) => node.frontmatter?.lang === pageContext.lang)
+						.map(({ node }) => (
+							<BlogCard key={node.id} BlogNode={node} />
+						))}
 				</section>
 				<hr className="h-px mx-4 my-8 bg-gray-300 border-0 dark:bg-gray-600" />
 				<section>
@@ -75,9 +77,11 @@ const TagIndexTemplate: React.FC<Props> = ({ data, pageContext }) => {
 						)}
 					</div>
 					<div className="flex flex-wrap justify-around">
-						{data.library.edges.map(({ node }) => (
-							<LibraryBookCard key={node.id} BookNode={node} />
-						))}
+						{data.library.edges
+							.filter(({ node }) => node.frontmatter?.lang === pageContext.lang)
+							.map(({ node }) => (
+								<LibraryBookCard key={node.id} BookNode={node} />
+							))}
 					</div>
 				</section>
 				<hr className="h-px mx-4 my-8 bg-gray-300 border-0 dark:bg-gray-600" />
@@ -107,9 +111,11 @@ const TagIndexTemplate: React.FC<Props> = ({ data, pageContext }) => {
 							</>
 						)}
 					</div>
-					{data.archive.edges.map(({ node }) => (
-						<ArchivePostCard key={node.id} ArchiveNode={node} />
-					))}
+					{data.archive.edges
+						.filter(({ node }) => node.frontmatter?.lang === pageContext.lang)
+						.map(({ node }) => (
+							<ArchivePostCard key={node.id} ArchiveNode={node} />
+						))}
 				</section>
 			</article>
 		</Layout>

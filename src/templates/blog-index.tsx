@@ -16,9 +16,11 @@ const BlogIndexTemplate: React.FC<Props> = ({ data, pageContext }) => {
 		<Layout pageContext={pageContext}>
 			<article>
 				<section>
-					{data.allMdx.edges.map(({ node }) => (
-						<BlogCard key={node.id} BlogNode={node} />
-					))}
+					{data.allMdx.edges
+						.filter(({ node }) => node.frontmatter?.lang === pageContext.lang)
+						.map(({ node }) => (
+							<BlogCard key={node.id} BlogNode={node} />
+						))}
 				</section>
 			</article>
 		</Layout>
