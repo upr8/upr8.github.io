@@ -16,9 +16,11 @@ const ArchiveIndexTemplate: React.FC<Props> = ({ data, pageContext }) => {
 		<Layout pageContext={pageContext}>
 			<article>
 				<section>
-					{data.allMdx.edges.map(({ node }) => (
-						<ArchivePostCard key={node.id} ArchiveNode={node} />
-					))}
+					{data.allMdx.edges
+						.filter(({ node }) => node.frontmatter?.lang === pageContext.lang)
+						.map(({ node }) => (
+							<ArchivePostCard key={node.id} ArchiveNode={node} />
+						))}
 				</section>
 			</article>
 		</Layout>

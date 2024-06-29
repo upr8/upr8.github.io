@@ -16,9 +16,11 @@ const LibraryIndexTemplate: React.FC<Props> = ({ data, pageContext }) => {
 		<Layout pageContext={pageContext}>
 			<article>
 				<section className="flex flex-wrap justify-around">
-					{data.allMdx.edges.map(({ node }) => (
-						<LibraryBookCard key={node.id} BookNode={node} />
-					))}
+					{data.allMdx.edges
+						.filter(({ node }) => node.frontmatter?.lang === pageContext.lang)
+						.map(({ node }) => (
+							<LibraryBookCard key={node.id} BookNode={node} />
+						))}
 				</section>
 			</article>
 		</Layout>
