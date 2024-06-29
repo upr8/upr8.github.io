@@ -1,5 +1,5 @@
 import { useStaticQuery, graphql } from "gatsby";
-import { SiteMetadata } from "@/gatsby/types";
+import type { SiteMetadata } from "@/gatsby/types";
 
 export const useSiteMetadata = (): SiteMetadata => {
 	const { site } = useStaticQuery(

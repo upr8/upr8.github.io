@@ -1,7 +1,7 @@
 import * as React from "react";
-import { Link, HeadFC, PageProps } from "gatsby";
+import { Link, type HeadFC, type PageProps } from "gatsby";
 import Layout from "@/components/layout";
-import { PageContext } from "@/gatsby/types";
+import type { PageContext } from "@/gatsby/types";
 import { Language } from "../states";
 
 const NotFoundPage: React.FC<PageProps> = () => {

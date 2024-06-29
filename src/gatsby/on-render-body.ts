@@ -1,4 +1,4 @@
-import { RenderBodyArgs } from "gatsby";
+import type { RenderBodyArgs } from "gatsby";
 import { newrelicHeadScript } from "./plugins/newrelic/newrelic";
 
 const HtmlAttributes = {

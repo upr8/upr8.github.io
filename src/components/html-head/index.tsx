@@ -1,6 +1,6 @@
 import * as React from "react";
 import Helmet from "react-helmet";
-import { PageContext } from "@/gatsby/types";
+import type { PageContext } from "@/gatsby/types";
 import { Language, SiteContext, Theme } from "@/states";
 
 interface Props {

@@ -1,9 +1,9 @@
 // https://github.com/alxshelepenok/gatsby-starter-lumen/blob/f1d83e4ad2f5a8aa01f01fcf11b5cc2f6f376711/internal/gatsby/on-create-webpack-config.ts
 
-import path from "path";
+import path from "node:path";
 
-import { CreateWebpackConfigArgs } from "gatsby";
-import { CompilerOptions } from "typescript";
+import type { CreateWebpackConfigArgs } from "gatsby";
+import type { CompilerOptions } from "typescript";
 
 import { compilerOptions } from "../../tsconfig.json";
 

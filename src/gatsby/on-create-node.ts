@@ -1,7 +1,7 @@
-import { GatsbyNode } from "gatsby";
+import type { GatsbyNode } from "gatsby";
 import { createFilePath } from "gatsby-source-filesystem";
 
-import * as types from "./types";
+import type * as types from "./types";
 
 // Transform nodes, each of logic inside here can be extracted to a separated plugin later.
 const onCreateNode: GatsbyNode["onCreateNode"] = async ({

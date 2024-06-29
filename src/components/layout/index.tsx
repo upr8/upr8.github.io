@@ -4,7 +4,7 @@ import Main from "@/components/main";
 import Footer from "@/components/footer";
 import SEO from "@/components/seo";
 import HtmlHead from "@/components/html-head";
-import { PageContext } from "@/gatsby/types";
+import type { PageContext } from "@/gatsby/types";
 import { SiteContext, Theme } from "@/states";
 
 interface Props {

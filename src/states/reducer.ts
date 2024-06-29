@@ -1,11 +1,11 @@
 import { setLocalStorage } from "../utils";
 import {
 	ActionType,
-	SiteActions,
-	ToggleLanguage,
-	ToggleTheme,
+	type SiteActions,
+	type ToggleLanguage,
+	type ToggleTheme,
 } from "./actions";
-import { Language, SiteState, Theme } from "./state";
+import { Language, type SiteState, Theme } from "./state";
 
 export function siteReducer(state: SiteState, action: SiteActions): SiteState {
 	const toggledTheme = state.theme === Theme.Light ? Theme.Dark : Theme.Light;
