@@ -32,11 +32,14 @@
         "csstools",
         "devcontainer",
         "devcontainers",
+        "eamodio",
         "frontmatter",
+        "gtag",
         "heroicon",
         "heybourn",
         "localstorage",
         "oderwat",
+        "pflannery",
         "ppas",
         "shortcodes",
         "slugtag",
@@ -45,6 +48,7 @@
         "typecheck",
         "Typegen",
         "unifiedjs",
+        "versionlens",
         "vtop"
     ]
 }
