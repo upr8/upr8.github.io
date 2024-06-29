@@ -1,11 +1,12 @@
+import React, { type ReactElement } from "react";
+
 import { useSiteMetadata } from "@/hooks/use-site-metadata";
-import * as React from "react";
 
 interface Props {
 	href: string;
 	title?: string;
 	className?: string;
-	children: React.ReactElement;
+	children: ReactElement;
 }
 
 const A = ({ href, title, className, children }: Props) => {

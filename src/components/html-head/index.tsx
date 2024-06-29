@@ -1,5 +1,6 @@
-import * as React from "react";
+import React, { type FC } from "react";
 import Helmet from "react-helmet";
+
 import type { PageContext } from "@/gatsby/types";
 import { Language, SiteContext, Theme } from "@/states";
 
@@ -7,7 +8,7 @@ interface Props {
 	pageContext: PageContext;
 }
 
-const HtmlHead: React.FC<Props> = ({ pageContext }) => {
+const HtmlHead: FC<Props> = ({ pageContext }) => {
 	const { state } = React.useContext(SiteContext);
 	return (
 		<Helmet>

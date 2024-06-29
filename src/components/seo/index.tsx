@@ -1,5 +1,6 @@
-import React from "react";
+import React, { type FC } from "react";
 import Helmet from "react-helmet";
+
 import { useSiteMetadata } from "@/hooks/use-site-metadata";
 import { getLocaleFromLang } from "@/utils";
 import type { PageContext } from "@/gatsby/types";
@@ -13,7 +14,7 @@ interface Props {
 	pageContext: PageContext;
 }
 
-const SEO: React.FC<Props> = ({ pageContext }) => {
+const SEO: FC<Props> = ({ pageContext }) => {
 	const { title, siteUrl } = useSiteMetadata();
 	const url = `${siteUrl}${pageContext.slug}`;
 	const locale = getLocaleFromLang(pageContext.lang);
@@ -32,4 +33,5 @@ const SEO: React.FC<Props> = ({ pageContext }) => {
 		</Helmet>
 	);
 };
+
 export default SEO;

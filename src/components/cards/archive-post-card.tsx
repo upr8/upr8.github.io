@@ -1,4 +1,4 @@
-import React from "react";
+import React, { type FC } from "react";
 import { Link, graphql } from "gatsby";
 
 import { TagList } from "@/components/tags";
@@ -8,7 +8,7 @@ interface Props {
 	ArchiveNode: Queries.ArchiveNodeFragment;
 }
 
-const ArchivePostCard: React.FC<Props> = ({ ArchiveNode }) => (
+const ArchivePostCard: FC<Props> = ({ ArchiveNode }) => (
 	<div className="mt-8 md:flex md:items-center ">
 		<div>
 			<p className="inline-block pt-2 text-sm italic text-secondary">

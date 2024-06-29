@@ -1,4 +1,4 @@
-import React from "react";
+import React, { type FC } from "react";
 import { Link, graphql } from "gatsby";
 
 import { TagList } from "@/components/tags";
@@ -8,7 +8,7 @@ interface Props {
 	BookNode: Queries.BookNodeFragment;
 }
 
-const LibraryBookCard: React.FC<Props> = ({ BookNode }) => {
+const LibraryBookCard: FC<Props> = ({ BookNode }) => {
 	const coverStyle = {
 		backgroundImage:
 			BookNode.frontmatter?.embeddedImagesLocal?.[0] !== null

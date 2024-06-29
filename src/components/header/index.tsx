@@ -1,4 +1,5 @@
-import * as React from "react";
+import React, { type FC } from "react";
+
 import NavBar from "./navbar";
 
 interface Props {
@@ -6,7 +7,7 @@ interface Props {
 	pageSubtitle: string;
 }
 
-const Header: React.FC<Props> = ({ pageTitle, pageSubtitle }) => {
+const Header: FC<Props> = ({ pageTitle, pageSubtitle }) => {
 	return (
 		<header className="border-b-2 border-primary">
 			<NavBar />

@@ -1,19 +1,18 @@
-import * as React from "react";
+import React, { type FC, type ReactNode } from "react";
 import { graphql, type PageProps } from "gatsby";
+
 import MdxContainer from "@/components/mdx-container";
 import Layout from "@/components/layout";
 import type { PageContext } from "@/gatsby/types";
 import { TagList } from "@/components/tags";
 
-export { Head } from "@/components/gatsby-head";
-
 interface Props extends Omit<PageProps, "children"> {
 	data: Queries.BlogPostQuery;
-	children: React.ReactNode;
+	children: ReactNode;
 	pageContext: PageContext;
 }
 
-const BlogPostTemplate: React.FC<Props> = ({ data, pageContext, children }) => {
+const BlogPostTemplate: FC<Props> = ({ data, pageContext, children }) => {
 	const toc = data.mdx?.tableOfContents
 		? {
 				TableOfContents: data.mdx
@@ -34,6 +33,7 @@ const BlogPostTemplate: React.FC<Props> = ({ data, pageContext, children }) => {
 };
 
 export default BlogPostTemplate;
+export { Head } from "@/components/gatsby-head";
 
 export const query = graphql`
     query BlogPost($slug: String!) {

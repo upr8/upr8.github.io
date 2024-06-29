@@ -1,9 +1,10 @@
-import * as React from "react";
+import React, { type FC } from "react";
 import { Link } from "gatsby";
+
 import { useSiteMetadata } from "@/hooks/use-site-metadata";
 import { Github, Linkedin } from "@/components/icons";
 
-const Footer: React.FC = () => {
+const Footer: FC = () => {
 	const { linkedin, github } = useSiteMetadata();
 
 	return (

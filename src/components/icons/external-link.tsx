@@ -1,10 +1,10 @@
-import * as React from "react";
+import React, { type FC } from "react";
 
 interface Props {
 	isInline?: boolean;
 }
 
-const ExternalLink: React.FC<Props> = ({ isInline = true }) => {
+const ExternalLink: FC<Props> = ({ isInline = true }) => {
 	return (
 		<svg
 			width="24"

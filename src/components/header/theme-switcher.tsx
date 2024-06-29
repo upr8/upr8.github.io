@@ -1,9 +1,9 @@
-import * as React from "react";
-import { SiteContext, Theme, toggleTheme } from "@/states";
+import React, { type FC } from "react";
 
+import { SiteContext, Theme, toggleTheme } from "@/states";
 import { icon, toggleDot } from "./theme-switcher.module.css";
 
-const ThemeSwitcher: React.FC = () => {
+const ThemeSwitcher: FC = () => {
 	const { state, dispatch } = React.useContext(SiteContext);
 
 	return (

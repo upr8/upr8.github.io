@@ -1,7 +1,8 @@
 // https://github.com/NickyMeuleman/gatsby-theme-nicky-blog/blob/fe66d8908f477fea71cdfd0d3d1b59940a7d2ba1/theme/src/components/TagListPage.tsx
-import React from "react";
-import { useActiveId } from "@/hooks/use-active-id";
+import React, { type FC } from "react";
 import { graphql } from "gatsby";
+
+import { useActiveId } from "@/hooks/use-active-id";
 
 export interface TableOfContentsItem {
 	url?: string;
@@ -53,7 +54,7 @@ function renderItems(
 	);
 }
 
-const TableOfContentsList: React.FC<Queries.TableOfContentsFragment> = ({
+const TableOfContentsList: FC<Queries.TableOfContentsFragment> = ({
 	tableOfContents,
 }) => {
 	const { items } = tableOfContents as Record<string, TableOfContentsItem[]>;
