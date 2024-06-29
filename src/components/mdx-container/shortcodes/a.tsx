@@ -14,11 +14,11 @@ const A = ({ href, title, className, children }: Props) => {
 		href.startsWith(siteUrl) || href.startsWith("#")
 			? {
 					target: "_self",
-			  }
+				}
 			: {
 					target: "_blank",
 					rel: "noreferrer",
-			  };
+				};
 	return (
 		<a href={href} title={title} {...targetRel} className={className}>
 			{children}
