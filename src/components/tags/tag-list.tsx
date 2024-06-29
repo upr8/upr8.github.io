@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { type FC } from "react";
 import { Link, graphql } from "gatsby";
 
 interface Props {
@@ -9,7 +9,7 @@ interface Props {
 	isCenter?: boolean;
 }
 
-const TagList: React.FC<Props> = ({ tags, isCenter = true }) => {
+const TagList: FC<Props> = ({ tags, isCenter = true }) => {
 	return (
 		<ul
 			className={`flex flex-wrap items-baseline mt-2 ms-1 md:mt-0 ${

@@ -1,18 +1,17 @@
-import * as React from "react";
+import React, { type FC, type ReactNode } from "react";
 import { graphql, type PageProps } from "gatsby";
+
 import MdxContainer from "@/components/mdx-container";
 import Layout from "@/components/layout";
 import type { PageContext } from "@/gatsby/types";
 
-export { Head } from "@/components/gatsby-head";
-
 interface Props extends Omit<PageProps, "children"> {
 	data: Queries.Query;
-	children: React.ReactNode;
+	children: ReactNode;
 	pageContext: PageContext;
 }
 
-const AboutMeTemplate: React.FC<Props> = ({ pageContext, children }) => {
+const AboutMeTemplate: FC<Props> = ({ pageContext, children }) => {
 	return (
 		<Layout pageContext={pageContext}>
 			<MdxContainer>{children}</MdxContainer>
@@ -21,6 +20,7 @@ const AboutMeTemplate: React.FC<Props> = ({ pageContext, children }) => {
 };
 
 export default AboutMeTemplate;
+export { Head } from "@/components/gatsby-head";
 
 export const query = graphql`
     query ($slug: String!) {

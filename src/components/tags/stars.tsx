@@ -1,10 +1,10 @@
-import * as React from "react";
+import React, { type FC } from "react";
 
 interface Props {
 	rate: number;
 }
 
-const Stars: React.FC<Props> = ({ rate }) => (
+const Stars: FC<Props> = ({ rate }) => (
 	<ul className="flex flex-nowrap">
 		{[...Array(5).keys()].map((i) => (
 			<li key={i}>

@@ -1,4 +1,5 @@
-import * as React from "react";
+import React, { type FC, type ReactNode } from "react";
+
 import Header from "@/components/header";
 import Main from "@/components/main";
 import Footer from "@/components/footer";
@@ -8,16 +9,12 @@ import type { PageContext } from "@/gatsby/types";
 import { SiteContext, Theme } from "@/states";
 
 interface Props {
-	children: React.ReactNode;
+	children: ReactNode;
 	pageContext: PageContext;
 	justSeo?: boolean;
 }
 
-const Layout: React.FC<Props> = ({
-	pageContext,
-	justSeo = false,
-	children,
-}) => {
+const Layout: FC<Props> = ({ pageContext, justSeo = false, children }) => {
 	const { state } = React.useContext(SiteContext);
 	return (
 		<>

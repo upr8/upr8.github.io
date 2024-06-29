@@ -1,10 +1,11 @@
-import * as React from "react";
+import React, { type FC } from "react";
 import { Link, type HeadFC, type PageProps } from "gatsby";
+
 import Layout from "@/components/layout";
 import type { PageContext } from "@/gatsby/types";
 import { Language } from "../states";
 
-const NotFoundPage: React.FC<PageProps> = () => {
+const NotFoundPage: FC<PageProps> = () => {
 	const pageContext: PageContext = {
 		title: "Error 404",
 		desc: "Page Not Found",
@@ -25,5 +26,4 @@ const NotFoundPage: React.FC<PageProps> = () => {
 };
 
 export default NotFoundPage;
-
 export const Head: HeadFC = () => <title>Not found</title>;

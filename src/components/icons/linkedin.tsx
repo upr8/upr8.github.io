@@ -1,10 +1,10 @@
-import * as React from "react";
+import React, { type FC } from "react";
 
 interface Props {
 	link: string;
 }
 
-const Linkedin: React.FC<Props> = ({ link }) => {
+const Linkedin: FC<Props> = ({ link }) => {
 	return (
 		<a href={link} target="_blank" rel="noreferrer">
 			<svg

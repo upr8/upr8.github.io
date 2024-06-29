@@ -1,19 +1,18 @@
-import * as React from "react";
+import React, { type FC } from "react";
 import { Link, type PageProps, graphql } from "gatsby";
+
 import Layout from "@/components/layout";
 import type { PageContext } from "@/gatsby/types";
 import BlogCard from "@/components/cards/blog-post-card";
 import { ArchivePostCard } from "@/components/cards";
 import { LibraryBookCard } from "@/components/cards";
 
-export { Head } from "@/components/gatsby-head";
-
 interface Props extends PageProps {
 	data: Queries.TagPageQuery;
 	pageContext: PageContext;
 }
 
-const TagIndexTemplate: React.FC<Props> = ({ data, pageContext }) => {
+const TagIndexTemplate: FC<Props> = ({ data, pageContext }) => {
 	return (
 		<Layout pageContext={pageContext}>
 			<article>
@@ -123,6 +122,7 @@ const TagIndexTemplate: React.FC<Props> = ({ data, pageContext }) => {
 };
 
 export default TagIndexTemplate;
+export { Head } from "@/components/gatsby-head";
 
 export const query = graphql`
     query TagPage($tag: String!) {

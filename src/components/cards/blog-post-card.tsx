@@ -1,4 +1,4 @@
-import React from "react";
+import React, { type FC } from "react";
 import { Link, graphql } from "gatsby";
 
 import { TagList } from "@/components/tags";
@@ -7,7 +7,7 @@ interface Props {
 	BlogNode: Queries.BlogNodeFragment;
 }
 
-const BlogPostCard: React.FC<Props> = ({ BlogNode }) => (
+const BlogPostCard: FC<Props> = ({ BlogNode }) => (
 	<div className="mt-8 md:flex md:items-center ">
 		<div>
 			<p className="inline-block pt-2 text-sm italic text-secondary">

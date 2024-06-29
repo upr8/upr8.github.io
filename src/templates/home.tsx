@@ -1,17 +1,16 @@
-import * as React from "react";
+import React, { type FC, type ReactNode } from "react";
 import type { PageProps } from "gatsby";
+
 import MdxContainer from "@/components/mdx-container";
 import Layout from "@/components/layout";
 import type { PageContext } from "@/gatsby/types";
 
-export { Head } from "@/components/gatsby-head";
-
 interface Props extends Omit<PageProps, "children"> {
-	children: React.ReactNode;
+	children: ReactNode;
 	pageContext: PageContext;
 }
 
-const HomeTemplate: React.FC<Props> = ({ pageContext, children }) => {
+const HomeTemplate: FC<Props> = ({ pageContext, children }) => {
 	return (
 		<Layout pageContext={pageContext}>
 			<MdxContainer>{children}</MdxContainer>
@@ -19,4 +18,5 @@ const HomeTemplate: React.FC<Props> = ({ pageContext, children }) => {
 	);
 };
 
+export { Head } from "@/components/gatsby-head";
 export default HomeTemplate;

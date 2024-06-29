@@ -1,17 +1,16 @@
-import * as React from "react";
+import React, { type FC } from "react";
 import { type PageProps, graphql } from "gatsby";
+
 import Layout from "@/components/layout";
 import type { PageContext } from "@/gatsby/types";
 import BlogCard from "@/components/cards/blog-post-card";
-
-export { Head } from "@/components/gatsby-head";
 
 interface Props extends PageProps {
 	data: Queries.Query;
 	pageContext: PageContext;
 }
 
-const BlogIndexTemplate: React.FC<Props> = ({ data, pageContext }) => {
+const BlogIndexTemplate: FC<Props> = ({ data, pageContext }) => {
 	return (
 		<Layout pageContext={pageContext}>
 			<article>
@@ -28,6 +27,7 @@ const BlogIndexTemplate: React.FC<Props> = ({ data, pageContext }) => {
 };
 
 export default BlogIndexTemplate;
+export { Head } from "@/components/gatsby-head";
 
 export const query = graphql`
     query {
