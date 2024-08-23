@@ -29,6 +29,7 @@
 			"command": "echo hello"
 		}
 	},
+	"runArgs": ["--net=host"],
 	// Configure tool-specific properties.
 	"customizations": {
 		// Configure properties specific to VS Code.
