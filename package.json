@@ -18,7 +18,7 @@
     "clean": "gatsby clean",
     "typecheck": "tsc --noEmit",
     "biome:check": "biome check .",
-    "biome:check:apply": "biome check . --apply",
+    "biome:check:apply": "biome check . --write",
     "biome:check:apply:unsafe": "biome check . --apply-unsafe",
     "biome:format": "biome format . --write",
     "fix": "npm run biome:format && npm run biome:check:apply",
