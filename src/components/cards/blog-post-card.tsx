@@ -16,7 +16,7 @@ const BlogPostCard: FC<Props> = ({ BlogNode }) => (
 		</div>
 		<div className="ps-6 pe-6">
 			<Link to={BlogNode.fields?.slug || "#"}>
-				<div className="text-xl font-semibold text-primary">
+				<div className="text-xl font-semibold">
 					{BlogNode.frontmatter?.title}
 				</div>
 			</Link>

@@ -11,6 +11,8 @@
 }
 
 a {
+    @apply text-indigo-900;
+
     &:hover,
     *:hover,
     &:focus,
