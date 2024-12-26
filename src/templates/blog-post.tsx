@@ -5,6 +5,7 @@ import MdxContainer from "@/components/mdx-container";
 import Layout from "@/components/layout";
 import type { PageContext } from "@/gatsby/types";
 import { TagList } from "@/components/tags";
+import { useSiteMetadata } from "@/hooks/use-site-metadata";
 
 interface Props extends Omit<PageProps, "children"> {
 	data: Queries.BlogPostQuery;
@@ -13,12 +14,14 @@ interface Props extends Omit<PageProps, "children"> {
 }
 
 const BlogPostTemplate: FC<Props> = ({ data, pageContext, children }) => {
-	const toc = data.mdx?.tableOfContents
-		? {
-				TableOfContents: data.mdx
-					?.tableOfContents as Queries.TableOfContentsFragment,
-			}
-		: {};
+	const { enableTableOfContents } = useSiteMetadata();
+	const toc =
+		enableTableOfContents && data.mdx?.tableOfContents
+			? {
+					TableOfContents: data.mdx
+						?.tableOfContents as Queries.TableOfContentsFragment,
+				}
+			: {};
 	return (
 		<Layout pageContext={pageContext}>
 			<MdxContainer {...toc}>{children}</MdxContainer>

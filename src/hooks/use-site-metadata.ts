@@ -11,6 +11,7 @@ export const useSiteMetadata = (): SiteMetadata => {
                         siteUrl
                         linkedin
                         github
+                        enableTableOfContents
                     }
                 }
         }`,

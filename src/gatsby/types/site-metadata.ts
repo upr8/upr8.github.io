@@ -3,4 +3,5 @@ export default interface SiteMetadata {
 	siteUrl: string;
 	linkedin: string;
 	github: string;
+	enableTableOfContents: boolean;
 }
