@@ -26,9 +26,7 @@ const CodeWithHighlight = ({ className, children }: Props) => {
 			{children.trimEnd()}
 		</SyntaxHighlighter>
 	) : (
-		<code className={`bg-nav rounded-md px-1 mx-1 ${className}`}>
-			{children}
-		</code>
+		<code className={`bg-nav rounded-md ${className}`}>{children}</code>
 	);
 };
 

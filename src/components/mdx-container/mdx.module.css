@@ -1,7 +1,7 @@
 /*! purgecss start ignore */
 .postBody {
     @apply mt-2;
-    @apply px-2;
+    @apply px-1;
     @apply text-primary;
 
     unicode-bidi: bidi-override;
@@ -41,7 +41,7 @@
     }
 
     blockquote {
-        @apply p-4 mx-8 mt-6;
+        @apply p-2 mx-2 mt-4;
         @apply shadow-md bg-bq;
         @apply border-0 border-s-4 border-secondary;
 
