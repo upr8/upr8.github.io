@@ -44,7 +44,6 @@ jobs:
         run: npm run deploy-action
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GTAG: ${{ secrets.GTAG }}
           NEWRELIC_ACCOUNT_ID: ${{ secrets.NEWRELIC_ACCOUNT_ID }}
           NEWRELIC_TRUST_KEY: ${{ secrets.NEWRELIC_TRUST_KEY }}
           NEWRELIC_AGENT_ID: ${{ secrets.NEWRELIC_AGENT_ID }}
