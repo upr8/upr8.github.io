@@ -7,13 +7,14 @@ import {
 import { SiteContext, Theme } from "@/states";
 
 interface Props {
-	className: string;
-	children: string;
+	className?: string;
+	children?: React.ReactNode;
 }
 
 const CodeWithHighlight = ({ className, children }: Props) => {
 	const match = /language-(\w+)/.exec(className || "");
 	const { state } = React.useContext(SiteContext);
+	const childrenString = typeof children === "string" ? children : String(children || "");
 	return match ? (
 		<SyntaxHighlighter
 			language={match[1]}
@@ -23,10 +24,10 @@ const CodeWithHighlight = ({ className, children }: Props) => {
 			style={state.theme === Theme.Dark ? darkTheme : lightTheme}
 			customStyle={{ marginTop: "0.5em" }}
 		>
-			{children.trimEnd()}
+			{childrenString.trimEnd()}
 		</SyntaxHighlighter>
 	) : (
-		<code className={`bg-nav rounded-md px-1 ${className}`}>{children}</code>
+		<code className={`bg-nav rounded-md px-1 ${className || ""}`}>{children}</code>
 	);
 };
 
