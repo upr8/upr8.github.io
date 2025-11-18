@@ -11,11 +11,13 @@ const Header: FC<Props> = ({ pageTitle, pageSubtitle }) => {
 	return (
 		<header className="border-b-2 border-primary">
 			<NavBar />
-			<div className="pt-32 pb-16 text-center">
-				<h1 className="text-4xl font-extrabold text-primary">{pageTitle}</h1>
-				<div className="mt-4 text-xl font-bold text-secondary">
+			<div className="pt-16 pb-8 text-center">
+				<h1 className="text-4xl md:text-5xl font-extrabold text-primary leading-tight tracking-tight">
+					{pageTitle}
+				</h1>
+				<p className="mt-3 text-lg md:text-xl font-medium text-secondary max-w-2xl mx-auto">
 					{pageSubtitle}
-				</div>
+				</p>
 			</div>
 		</header>
 	);
