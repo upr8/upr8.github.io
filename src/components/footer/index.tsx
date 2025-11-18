@@ -10,7 +10,7 @@ const Footer: FC = () => {
 	return (
 		<footer className="box-border flex flex-row justify-between pt-4 mt-8 mb-4 border-t-2 border-primary">
 			<p className="text-center align-middle text-secondary">
-				Copyright © 2025 by <Link to="/en/about">Saeed Asaiyan</Link>.
+				Copyright © {new Date().getFullYear()} by <Link to="/en/about">Saeed Asaiyan</Link>.
 			</p>
 			<ul className="flex justify-center">
 				{github && (
