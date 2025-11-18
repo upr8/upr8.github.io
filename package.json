@@ -8,7 +8,7 @@
     "gatsby"
   ],
   "scripts": {
-    "gh-pages-action": "gh-pages -d public -b release -x -r https://$GH_TOKEN@github.com/upr8/upr8.github.io.git --remove '**/*'",
+    "gh-pages-action": "gh-pages -d public -b release --remove '**/*'",
     "deploy-action": "npm run build && npm run gh-pages-action",
     "deploy": "npm run build && gh-pages -d public -b release --remove '**/*'",
     "develop": "gatsby develop",
