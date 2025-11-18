@@ -1,7 +1,7 @@
 import React, { type FC } from "react";
 
 import { SiteContext, Theme, toggleTheme } from "@/states";
-import { icon, toggleDot } from "./theme-switcher.module.css";
+import { toggleDot } from "./theme-switcher.module.css";
 
 const ThemeSwitcher: FC = () => {
 	const { state, dispatch } = React.useContext(SiteContext);
@@ -21,11 +21,11 @@ const ThemeSwitcher: FC = () => {
 			/>
 			<div className="w-10 h-4 rounded-full shadow-inner bg-body" />
 			<div
-				className={`${toggleDot} absolute w-5 h-5 bg-white rounded-full shadow inset-y-0 left-0`}
+				className={`${toggleDot} absolute w-5 h-5 bg-white rounded-full shadow inset-y-0 left-0 flex items-center justify-center`}
 			>
 				<span className={`${state.theme === Theme.Light ? "" : "hidden"}`}>
 					<svg
-						className={`${icon} w-4 h-4 text-yellow-800 fill-current`}
+						className="w-3 h-3 text-yellow-800 fill-current"
 						viewBox="0 0 2267 2267"
 						xmlns="http://www.w3.org/2000/svg"
 						aria-label="title"
@@ -38,8 +38,7 @@ const ThemeSwitcher: FC = () => {
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						viewBox="0 0 24 24"
-						width="24"
-						height="24"
+						className="w-3 h-3 text-gray-700 fill-current"
 						aria-label="title"
 					>
 						<title id="title">Dark theme is enable</title>
