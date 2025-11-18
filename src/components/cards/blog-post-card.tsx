@@ -8,17 +8,17 @@ interface Props {
 }
 
 const BlogPostCard: FC<Props> = ({ BlogNode }) => (
-	<div className="mt-8 md:flex md:items-center ">
+	<article className="mt-8 md:flex md:items-center ">
 		<div>
-			<p className="inline-block pt-2 text-sm italic text-secondary">
+			<time className="inline-block pt-2 text-sm italic text-secondary" dateTime={BlogNode.frontmatter?.date || undefined}>
 				{BlogNode.frontmatter?.date}
-			</p>
+			</time>
 		</div>
 		<div className="ps-6 pe-6">
-			<Link to={BlogNode.fields?.slug || "#"}>
-				<div className="text-xl font-semibold">
+			<Link to={BlogNode.fields?.slug || "#"} aria-label={`Read blog post: ${BlogNode.frontmatter?.title}`}>
+				<h3 className="text-xl font-semibold">
 					{BlogNode.frontmatter?.title}
-				</div>
+				</h3>
 			</Link>
 			<div className="">
 				<p className="text-secondary">{BlogNode.frontmatter?.desc}</p>
@@ -27,7 +27,7 @@ const BlogPostCard: FC<Props> = ({ BlogNode }) => (
 				)}
 			</div>
 		</div>
-	</div>
+	</article>
 );
 
 export default BlogPostCard;

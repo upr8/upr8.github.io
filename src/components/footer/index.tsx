@@ -10,9 +10,9 @@ const Footer: FC = () => {
 	return (
 		<footer className="box-border flex flex-row justify-between pt-4 mt-8 mb-4 border-t-2 border-primary">
 			<p className="text-center align-middle text-secondary">
-				Copyright © {new Date().getFullYear()} by <Link to="/en/about">Saeed Asaiyan</Link>.
+				Copyright © {new Date().getFullYear()} by <Link to="/en/about" aria-label="Navigate to about page">Saeed Asaiyan</Link>.
 			</p>
-			<ul className="flex justify-center">
+			<ul className="flex justify-center" aria-label="Social media links">
 				{github && (
 					<li className="mx-4">
 						<Github link={github} />

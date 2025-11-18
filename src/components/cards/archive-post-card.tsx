@@ -9,21 +9,22 @@ interface Props {
 }
 
 const ArchivePostCard: FC<Props> = ({ ArchiveNode }) => (
-	<div className="mt-8 md:flex md:items-center ">
+	<article className="mt-8 md:flex md:items-center ">
 		<div>
-			<p className="inline-block pt-2 text-sm italic text-secondary">
+			<time className="inline-block pt-2 text-sm italic text-secondary" dateTime={ArchiveNode.frontmatter?.date || undefined}>
 				{ArchiveNode.frontmatter?.date}
-			</p>
+			</time>
 		</div>
 		<div className="ps-6 pe-6">
 			<Link
 				to={ArchiveNode.frontmatter?.externalLink || "#"}
 				target="_blank"
 				rel="noreferrer"
+				aria-label={`Visit external link: ${ArchiveNode.frontmatter?.title} (opens in new tab)`}
 			>
-				<div className="text-xl font-semibold text-primary">
+				<h3 className="text-xl font-semibold text-primary">
 					{ArchiveNode.frontmatter?.title} <ExternalLink />
-				</div>
+				</h3>
 			</Link>
 			{ArchiveNode.frontmatter?.hasReview ? (
 				<Link
@@ -31,6 +32,7 @@ const ArchivePostCard: FC<Props> = ({ ArchiveNode }) => (
 						(ArchiveNode.frontmatter?.hasReview && ArchiveNode.fields?.slug) ||
 						"#"
 					}
+					aria-label={`Read notes about: ${ArchiveNode.frontmatter?.title}`}
 				>
 					<div className="md:flex">
 						<p className="text-secondary">{ArchiveNode.frontmatter?.desc}</p>
@@ -51,7 +53,7 @@ const ArchivePostCard: FC<Props> = ({ ArchiveNode }) => (
 				</div>
 			)}
 		</div>
-	</div>
+	</article>
 );
 
 export default ArchivePostCard;

@@ -16,24 +16,27 @@ const LibraryBookCard: FC<Props> = ({ BookNode }) => {
 				: "",
 	};
 	return (
-		<div
+		<article
 			className="z-10 flex mx-4 mt-4 overflow-hidden border rounded-lg shadow-md border-primary"
 			style={{
 				width: "24rem",
 				height: "16rem",
 			}}
+			aria-label={`Book: ${BookNode.frontmatter?.title || "Untitled"}`}
 		>
 			<div
 				className="w-64 h-full bg-gray-500 bg-center bg-no-repeat bg-cover"
 				style={coverStyle}
+				role="img"
+				aria-label={`Cover image for ${BookNode.frontmatter?.title || "book"}`}
 			/>
 			<div className="flex flex-col items-center justify-between w-full px-2">
 				<p className="inline-block h-40 mt-2 overflow-hidden text-center text-primary">
 					{BookNode.frontmatter?.desc}
 				</p>
-				<div className="inline-block pt-2 text-sm italic text-secondary">
+				<time className="inline-block pt-2 text-sm italic text-secondary" dateTime={BookNode.frontmatter?.date || undefined}>
 					Read Date: {BookNode.frontmatter?.date}
-				</div>
+				</time>
 				{BookNode.frontmatter?.rate && (
 					<Stars rate={BookNode.frontmatter?.rate} />
 				)}
@@ -45,13 +48,14 @@ const LibraryBookCard: FC<Props> = ({ BookNode }) => {
 						<Link
 							className="mt-2 text-primary"
 							to={BookNode.fields?.slug || "#"}
+							aria-label={`Read review of ${BookNode.frontmatter?.title || "this book"}`}
 						>
 							Review
 						</Link>
 					)}
 				</div>
 			</div>
-		</div>
+		</article>
 	);
 };
 
