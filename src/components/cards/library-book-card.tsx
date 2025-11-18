@@ -1,6 +1,7 @@
 import React, { type FC } from "react";
-import { Link, graphql } from "gatsby";
+import { graphql } from "gatsby";
 
+import Link from "@/components/link";
 import { TagList } from "@/components/tags";
 import Stars from "@/components/tags/stars";
 
@@ -46,7 +47,8 @@ const LibraryBookCard: FC<Props> = ({ BookNode }) => {
 				<div className="h-8">
 					{BookNode.frontmatter?.hasReview && (
 						<Link
-							className="mt-2 text-primary"
+							variant="nav"
+							className="mt-2 font-medium"
 							to={BookNode.fields?.slug || "#"}
 							aria-label={`Read review of ${BookNode.frontmatter?.title || "this book"}`}
 						>

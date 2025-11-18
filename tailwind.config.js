@@ -24,6 +24,26 @@ module.exports = {
 			textColor: {
 				primary: "var(--color-text-primary)",
 				secondary: "var(--color-text-secondary)",
+				accent: {
+					primary: "var(--color-link-primary)",
+					hover: "var(--color-link-hover)",
+					active: "var(--color-link-active)",
+					visited: "var(--color-link-visited)",
+				},
+			},
+			textDecorationColor: {
+				accent: {
+					primary: "var(--color-link-primary)",
+					hover: "var(--color-link-hover)",
+				},
+			},
+			ringColor: {
+				accent: {
+					primary: "var(--color-link-primary)",
+				},
+			},
+			ringOffsetColor: {
+				body: "var(--color-bg-body)",
 			},
 		},
 	},

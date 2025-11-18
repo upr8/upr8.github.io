@@ -1,6 +1,7 @@
 import React, { type FC } from "react";
-import { Link, type PageProps, graphql } from "gatsby";
+import { type PageProps, graphql } from "gatsby";
 
+import Link from "@/components/link";
 import Layout from "@/components/layout";
 import type { PageContext } from "@/gatsby/types";
 import BlogCard from "@/components/cards/blog-post-card";
@@ -21,10 +22,7 @@ const TagIndexTemplate: FC<Props> = ({ data, pageContext }) => {
 						{data.blog.totalCount > 0 ? (
 							<>
 								Posts in my{" "}
-								<Link
-									className="underline underline-offset-4 hover:no-underline"
-									to="/en/blog"
-								>
+								<Link variant="underline" to="/en/blog">
 									blog
 								</Link>{" "}
 								:
@@ -32,10 +30,7 @@ const TagIndexTemplate: FC<Props> = ({ data, pageContext }) => {
 						) : (
 							<>
 								There is no post in my{" "}
-								<Link
-									className="underline underline-offset-4 hover:no-underline"
-									to="/en/blog"
-								>
+								<Link variant="underline" to="/en/blog">
 									blog
 								</Link>{" "}
 								with this tag.
@@ -54,10 +49,7 @@ const TagIndexTemplate: FC<Props> = ({ data, pageContext }) => {
 						{data.library.totalCount > 0 ? (
 							<>
 								Books in my{" "}
-								<Link
-									className="underline underline-offset-4 hover:no-underline"
-									to="/en/library"
-								>
+								<Link variant="underline" to="/en/library">
 									library
 								</Link>
 								:
@@ -65,10 +57,7 @@ const TagIndexTemplate: FC<Props> = ({ data, pageContext }) => {
 						) : (
 							<>
 								There is no books in my{" "}
-								<Link
-									className="underline underline-offset-4 hover:no-underline"
-									to="/en/library"
-								>
+								<Link variant="underline" to="/en/library">
 									library
 								</Link>{" "}
 								with this tag.
@@ -89,10 +78,7 @@ const TagIndexTemplate: FC<Props> = ({ data, pageContext }) => {
 						{data.archive.totalCount > 0 ? (
 							<>
 								Links in my{" "}
-								<Link
-									className="underline underline-offset-4 hover:no-underline"
-									to="/en/archive"
-								>
+								<Link variant="underline" to="/en/archive">
 									archive
 								</Link>
 								:
@@ -100,10 +86,7 @@ const TagIndexTemplate: FC<Props> = ({ data, pageContext }) => {
 						) : (
 							<>
 								There is no link in my{" "}
-								<Link
-									className="underline underline-offset-4 hover:no-underline"
-									to="/en/archive"
-								>
+								<Link variant="underline" to="/en/archive">
 									archive
 								</Link>{" "}
 								with this tag.

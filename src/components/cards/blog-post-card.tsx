@@ -1,6 +1,7 @@
 import React, { type FC } from "react";
-import { Link, graphql } from "gatsby";
+import { graphql } from "gatsby";
 
+import Link from "@/components/link";
 import { TagList } from "@/components/tags";
 
 interface Props {
@@ -15,8 +16,8 @@ const BlogPostCard: FC<Props> = ({ BlogNode }) => (
 			</time>
 		</div>
 		<div className="ps-6 pe-6">
-			<Link to={BlogNode.fields?.slug || "#"} aria-label={`Read blog post: ${BlogNode.frontmatter?.title}`}>
-				<h3 className="text-xl font-semibold">
+			<Link to={BlogNode.fields?.slug || "#"} variant="card" aria-label={`Read blog post: ${BlogNode.frontmatter?.title}`}>
+				<h3 className="text-xl font-semibold text-primary group-hover:text-accent-primary transition-colors">
 					{BlogNode.frontmatter?.title}
 				</h3>
 			</Link>
