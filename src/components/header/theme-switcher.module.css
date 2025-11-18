@@ -10,8 +10,3 @@ input:checked ~ .toggleDot {
 
     @apply bg-gray-200;
 }
-
-.icon {
-    margin-top: 0.12rem;
-    margin-right: 0.1rem;
-}
