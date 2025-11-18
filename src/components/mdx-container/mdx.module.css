@@ -6,13 +6,6 @@
 
     unicode-bidi: bidi-override;
 
-    a {
-        &[href*="//"]:not([href*="www.asaiyan.com"]):after {
-            /* https://stackoverflow.com/a/5379820 */
-            content: "↗";
-        }
-    }
-
     table {
         @apply w-5/6 mx-auto table-auto;
         @apply border border-collapse border-table;

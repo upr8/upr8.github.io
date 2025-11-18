@@ -1,6 +1,7 @@
 import React, { type FC } from "react";
-import { Link, graphql } from "gatsby";
+import { graphql } from "gatsby";
 
+import Link from "@/components/link";
 import { TagList } from "@/components/tags";
 import { ExternalLink } from "@/components/icons";
 
@@ -20,9 +21,10 @@ const ArchivePostCard: FC<Props> = ({ ArchiveNode }) => (
 				to={ArchiveNode.frontmatter?.externalLink || "#"}
 				target="_blank"
 				rel="noreferrer"
+				variant="card"
 				aria-label={`Visit external link: ${ArchiveNode.frontmatter?.title} (opens in new tab)`}
 			>
-				<h3 className="text-xl font-semibold text-primary">
+				<h3 className="text-xl font-semibold text-primary group-hover:text-accent-primary transition-colors">
 					{ArchiveNode.frontmatter?.title} <ExternalLink />
 				</h3>
 			</Link>
@@ -32,6 +34,7 @@ const ArchivePostCard: FC<Props> = ({ ArchiveNode }) => (
 						(ArchiveNode.frontmatter?.hasReview && ArchiveNode.fields?.slug) ||
 						"#"
 					}
+					className="no-underline hover:underline"
 					aria-label={`Read notes about: ${ArchiveNode.frontmatter?.title}`}
 				>
 					<div className="md:flex">

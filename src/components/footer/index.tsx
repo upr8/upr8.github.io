@@ -1,6 +1,6 @@
 import React, { type FC } from "react";
-import { Link } from "gatsby";
 
+import Link from "@/components/link";
 import { useSiteMetadata } from "@/hooks/use-site-metadata";
 import { Github, Linkedin } from "@/components/icons";
 
@@ -10,7 +10,7 @@ const Footer: FC = () => {
 	return (
 		<footer className="box-border flex flex-row justify-between pt-4 mt-8 mb-4 border-t-2 border-primary">
 			<p className="text-center align-middle text-secondary">
-				Copyright © {new Date().getFullYear()} by <Link to="/en/about" aria-label="Navigate to about page">Saeed Asaiyan</Link>.
+				Copyright © {new Date().getFullYear()} by <Link to="/en/about" variant="nav" className="font-medium" aria-label="Navigate to about page">Saeed Asaiyan</Link>.
 			</p>
 			<ul className="flex justify-center" aria-label="Social media links">
 				{github && (

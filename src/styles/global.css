@@ -10,22 +10,38 @@
     text-align: left;
 }
 
+/* Base link styles */
 a {
-    @apply text-indigo-900;
+    @apply text-accent-primary;
+    @apply transition-colors duration-150;
+    @apply underline underline-offset-2;
+    text-decoration-color: color-mix(in srgb, var(--color-link-primary) 30%, transparent);
 
-    &:hover,
-    *:hover,
-    &:focus,
-    & *:focus {
-        @apply text-indigo-700;
-    }
-
-    &:active,
-    & *:active {
-        @apply text-indigo-400;
+    &:hover {
+        @apply text-accent-hover decoration-accent-hover;
     }
 
     &:active {
-        @apply outline-none;
+        @apply text-accent-active;
+    }
+
+    &:focus-visible {
+        @apply outline-none ring-2 ring-accent-primary ring-offset-2 ring-offset-body;
+    }
+
+    /* Visited links */
+    &:visited {
+        @apply text-accent-visited;
+    }
+}
+
+/* Links within body text should have visible underline */
+.prose a,
+.postBody a {
+    @apply underline underline-offset-4;
+    text-decoration-color: color-mix(in srgb, var(--color-link-primary) 50%, transparent);
+
+    &:hover {
+        @apply decoration-accent-hover;
     }
 }
