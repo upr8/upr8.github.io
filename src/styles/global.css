@@ -4,6 +4,11 @@
 
 @import './themes.css';
 
+/* Prevent layout shift when scrollbar appears */
+html {
+    scrollbar-gutter: stable;
+}
+
 .bidi-en {
     unicode-bidi: bidi-override;
     direction: ltr;
