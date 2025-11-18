@@ -1,18 +1,18 @@
-import React, { type ReactElement } from "react";
+import React, { type ReactNode } from "react";
 
 import { useSiteMetadata } from "@/hooks/use-site-metadata";
 
 interface Props {
-	href: string;
+	href?: string;
 	title?: string;
 	className?: string;
-	children: ReactElement;
+	children?: ReactNode;
 }
 
 const A = ({ href, title, className, children }: Props) => {
 	const { siteUrl } = useSiteMetadata();
 	const targetRel =
-		href.startsWith(siteUrl) || href.startsWith("#")
+		href && (href.startsWith(siteUrl) || href.startsWith("#"))
 			? {
 					target: "_self",
 				}
