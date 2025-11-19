@@ -1,5 +1,9 @@
 @import 'tailwindcss';
 
+/* Specify content sources for Tailwind to scan */
+@source "../../data/**/*.mdx";
+@source "../{components,templates,pages}/**/*.{ts,tsx}";
+
 @theme {
   /* Font family */
   --font-family-body:
