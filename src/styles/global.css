@@ -29,10 +29,10 @@
   --color-border-secondary-light: #bae6fd; /* sky 200 */
   --color-text-primary-light: #262626; /* natural 800 */
   --color-text-secondary-light: #4b5563; /* gray 600 */
-  --color-link-primary-light: #0369a1; /* sky 700 */
-  --color-link-hover-light: #075985; /* sky 800 */
+  --color-link-primary-light: #075985; /* sky 800 - improved contrast for AAA compliance (7.7:1) */
+  --color-link-hover-light: #0c4a6e; /* sky 900 */
   --color-link-active-light: #0c4a6e; /* sky 900 */
-  --color-link-visited-light: #6d28d9; /* violet 700 */
+  --color-link-visited-light: #5b21b6; /* violet 800 - improved contrast for AA compliance (7.4:1) */
   --color-bg-table-head-light: #cbd5e1; /* slate 300 */
   --color-bg-table-even-light: #f1f5f9; /* slate 100 */
   --color-bg-table-odd-light: #f8fafc; /* slate 50 */
@@ -40,7 +40,7 @@
 
   /* Dark theme colors */
   --color-bg-body-dark: #18181b; /* Neutral 900 */
-  --color-bg-nav-dark: #155e75;  /* Cyan 800 */
+  --color-bg-nav-dark: #083344;  /* Cyan 950 - improved contrast for AA compliance (12.8:1) */
   --color-bg-bq-dark: #222;
   --color-border-primary-dark: #e0f2fe; /* sky 100 */
   --color-border-secondary-dark: #075985; /* sky 800 */
