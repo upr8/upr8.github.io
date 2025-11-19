@@ -16,13 +16,25 @@ interface Props {
 
 const Layout: FC<Props> = ({ pageContext, justSeo = false, children }) => {
 	const { state } = React.useContext(SiteContext);
+
+	// Sync theme class with body and html elements
+	React.useEffect(() => {
+		const isDark = state.theme === Theme.Dark;
+		document.body.classList.remove("body-theme-light", "body-theme-dark");
+		document.body.classList.add(`body-theme-${state.theme}`);
+
+		if (isDark) {
+			document.documentElement.classList.add("dark");
+		} else {
+			document.documentElement.classList.remove("dark");
+		}
+	}, [state.theme]);
+
 	return (
 		<>
 			<HtmlHead pageContext={pageContext} />
 			<SEO pageContext={pageContext} />
-			<div
-				className={`antialiased ${state.theme === Theme.Dark ? "dark" : ""}`}
-			>
+			<div className="antialiased">
 				{justSeo ? (
 					<div>{children}</div>
 				) : (
