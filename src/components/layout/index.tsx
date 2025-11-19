@@ -20,12 +20,19 @@ const Layout: FC<Props> = ({ pageContext, justSeo = false, children }) => {
 	// Sync theme class with body and html elements
 	React.useEffect(() => {
 		const isDark = state.theme === Theme.Dark;
-		document.body.classList.remove("body-theme-light", "body-theme-dark");
-		document.body.classList.add(`body-theme-${state.theme}`);
+		const targetBodyClass = `body-theme-${state.theme}`;
 
-		if (isDark) {
+		// Only update if the theme has actually changed
+		if (!document.body.classList.contains(targetBodyClass)) {
+			document.body.classList.remove("body-theme-light", "body-theme-dark");
+			document.body.classList.add(targetBodyClass);
+		}
+
+		// Only update dark class if needed
+		const hasDarkClass = document.documentElement.classList.contains("dark");
+		if (isDark && !hasDarkClass) {
 			document.documentElement.classList.add("dark");
-		} else {
+		} else if (!isDark && hasDarkClass) {
 			document.documentElement.classList.remove("dark");
 		}
 	}, [state.theme]);
