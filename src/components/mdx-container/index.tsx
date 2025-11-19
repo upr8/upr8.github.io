@@ -12,7 +12,9 @@ interface Props {
 
 const MdxContainer: FC<Props> = ({ TableOfContents, children }) => {
 	return (
-		<div className={`${postBody} w-full mt-2 px-1 text-primary [unicode-bidi:bidi-override]`}>
+		<div
+			className={`${postBody} w-full mt-2 px-1 text-primary [unicode-bidi:bidi-override] [content-visibility:auto]`}
+		>
 			{TableOfContents && (
 				<TableOfContentsList tableOfContents={TableOfContents} />
 			)}

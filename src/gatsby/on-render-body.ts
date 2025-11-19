@@ -11,6 +11,27 @@ const BodyAttributes = {
 	className: "bg-body body-lang-english font-body bidi-en",
 };
 
+// Critical CSS to inline for faster LCP
+const criticalCSS = () => {
+	const css = `
+		body {
+			margin: 0;
+			padding: 0;
+			text-rendering: optimizeSpeed;
+			-webkit-font-smoothing: antialiased;
+			-moz-osx-font-smoothing: grayscale;
+		}
+		p {
+			line-height: 1.625;
+			contain: layout style;
+		}
+	`;
+	return React.createElement("style", {
+		key: "critical-css",
+		dangerouslySetInnerHTML: { __html: css },
+	});
+};
+
 // Inline script to prevent FOUC by setting theme before page renders
 const themeScript = () => {
 	const script = `
@@ -44,7 +65,7 @@ const onRenderBody = ({
 	setBodyAttributes,
 	setPreBodyComponents,
 }: RenderBodyArgs) => {
-	setHeadComponents([newrelicHeadScript()]);
+	setHeadComponents([criticalCSS(), newrelicHeadScript()]);
 	setHtmlAttributes(HtmlAttributes);
 	setBodyAttributes(BodyAttributes);
 	setPreBodyComponents([themeScript()]);
