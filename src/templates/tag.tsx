@@ -18,7 +18,7 @@ const TagIndexTemplate: FC<Props> = ({ data, pageContext }) => {
 		<Layout pageContext={pageContext}>
 			<article>
 				<section>
-					<div className="mt-8 text-xl italic font-semibold text-secondary">
+					<h2 className="mt-8 text-xl italic font-semibold text-secondary">
 						{data.blog.totalCount > 0 ? (
 							<>
 								Posts in my{" "}
@@ -36,16 +36,16 @@ const TagIndexTemplate: FC<Props> = ({ data, pageContext }) => {
 								with this tag.
 							</>
 						)}
-					</div>
+					</h2>
 					{data.blog.edges
 						.filter(({ node }) => node.frontmatter?.lang === pageContext.lang)
 						.map(({ node }) => (
-							<BlogCard key={node.id} BlogNode={node} />
+							<BlogCard key={node.id} BlogNode={node} headingLevel={3} />
 						))}
 				</section>
 				<hr className="h-px mx-4 my-8 bg-gray-300 border-0 dark:bg-gray-600" />
 				<section>
-					<div className="mt-8 text-xl italic font-semibold text-secondary">
+					<h2 className="mt-8 text-xl italic font-semibold text-secondary">
 						{data.library.totalCount > 0 ? (
 							<>
 								Books in my{" "}
@@ -63,7 +63,7 @@ const TagIndexTemplate: FC<Props> = ({ data, pageContext }) => {
 								with this tag.
 							</>
 						)}
-					</div>
+					</h2>
 					<div className="flex flex-wrap justify-around">
 						{data.library.edges
 							.filter(({ node }) => node.frontmatter?.lang === pageContext.lang)
@@ -74,7 +74,7 @@ const TagIndexTemplate: FC<Props> = ({ data, pageContext }) => {
 				</section>
 				<hr className="h-px mx-4 my-8 bg-gray-300 border-0 dark:bg-gray-600" />
 				<section>
-					<div className="mt-8 text-xl italic font-semibold text-secondary">
+					<h2 className="mt-8 text-xl italic font-semibold text-secondary">
 						{data.archive.totalCount > 0 ? (
 							<>
 								Links in my{" "}
@@ -92,11 +92,11 @@ const TagIndexTemplate: FC<Props> = ({ data, pageContext }) => {
 								with this tag.
 							</>
 						)}
-					</div>
+					</h2>
 					{data.archive.edges
 						.filter(({ node }) => node.frontmatter?.lang === pageContext.lang)
 						.map(({ node }) => (
-							<ArchivePostCard key={node.id} ArchiveNode={node} />
+							<ArchivePostCard key={node.id} ArchiveNode={node} headingLevel={3} />
 						))}
 				</section>
 			</article>
