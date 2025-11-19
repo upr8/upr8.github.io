@@ -23,7 +23,7 @@ const ThemeSwitcher: FC = () => {
 			/>
 			<div className="w-10 h-4 rounded-full shadow-inner bg-body" aria-hidden="true" />
 			<div
-				className={`${toggleDot} absolute w-5 h-5 bg-white rounded-full shadow inset-y-0 left-0 flex items-center justify-center`}
+				className={`${toggleDot} absolute w-5 h-5 bg-white rounded-full shadow-sm inset-y-0 left-0 flex items-center justify-center`}
 				aria-hidden="true"
 			>
 				<span className={`${state.theme === Theme.Light ? "" : "hidden"}`}>

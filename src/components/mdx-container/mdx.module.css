@@ -1,3 +1,5 @@
+@reference '../../styles/global.css';
+
 /*! purgecss start ignore */
 .postBody {
     @apply mt-2;

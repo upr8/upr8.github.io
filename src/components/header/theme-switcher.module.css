@@ -1,3 +1,5 @@
+@reference '../../styles/global.css';
+
 .toggleDot {
     top: 0.1rem;
     transition: all 0.3s ease-in-out;

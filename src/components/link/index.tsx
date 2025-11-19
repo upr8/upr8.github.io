@@ -14,7 +14,7 @@ const variantStyles: Record<LinkVariant, string> = {
 	nav: "no-underline text-primary hover:text-accent-primary transition-colors",
 	card: "no-underline group",
 	subtle: "text-secondary hover:text-primary transition-colors duration-150",
-	underline: "underline underline-offset-4 [text-decoration-color:color-mix(in_srgb,var(--color-link-primary)_50%,transparent)] hover:decoration-accent-hover",
+	underline: "underline underline-offset-4 decoration-[color-mix(in_srgb,var(--color-link-primary)_50%,transparent)] hover:decoration-accent-hover",
 };
 
 const Link: FC<LinkProps> = ({
