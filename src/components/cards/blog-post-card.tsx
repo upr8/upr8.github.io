@@ -9,7 +9,7 @@ interface Props {
 }
 
 const BlogPostCard: FC<Props> = ({ BlogNode }) => (
-	<article className="mt-8 md:flex md:items-center ">
+	<article className="mt-8 @md:flex @md:items-center">
 		<div>
 			<time className="inline-block pt-2 text-sm italic text-secondary" dateTime={BlogNode.frontmatter?.date || undefined}>
 				{BlogNode.frontmatter?.date}
