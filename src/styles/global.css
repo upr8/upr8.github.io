@@ -1,8 +1,106 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
 
-@import './themes.css';
+@import './themes.css' layer(utilities);
+
+@custom-variant dark (&:is(.dark *));
+
+@utility font-body {
+  font-family: var(--font-body);
+}
+
+@utility bg-body {
+  background-color: var(--color-bg-body);
+}
+
+@utility bg-nav {
+  background-color: var(--color-bg-nav);
+}
+
+@utility bg-bq {
+  background-color: var(--color-bg-bq);
+}
+
+@utility bg-table-head {
+  background-color: var(--color-bg-table-head);
+}
+
+@utility bg-table-even {
+  background-color: var(--color-bg-table-even);
+}
+
+@utility bg-table-odd {
+  background-color: var(--color-bg-table-odd);
+}
+
+@utility border-primary {
+  border-color: var(--color-border-primary);
+}
+
+@utility border-secondary {
+  border-color: var(--color-border-secondary);
+}
+
+@utility border-table {
+  border-color: var(--color-border-table);
+}
+
+@utility text-primary {
+  color: var(--color-text-primary);
+}
+
+@utility text-secondary {
+  color: var(--color-text-secondary);
+}
+
+@utility text-accent-primary {
+  color: var(--color-link-primary);
+}
+
+@utility text-accent-hover {
+  color: var(--color-link-hover);
+}
+
+@utility text-accent-active {
+  color: var(--color-link-active);
+}
+
+@utility text-accent-visited {
+  color: var(--color-link-visited);
+}
+
+@utility decoration-accent-primary {
+  text-decoration-color: var(--color-link-primary);
+}
+
+@utility decoration-accent-hover {
+  text-decoration-color: var(--color-link-hover);
+}
+
+@utility ring-accent-primary {
+  --tw-ring-color: var(--color-link-primary);
+}
+
+@utility ring-offset-body {
+  --tw-ring-offset-color: var(--color-bg-body);
+}
+
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+}
 
 /* Prevent layout shift when scrollbar appears */
 html {
@@ -31,7 +129,7 @@ a {
     }
 
     &:focus-visible {
-        @apply outline-none ring-2 ring-accent-primary ring-offset-2 ring-offset-body;
+        @apply outline-hidden ring-2 ring-accent-primary ring-offset-2 ring-offset-body;
     }
 
     /* Visited links */
