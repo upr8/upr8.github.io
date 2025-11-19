@@ -12,7 +12,7 @@ interface Props {
 const TagList: FC<Props> = ({ tags, isCenter = true }) => {
 	return (
 		<ul
-			className={`flex flex-wrap items-baseline mt-2 ms-1 md:mt-0 ${
+			className={`flex flex-wrap items-baseline mt-2 ms-1 @md:mt-0 ${
 				isCenter ? "justify-center" : "justify-start"
 			}`}
 		>

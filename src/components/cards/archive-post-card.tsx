@@ -10,7 +10,7 @@ interface Props {
 }
 
 const ArchivePostCard: FC<Props> = ({ ArchiveNode }) => (
-	<article className="mt-8 md:flex md:items-center ">
+	<article className="mt-8 @md:flex @md:items-center">
 		<div>
 			<time className="inline-block pt-2 text-sm italic text-secondary" dateTime={ArchiveNode.frontmatter?.date || undefined}>
 				{ArchiveNode.frontmatter?.date}
@@ -37,7 +37,7 @@ const ArchivePostCard: FC<Props> = ({ ArchiveNode }) => (
 					className="no-underline hover:underline"
 					aria-label={`Read notes about: ${ArchiveNode.frontmatter?.title}`}
 				>
-					<div className="md:flex">
+					<div className="@md:flex">
 						<p className="text-secondary">{ArchiveNode.frontmatter?.desc}</p>
 						{ArchiveNode.fields?.slugTagList && (
 							<TagList

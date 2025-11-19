@@ -14,7 +14,7 @@ const ArchiveIndexTemplate: FC<Props> = ({ data, pageContext }) => {
 	return (
 		<Layout pageContext={pageContext}>
 			<article>
-				<section className="w-full">
+				<section className="w-full @container">
 					{data.allMdx.edges
 						.filter(({ node }) => node.frontmatter?.lang === pageContext.lang)
 						.map(({ node }) => (
