@@ -1,11 +1,101 @@
 @import 'tailwindcss';
 
-@import './themes.css' layer(utilities);
+@theme {
+  /* Font family */
+  --font-family-body:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    "Helvetica Neue",
+    Arial,
+    "Noto Sans",
+    sans-serif,
+    "Apple Color Emoji",
+    "Segoe UI Emoji",
+    "Segoe UI Symbol",
+    "Noto Color Emoji";
+
+  /* Light theme colors */
+  --color-bg-body-light: #f5f5f5; /* Neutral 100 */
+  --color-bg-nav-light: #bfdbfe;  /* blue 200 */
+  --color-bg-bq-light: #ccc;
+  --color-border-primary-light: #0c4a6e; /* sky 900 */
+  --color-border-secondary-light: #bae6fd; /* sky 200 */
+  --color-text-primary-light: #262626; /* natural 800 */
+  --color-text-secondary-light: #4b5563; /* gray 600 */
+  --color-link-primary-light: #0369a1; /* sky 700 */
+  --color-link-hover-light: #075985; /* sky 800 */
+  --color-link-active-light: #0c4a6e; /* sky 900 */
+  --color-link-visited-light: #6d28d9; /* violet 700 */
+  --color-bg-table-head-light: #cbd5e1; /* slate 300 */
+  --color-bg-table-even-light: #f1f5f9; /* slate 100 */
+  --color-bg-table-odd-light: #f8fafc; /* slate 50 */
+  --color-border-table-light: #334155; /* slate 700 */
+
+  /* Dark theme colors */
+  --color-bg-body-dark: #18181b; /* Neutral 900 */
+  --color-bg-nav-dark: #155e75;  /* Cyan 800 */
+  --color-bg-bq-dark: #222;
+  --color-border-primary-dark: #e0f2fe; /* sky 100 */
+  --color-border-secondary-dark: #075985; /* sky 800 */
+  --color-text-primary-dark: #f5f5f5; /* natural 100 */
+  --color-text-secondary-dark: #d1d5db; /* gray 300 */
+  --color-link-primary-dark: #38bdf8; /* sky 400 */
+  --color-link-hover-dark: #7dd3fc; /* sky 300 */
+  --color-link-active-dark: #0ea5e9; /* sky 500 */
+  --color-link-visited-dark: #a78bfa; /* violet 400 */
+  --color-bg-table-head-dark: #334155; /* slate 700 */
+  --color-bg-table-even-dark: #0f172a; /* slate 900 */
+  --color-bg-table-odd-dark: #020617; /* slate 950 */
+  --color-border-table-dark: #cbd5e1; /* slate 300 */
+}
 
 @custom-variant dark (&:is(.dark *));
 
+/* Set theme-specific CSS variables on the body element */
+@layer base {
+  .body-theme-light {
+    --color-bg-body: var(--color-bg-body-light);
+    --color-bg-nav: var(--color-bg-nav-light);
+    --color-bg-bq: var(--color-bg-bq-light);
+    --color-border-primary: var(--color-border-primary-light);
+    --color-border-secondary: var(--color-border-secondary-light);
+    --color-text-primary: var(--color-text-primary-light);
+    --color-text-secondary: var(--color-text-secondary-light);
+    --color-link-primary: var(--color-link-primary-light);
+    --color-link-hover: var(--color-link-hover-light);
+    --color-link-active: var(--color-link-active-light);
+    --color-link-visited: var(--color-link-visited-light);
+    --color-bg-table-head: var(--color-bg-table-head-light);
+    --color-bg-table-even: var(--color-bg-table-even-light);
+    --color-bg-table-odd: var(--color-bg-table-odd-light);
+    --color-border-table: var(--color-border-table-light);
+  }
+
+  .body-theme-dark {
+    --color-bg-body: var(--color-bg-body-dark);
+    --color-bg-nav: var(--color-bg-nav-dark);
+    --color-bg-bq: var(--color-bg-bq-dark);
+    --color-border-primary: var(--color-border-primary-dark);
+    --color-border-secondary: var(--color-border-secondary-dark);
+    --color-text-primary: var(--color-text-primary-dark);
+    --color-text-secondary: var(--color-text-secondary-dark);
+    --color-link-primary: var(--color-link-primary-dark);
+    --color-link-hover: var(--color-link-hover-dark);
+    --color-link-active: var(--color-link-active-dark);
+    --color-link-visited: var(--color-link-visited-dark);
+    --color-bg-table-head: var(--color-bg-table-head-dark);
+    --color-bg-table-even: var(--color-bg-table-even-dark);
+    --color-bg-table-odd: var(--color-bg-table-odd-dark);
+    --color-border-table: var(--color-border-table-dark);
+  }
+}
+
+/* Theme-aware utilities using the mapped CSS variables */
 @utility font-body {
-  font-family: var(--font-body);
+  font-family: var(--font-family-body);
 }
 
 @utility bg-body {
