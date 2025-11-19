@@ -1,7 +1,6 @@
 import React, { type FC } from "react";
 
 import { SiteContext, Theme, toggleTheme } from "@/states";
-import { toggleDot } from "./theme-switcher.module.css";
 
 const ThemeSwitcher: FC = () => {
 	const { state, dispatch } = React.useContext(SiteContext);
@@ -15,7 +14,7 @@ const ThemeSwitcher: FC = () => {
 			<input
 				id="toggleTheme"
 				type="checkbox"
-				className="hidden"
+				className="hidden peer"
 				onClick={() => dispatch(toggleTheme())}
 				checked={state.theme === Theme.Dark}
 				readOnly
@@ -23,7 +22,7 @@ const ThemeSwitcher: FC = () => {
 			/>
 			<div className="w-10 h-4 rounded-full shadow-inner bg-body" aria-hidden="true" />
 			<div
-				className={`${toggleDot} absolute w-5 h-5 bg-white rounded-full shadow-sm inset-y-0 left-0 flex items-center justify-center`}
+				className="absolute w-5 h-5 rounded-full shadow-sm inset-y-0 left-0 top-[0.1rem] flex items-center justify-center bg-yellow-200 peer-checked:bg-gray-200 peer-checked:translate-x-full transition-all duration-300 ease-in-out"
 				aria-hidden="true"
 			>
 				<span className={`${state.theme === Theme.Light ? "" : "hidden"}`}>

@@ -2,12 +2,6 @@
 
 /*! purgecss start ignore */
 .postBody {
-    @apply mt-2;
-    @apply px-1;
-    @apply text-primary;
-
-    unicode-bidi: bidi-override;
-
     table {
         @apply w-5/6 mx-auto table-auto;
         @apply border border-collapse border-table;
@@ -36,26 +30,18 @@
     }
 
     blockquote {
-        @apply p-2 mx-2 mt-4;
-        @apply shadow-md bg-bq;
-        @apply border-0 border-s-4 border-secondary;
+        @apply p-2 mx-2 mt-4 shadow-md bg-bq border-0 border-s-4 border-secondary;
 
         & :global(p) {
             @apply text-primary;
-
             text-indent: 0;
         }
 
         & > :global(cite) {
-            @apply block;
-            @apply mt-2;
-            @apply ms-16;
-            @apply italic;
-            @apply text-secondary;
+            @apply block mt-2 ms-16 italic text-secondary;
 
             &:global(::before) {
                 content: '-- ';
-
                 @apply text-secondary;
             }
         }
@@ -70,29 +56,24 @@
         @apply flex;
 
         & > :global(a.autolink-hdrs) > span > svg {
-            @apply inline-block;
-            @apply ms-2;
-            @apply w-4 h-4;
-            @apply fill-current text-secondary;
+            @apply inline-block ms-2 w-4 h-4 fill-current text-secondary;
         }
-    }
-
-    /* autolink-headers: end */
-
-    :global(.ltr) {
-        direction: ltr;
     }
 
     /* img: start */
     :global(.gatsby-resp-image-wrapper) {
         img {
-            @apply border-2 border-secondary;
-            @apply shadow-md;
+            @apply border-2 border-secondary shadow-md;
         }
     }
 
     /* img: end */
+    /* LTR override for code blocks */
+    :global(.ltr) {
+        direction: ltr;
+    }
 
+    /* Summary/details elements */
     summary {
         @apply text-blue-400;
     }
