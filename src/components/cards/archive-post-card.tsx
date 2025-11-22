@@ -4,6 +4,7 @@ import { graphql } from "gatsby";
 import Link from "@/components/link";
 import { TagList } from "@/components/tags";
 import { ExternalLink } from "@/components/icons";
+import ContentCard from "./content-card";
 
 interface Props {
 	ArchiveNode: Queries.ArchiveNodeFragment;
@@ -12,14 +13,28 @@ interface Props {
 
 const ArchivePostCard: FC<Props> = ({ ArchiveNode, headingLevel = 2 }) => {
 	const HeadingTag = `h${headingLevel}` as const;
+
+	const descriptionContent = (
+		<p className="text-base leading-relaxed text-secondary">
+			{ArchiveNode.frontmatter?.desc}
+		</p>
+	);
+
+	const tagsContent = ArchiveNode.fields?.slugTagList ? (
+		<TagList tags={ArchiveNode.fields?.slugTagList} isCenter={false} />
+	) : undefined;
+
 	return (
-		<article className="mt-8 @md:flex @md:items-center">
-			<div>
-				<time className="inline-block pt-2 text-sm italic text-secondary" dateTime={ArchiveNode.frontmatter?.date || undefined}>
+		<ContentCard
+			leftColumn={
+				<time
+					className="inline-block text-base font-semibold tracking-wide text-accent-primary"
+					dateTime={ArchiveNode.frontmatter?.date || undefined}
+				>
 					{ArchiveNode.frontmatter?.date}
 				</time>
-			</div>
-			<div className="ps-6 pe-6">
+			}
+			title={
 				<Link
 					to={ArchiveNode.frontmatter?.externalLink || "#"}
 					target="_blank"
@@ -27,39 +42,26 @@ const ArchivePostCard: FC<Props> = ({ ArchiveNode, headingLevel = 2 }) => {
 					variant="card"
 					aria-label={`Visit external link: ${ArchiveNode.frontmatter?.title} (opens in new tab)`}
 				>
-					<HeadingTag className="text-xl font-semibold text-primary group-hover:text-accent-primary transition-colors">
+					<HeadingTag className="text-2xl font-semibold leading-snug text-primary group-hover:text-accent-primary transition-colors mb-2">
 						{ArchiveNode.frontmatter?.title} <ExternalLink />
 					</HeadingTag>
 				</Link>
-				{ArchiveNode.frontmatter?.hasReview ? (
+			}
+			description={
+				ArchiveNode.frontmatter?.hasReview ? (
 					<Link
-						to={
-							(ArchiveNode.frontmatter?.hasReview && ArchiveNode.fields?.slug) ||
-							"#"
-						}
+						to={(ArchiveNode.frontmatter?.hasReview && ArchiveNode.fields?.slug) || "#"}
 						className="no-underline hover:underline"
 						aria-label={`Read notes about: ${ArchiveNode.frontmatter?.title}`}
 					>
-						<div className="@md:flex">
-							<p className="text-secondary">{ArchiveNode.frontmatter?.desc}</p>
-							{ArchiveNode.fields?.slugTagList && (
-								<TagList
-									tags={ArchiveNode.fields?.slugTagList}
-									isCenter={false}
-								/>
-							)}
-						</div>
+						{descriptionContent}
 					</Link>
 				) : (
-					<div className="">
-						<p className="text-secondary">{ArchiveNode.frontmatter?.desc}</p>
-						{ArchiveNode.fields?.slugTagList && (
-							<TagList tags={ArchiveNode.fields?.slugTagList} isCenter={false} />
-						)}
-					</div>
-				)}
-			</div>
-		</article>
+					descriptionContent
+				)
+			}
+			tags={tagsContent}
+		/>
 	);
 };
 

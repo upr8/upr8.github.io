@@ -14,7 +14,7 @@ const LibraryIndexTemplate: FC<Props> = ({ data, pageContext }) => {
 	return (
 		<Layout pageContext={pageContext}>
 			<article>
-				<section className="w-full flex flex-wrap justify-around">
+				<section className="w-full @container">
 					{data.allMdx.edges
 						.filter(({ node }) => node.frontmatter?.lang === pageContext.lang)
 						.map(({ node }) => (
