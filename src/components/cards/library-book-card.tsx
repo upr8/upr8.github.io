@@ -4,6 +4,7 @@ import { graphql } from "gatsby";
 import Link from "@/components/link";
 import { TagList } from "@/components/tags";
 import Stars from "@/components/tags/stars";
+import ContentCard from "./content-card";
 
 interface Props {
 	BookNode: Queries.BookNodeFragment;
@@ -16,48 +17,62 @@ const LibraryBookCard: FC<Props> = ({ BookNode }) => {
 				? `url(${BookNode.frontmatter?.embeddedImagesLocal?.[0].publicURL})`
 				: "",
 	};
+
+	const titleContent = (
+		<h2 className="text-2xl font-semibold leading-snug text-primary mb-2">
+			{BookNode.frontmatter?.title}
+			{BookNode.frontmatter?.rate && (
+				<span className="ml-2 inline-block">
+					<Stars rate={BookNode.frontmatter?.rate} />
+				</span>
+			)}
+		</h2>
+	);
+
 	return (
-		<article
-			className="z-10 flex mx-4 mt-4 overflow-hidden border rounded-lg shadow-md border-primary"
-			style={{
-				width: "24rem",
-				height: "16rem",
-			}}
-			aria-label={`Book: ${BookNode.frontmatter?.title || "Untitled"}`}
-		>
-			<div
-				className="w-64 h-full bg-gray-500 bg-center bg-no-repeat bg-cover"
-				style={coverStyle}
-				role="img"
-				aria-label={`Cover image for ${BookNode.frontmatter?.title || "book"}`}
-			/>
-			<div className="flex flex-col items-center justify-between w-full px-2">
-				<p className="inline-block h-40 mt-2 overflow-hidden text-center text-primary">
+		<ContentCard
+			leftColumn={
+				<>
+					<div
+						className="w-full h-48 @md:w-[120px] @md:h-[180px] bg-gray-400 bg-center bg-no-repeat bg-cover rounded shadow-sm"
+						style={coverStyle}
+						role="img"
+						aria-label={`Cover image for ${BookNode.frontmatter?.title || "book"}`}
+					/>
+					<time
+						className="block mt-2 text-sm font-medium tracking-wide text-accent-primary"
+						dateTime={BookNode.frontmatter?.date || undefined}
+					>
+						{BookNode.frontmatter?.date}
+					</time>
+				</>
+			}
+			title={
+				BookNode.frontmatter?.hasReview ? (
+					<Link
+						to={BookNode.fields?.slug || "#"}
+						variant="card"
+						aria-label={`Read review of ${BookNode.frontmatter?.title}`}
+					>
+						<div className="group-hover:text-accent-primary transition-colors">
+							{titleContent}
+						</div>
+					</Link>
+				) : (
+					titleContent
+				)
+			}
+			description={
+				<p className="text-base leading-relaxed text-secondary">
 					{BookNode.frontmatter?.desc}
 				</p>
-				<time className="inline-block pt-2 text-sm italic text-secondary" dateTime={BookNode.frontmatter?.date || undefined}>
-					Read Date: {BookNode.frontmatter?.date}
-				</time>
-				{BookNode.frontmatter?.rate && (
-					<Stars rate={BookNode.frontmatter?.rate} />
-				)}
-				{BookNode.fields?.slugTagList && (
-					<TagList tags={BookNode.fields?.slugTagList} />
-				)}
-				<div className="h-8">
-					{BookNode.frontmatter?.hasReview && (
-						<Link
-							variant="nav"
-							className="mt-2 font-medium"
-							to={BookNode.fields?.slug || "#"}
-							aria-label={`Read review of ${BookNode.frontmatter?.title || "this book"}`}
-						>
-							Review
-						</Link>
-					)}
-				</div>
-			</div>
-		</article>
+			}
+			tags={
+				BookNode.fields?.slugTagList ? (
+					<TagList tags={BookNode.fields?.slugTagList} isCenter={false} />
+				) : undefined
+			}
+		/>
 	);
 };
 
