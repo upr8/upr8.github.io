@@ -4,6 +4,7 @@ import { type PageProps, graphql } from "gatsby";
 import Layout from "@/components/layout";
 import type { PageContext } from "@/gatsby/types";
 import { LibraryBookCard } from "@/components/cards";
+import ContentIndex from "@/components/content-index";
 
 interface Props extends PageProps {
 	data: Queries.Query;
@@ -13,15 +14,13 @@ interface Props extends PageProps {
 const LibraryIndexTemplate: FC<Props> = ({ data, pageContext }) => {
 	return (
 		<Layout pageContext={pageContext}>
-			<article>
-				<section className="w-full @container">
-					{data.allMdx.edges
-						.filter(({ node }) => node.frontmatter?.lang === pageContext.lang)
-						.map(({ node }) => (
-							<LibraryBookCard key={node.id} BookNode={node} />
-						))}
-				</section>
-			</article>
+			<ContentIndex>
+				{data.allMdx.edges
+					.filter(({ node }) => node.frontmatter?.lang === pageContext.lang)
+					.map(({ node }) => (
+						<LibraryBookCard key={node.id} BookNode={node} />
+					))}
+			</ContentIndex>
 		</Layout>
 	);
 };
