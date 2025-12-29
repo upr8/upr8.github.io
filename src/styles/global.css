@@ -7,6 +7,8 @@
 @theme {
   /* Font family */
   --font-family-body:
+    "IBM Plex Sans Variable",
+    "IBM Plex Sans",
     system-ui,
     -apple-system,
     BlinkMacSystemFont,

@@ -30,6 +30,7 @@
   },
   "license": "MIT",
   "dependencies": {
+    "@fontsource-variable/ibm-plex-sans": "^5.2.8",
     "@mdx-js/react": "^2.3.0",
     "gatsby": "^5.15.0",
     "gatsby-plugin-feed": "^5.15.0",

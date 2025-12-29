@@ -1,3 +1,4 @@
+import "@fontsource-variable/ibm-plex-sans";
 import "./src/styles/global.css";
 
 export { wrapPageElement } from "./src/gatsby/wrap-page-element";
