@@ -1,10 +1,12 @@
 import type { GatsbyConfig } from "gatsby";
 
-import { feeds } from "./src/gatsby/feed-config";
+import { createFeeds } from "./src/gatsby/feed-config";
 
 require("dotenv").config({
 	path: ".env",
 });
+
+const siteUrl = "https://www.asaiyan.com";
 
 const config: GatsbyConfig = {
 	// flags: {
@@ -12,7 +14,7 @@ const config: GatsbyConfig = {
 	// },
 	siteMetadata: {
 		title: "Saeed Asaiyan",
-		siteUrl: "https://www.asaiyan.com",
+		siteUrl,
 		linkedin: "",
 		github: "https://github.com/upr8",
 		enableTableOfContents: false,
@@ -99,7 +101,7 @@ const config: GatsbyConfig = {
 						}
 					}
 				}`,
-				feeds,
+				feeds: createFeeds(siteUrl),
 			},
 		},
 		{
