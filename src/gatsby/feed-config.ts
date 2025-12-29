@@ -28,11 +28,11 @@ const serialize = ({ query: { site, allMdx } }: FeedQuery) =>
 		],
 	}));
 
-const createFeedQuery = (typeFilter: string) => `{
+const createFeedQuery = (typeFilter: string, lang: string) => `{
 	allMdx(
 		limit: 1000,
 		sort: {frontmatter: {date: DESC}},
-		filter: { frontmatter: { type: { ${typeFilter} }, published: { eq: true } } }
+		filter: { frontmatter: { type: { ${typeFilter} }, lang: { eq: "${lang}" }, published: { eq: true } } }
 	) {
 		edges {
 			node {
@@ -44,31 +44,35 @@ const createFeedQuery = (typeFilter: string) => `{
 	}
 }`;
 
-const feeds = [
+const createFeeds = (siteUrl: string) => [
 	{
 		serialize,
-		query: createFeedQuery('in: ["blog", "book", "archive"]'),
-		output: "/rss.xml",
+		query: createFeedQuery('in: ["blog", "book", "archive"]', "en"),
+		output: "/en/rss.xml",
 		title: "Saeed Asaiyan - All Updates",
+		site_url: `${siteUrl}/en`,
 	},
 	{
 		serialize,
-		query: createFeedQuery('eq: "blog"'),
-		output: "/blog/rss.xml",
+		query: createFeedQuery('eq: "blog"', "en"),
+		output: "/en/blog/rss.xml",
 		title: "Saeed Asaiyan - Blog",
+		site_url: `${siteUrl}/en/blog`,
 	},
 	{
 		serialize,
-		query: createFeedQuery('eq: "book"'),
-		output: "/library/rss.xml",
+		query: createFeedQuery('eq: "book"', "en"),
+		output: "/en/library/rss.xml",
 		title: "Saeed Asaiyan - Library",
+		site_url: `${siteUrl}/en/library`,
 	},
 	{
 		serialize,
-		query: createFeedQuery('eq: "archive"'),
-		output: "/archive/rss.xml",
+		query: createFeedQuery('eq: "archive"', "en"),
+		output: "/en/archive/rss.xml",
 		title: "Saeed Asaiyan - Archive",
+		site_url: `${siteUrl}/en/archive`,
 	},
 ];
 
-export { feeds };
+export { createFeeds };
