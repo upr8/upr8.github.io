@@ -18,19 +18,19 @@ export const mdxShortCodes = {
 		<strong className="font-bold" {...props} />
 	),
 	h2: (props: PropsWithChildren) => (
-		<h2 className="pt-3 text-2xl font-semibold" {...props} />
+		<h2 className="pt-3 font-sans text-2xl font-semibold" {...props} />
 	),
 	h3: (props: PropsWithChildren) => (
-		<h3 className="pt-2 text-xl font-semibold" {...props} />
+		<h3 className="pt-2 font-sans text-xl font-semibold" {...props} />
 	),
 	h4: (props: PropsWithChildren) => (
-		<h4 className="pt-2 text-lg font-medium" {...props} />
+		<h4 className="pt-2 font-sans text-lg font-medium" {...props} />
 	),
 	h5: (props: PropsWithChildren) => (
-		<h5 className="pt-2 text-base font-medium" {...props} />
+		<h5 className="pt-2 font-sans text-base font-medium" {...props} />
 	),
 	h6: (props: PropsWithChildren) => (
-		<h6 className="pt-2 text-sm font-medium uppercase tracking-wide" {...props} />
+		<h6 className="pt-2 font-sans text-sm font-medium uppercase tracking-wide" {...props} />
 	),
 	ol: (props: PropsWithChildren) => (
 		<ol className="mt-4 text-start list-decimal ps-6 space-y-2" {...props} />

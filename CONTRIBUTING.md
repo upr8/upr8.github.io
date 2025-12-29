@@ -62,7 +62,7 @@ Standards and best practices for this codebase.
 - Borders: `border-primary`, `border-secondary`, `border-table`
 - Rings: `ring-accent-primary`, `ring-offset-body`
 - Decorations: `decoration-accent-primary`, `decoration-accent-hover`
-- Fonts: `font-body`
+- Fonts: `font-sans` (UI elements), `font-serif` (body text)
 
 ### Container vs Viewport Queries
 
