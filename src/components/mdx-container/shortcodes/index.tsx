@@ -12,7 +12,7 @@ export const mdxShortCodes = {
 	code: CodeWithHighlight,
 	em: (props: PropsWithChildren) => <em className="italic" {...props} />,
 	p: (props: PropsWithChildren) => (
-		<p className="pt-2 leading-relaxed text-justify indent-1" {...props} />
+		<p className="pt-2 leading-relaxed text-start indent-1" {...props} />
 	),
 	strong: (props: PropsWithChildren) => (
 		<strong className="font-bold" {...props} />
@@ -33,10 +33,10 @@ export const mdxShortCodes = {
 		<h6 className="pt-2 text-sm font-semibold" {...props} />
 	),
 	ol: (props: PropsWithChildren) => (
-		<ol className="text-justify list-decimal ps-6 indent-1" {...props} />
+		<ol className="text-start list-decimal ps-6 indent-1" {...props} />
 	),
 	ul: (props: PropsWithChildren) => (
-		<ul className="text-justify list-disc ps-4 indent-1" {...props} />
+		<ul className="text-start list-disc ps-4 indent-1" {...props} />
 	),
 	hr: (props: PropsWithChildren) => (
 		<hr
