@@ -3,6 +3,7 @@ import React, { type FC, useState } from "react";
 import Link from "@/components/link";
 import ThemeSwitcher from "./theme-switcher";
 import { Menu, Close } from "@/components/icons";
+import { useReadingProgress } from "@/hooks/use-reading-progress";
 
 const navItems = [
 	{ to: "/", label: "Home", ariaLabel: "Navigate to home page" },
@@ -14,18 +15,29 @@ const navItems = [
 
 const NavBar: FC = () => {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
+	const progress = useReadingProgress();
 
 	const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 	const closeMenu = () => setIsMenuOpen(false);
 
+	const gradientStyle = {
+		background: `linear-gradient(to right, var(--color-bg-nav-progress) 0%, var(--color-bg-nav-progress) ${progress}%, var(--color-bg-nav) ${progress}%, var(--color-bg-nav) 100%)`,
+	};
+
 	return (
-		<nav aria-label="Main navigation" className="bg-nav">
-			<div className="flex items-center justify-between px-4">
+		<div className="fixed top-0 left-0 right-0 z-40 px-4 sm:px-0">
+			<nav
+				className="transition-[background] duration-150 max-w-full sm:mx-4 lg:max-w-4xl lg:mx-auto"
+				style={gradientStyle}
+				role="navigation"
+				aria-label="Main navigation and reading progress"
+			>
+				<div className="flex items-center justify-between px-4 py-1">
 				{/* Mobile menu button */}
 				<button
 					type="button"
 					onClick={toggleMenu}
-					className="sm:hidden p-2 -ml-2 text-primary hover:text-accent-primary transition-colors"
+					className="sm:hidden p-1 -ml-1 text-primary hover:text-accent-primary transition-colors"
 					aria-expanded={isMenuOpen}
 					aria-controls="mobile-menu"
 					aria-label={isMenuOpen ? "Close menu" : "Open menu"}
@@ -53,7 +65,7 @@ const NavBar: FC = () => {
 			{/* Mobile navigation menu */}
 			<div
 				id="mobile-menu"
-				className={`sm:hidden overflow-hidden transition-all duration-300 ease-in-out ${
+				className={`sm:hidden overflow-hidden transition-all duration-300 ease-in-out bg-nav ${
 					isMenuOpen ? "max-h-64 opacity-100" : "max-h-0 opacity-0"
 				}`}
 			>
@@ -73,7 +85,8 @@ const NavBar: FC = () => {
 					))}
 				</ul>
 			</div>
-		</nav>
+			</nav>
+		</div>
 	);
 };
 
