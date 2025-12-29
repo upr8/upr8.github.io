@@ -5,7 +5,6 @@ import Main from "@/components/main";
 import Footer from "@/components/footer";
 import SEO from "@/components/seo";
 import HtmlHead from "@/components/html-head";
-import ReadingProgress from "@/components/reading-progress";
 import SkipLink from "@/components/skip-link";
 import type { PageContext } from "@/gatsby/types";
 import { SiteContext, Theme } from "@/states";
@@ -44,8 +43,7 @@ const Layout: FC<Props> = ({ pageContext, justSeo = false, children }) => {
 			<HtmlHead pageContext={pageContext} />
 			<SEO pageContext={pageContext} />
 			<SkipLink />
-			<div className="antialiased">
-				<ReadingProgress />
+			<div className="antialiased pt-10">
 				{justSeo ? (
 					<div>{children}</div>
 				) : (
