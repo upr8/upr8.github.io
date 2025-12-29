@@ -6,7 +6,7 @@ interface Props {
 
 const Main: FC<Props> = ({ children }) => {
 	return (
-		<main className="box-border min-w-0 m-0 leading-normal tracking-normal">
+		<main className="box-border min-w-0 m-0 leading-relaxed tracking-normal">
 			{children}
 		</main>
 	);

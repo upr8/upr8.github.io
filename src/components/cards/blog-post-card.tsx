@@ -17,7 +17,7 @@ const BlogPostCard: FC<Props> = ({ BlogNode, headingLevel = 2 }) => {
 		<ContentCard
 			leftColumn={
 				<time
-					className="inline-block text-base font-semibold tracking-wide text-accent-primary"
+					className="inline-block text-sm font-medium tracking-wide text-accent-primary"
 					dateTime={BlogNode.frontmatter?.date || undefined}
 				>
 					{BlogNode.frontmatter?.date}
