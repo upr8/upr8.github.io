@@ -80,7 +80,7 @@
 
     /* Paragraph spacing between consecutive paragraphs */
     p + p {
-        margin-top: 1rem;
+        margin-top: 1.5rem;
     }
 
     /* First paragraph after headings - tighter spacing */

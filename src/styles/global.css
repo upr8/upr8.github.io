@@ -132,6 +132,10 @@
   font-family: var(--font-family-mono);
 }
 
+@utility max-w-prose-relaxed {
+  max-width: 80ch;
+}
+
 @utility bg-body {
   background-color: var(--color-bg-body);
 }

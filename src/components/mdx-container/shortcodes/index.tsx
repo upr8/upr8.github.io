@@ -12,7 +12,7 @@ export const mdxShortCodes = {
 	code: CodeWithHighlight,
 	em: (props: PropsWithChildren) => <em className="italic" {...props} />,
 	p: (props: PropsWithChildren) => (
-		<p className="leading-7 text-start" {...props} />
+		<p className="text-xl leading-8 text-start" {...props} />
 	),
 	strong: (props: PropsWithChildren) => (
 		<strong className="font-bold" {...props} />
