@@ -57,16 +57,16 @@
   --color-bg-table-odd-dark: #020617; /* slate 950 */
   --color-border-table-dark: #cbd5e1; /* slate 300 */
 
-  /* Typography scale (~1.25 ratio) */
-  --font-size-xs: 0.75rem;    /* 12px */
-  --font-size-sm: 0.875rem;   /* 14px */
-  --font-size-base: 1rem;     /* 16px */
-  --font-size-lg: 1.125rem;   /* 18px */
-  --font-size-xl: 1.25rem;    /* 20px */
-  --font-size-2xl: 1.5rem;    /* 24px */
-  --font-size-3xl: 1.875rem;  /* 30px */
-  --font-size-4xl: 2.25rem;   /* 36px */
-  --font-size-5xl: 3rem;      /* 48px */
+  /* Typography scale with fluid sizing (~1.25 ratio) */
+  --font-size-xs: 0.75rem;                              /* 12px - fixed */
+  --font-size-sm: 0.875rem;                             /* 14px - fixed */
+  --font-size-base: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);       /* 16-18px */
+  --font-size-lg: clamp(1.125rem, 1rem + 0.5vw, 1.25rem);          /* 18-20px */
+  --font-size-xl: clamp(1.25rem, 1.1rem + 0.75vw, 1.5rem);         /* 20-24px */
+  --font-size-2xl: clamp(1.5rem, 1.25rem + 1vw, 1.875rem);         /* 24-30px */
+  --font-size-3xl: clamp(1.875rem, 1.5rem + 1.5vw, 2.25rem);       /* 30-36px */
+  --font-size-4xl: clamp(2.25rem, 1.75rem + 2vw, 3rem);            /* 36-48px */
+  --font-size-5xl: clamp(3rem, 2.25rem + 3vw, 4rem);               /* 48-64px */
 
   /* Line heights */
   --leading-tight: 1.25;
@@ -250,6 +250,12 @@
   line-height: var(--leading-relaxed);
 }
 
+@utility prose-readable {
+  max-width: 65ch;
+  font-size: var(--font-size-base);
+  line-height: var(--leading-relaxed);
+}
+
 /* Prevent layout shift when scrollbar appears */
 html {
     scrollbar-gutter: stable;
@@ -294,5 +300,18 @@ a {
 
     &:hover {
         @apply decoration-accent-hover;
+    }
+}
+
+/* Post body typography fixes */
+.postBody {
+    /* Paragraph spacing between consecutive paragraphs */
+    p + p {
+        margin-top: 1rem;
+    }
+
+    /* List item alignment - MDX wraps content in <p>, display inline to align with marker */
+    li > p:first-child {
+        display: inline;
     }
 }
