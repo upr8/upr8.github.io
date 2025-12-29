@@ -12,7 +12,7 @@ export const mdxShortCodes = {
 	code: CodeWithHighlight,
 	em: (props: PropsWithChildren) => <em className="italic" {...props} />,
 	p: (props: PropsWithChildren) => (
-		<p className="pt-2 leading-relaxed text-start indent-1" {...props} />
+		<p className="leading-relaxed text-start" {...props} />
 	),
 	strong: (props: PropsWithChildren) => (
 		<strong className="font-bold" {...props} />
@@ -24,19 +24,19 @@ export const mdxShortCodes = {
 		<h3 className="pt-2 text-xl font-semibold" {...props} />
 	),
 	h4: (props: PropsWithChildren) => (
-		<h4 className="pt-2 text-lg font-semibold" {...props} />
+		<h4 className="pt-2 text-lg font-medium" {...props} />
 	),
 	h5: (props: PropsWithChildren) => (
-		<h5 className="pt-2 text-base font-semibold" {...props} />
+		<h5 className="pt-2 text-base font-medium" {...props} />
 	),
 	h6: (props: PropsWithChildren) => (
-		<h6 className="pt-2 text-sm font-semibold" {...props} />
+		<h6 className="pt-2 text-sm font-medium uppercase tracking-wide" {...props} />
 	),
 	ol: (props: PropsWithChildren) => (
-		<ol className="text-start list-decimal ps-6 indent-1" {...props} />
+		<ol className="mt-4 text-start list-decimal ps-6 space-y-2" {...props} />
 	),
 	ul: (props: PropsWithChildren) => (
-		<ul className="text-start list-disc ps-4 indent-1" {...props} />
+		<ul className="mt-4 text-start list-disc ps-6 space-y-2" {...props} />
 	),
 	hr: (props: PropsWithChildren) => (
 		<hr
