@@ -7,6 +7,7 @@ interface LinkProps extends Omit<GatsbyLinkProps<Record<string, unknown>>, "ref"
 	variant?: LinkVariant;
 	unstyled?: boolean;
 	children: ReactNode;
+	activeClassName?: string;
 }
 
 const variantStyles: Record<LinkVariant, string> = {
@@ -17,18 +18,29 @@ const variantStyles: Record<LinkVariant, string> = {
 	underline: "underline underline-offset-4 decoration-[color-mix(in_srgb,var(--color-link-primary)_50%,transparent)] hover:decoration-accent-hover",
 };
 
+const activeStyles: Partial<Record<LinkVariant, string>> = {
+	nav: "text-accent-primary font-medium",
+};
+
 const Link: FC<LinkProps> = ({
 	variant = "default",
 	unstyled = false,
 	className,
+	activeClassName,
 	children,
 	...props
 }) => {
 	const variantClass = unstyled ? "" : variantStyles[variant];
+	const defaultActiveClass = activeStyles[variant] || "";
+	const finalActiveClass = activeClassName ?? defaultActiveClass;
 	const combinedClassName = [variantClass, className].filter(Boolean).join(" ");
 
 	return (
-		<GatsbyLink {...props} className={combinedClassName || undefined}>
+		<GatsbyLink
+			{...props}
+			className={combinedClassName || undefined}
+			activeClassName={finalActiveClass || undefined}
+		>
 			{children}
 		</GatsbyLink>
 	);
