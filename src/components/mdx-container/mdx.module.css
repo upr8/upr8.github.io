@@ -78,6 +78,15 @@
         @apply text-blue-400;
     }
 
+    /* Paragraph spacing between consecutive paragraphs */
+    p + p {
+        margin-top: 1rem;
+    }
+
+    /* List item alignment - MDX wraps content in <p>, display inline to align with marker */
+    li > p:first-child {
+        display: inline;
+    }
 }
 
 /*! purgecss end ignore */
