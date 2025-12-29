@@ -27,7 +27,10 @@ export const mdxShortCodes = {
 		<h4 className="pt-2 text-lg font-semibold" {...props} />
 	),
 	h5: (props: PropsWithChildren) => (
-		<h4 className="pt-2 text-lg font-semibold" {...props} />
+		<h5 className="pt-2 text-base font-semibold" {...props} />
+	),
+	h6: (props: PropsWithChildren) => (
+		<h6 className="pt-2 text-sm font-semibold" {...props} />
 	),
 	ol: (props: PropsWithChildren) => (
 		<ol className="text-justify list-decimal ps-6 indent-1" {...props} />
