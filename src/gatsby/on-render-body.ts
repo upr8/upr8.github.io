@@ -8,7 +8,7 @@ const HtmlAttributes = {
 };
 
 const BodyAttributes = {
-	className: "bg-body body-lang-english font-body bidi-en",
+	className: "bg-body body-lang-english font-sans bidi-en",
 };
 
 // Critical CSS to inline for faster LCP

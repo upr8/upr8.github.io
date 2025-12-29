@@ -5,8 +5,8 @@
 @source "../{components,templates,pages}/**/*.{ts,tsx}";
 
 @theme {
-  /* Font family */
-  --font-family-body:
+  /* Font families */
+  --font-family-sans:
     "IBM Plex Sans Variable",
     "IBM Plex Sans",
     system-ui,
@@ -22,6 +22,14 @@
     "Segoe UI Emoji",
     "Segoe UI Symbol",
     "Noto Color Emoji";
+
+  --font-family-serif:
+    "IBM Plex Serif",
+    Georgia,
+    Cambria,
+    "Times New Roman",
+    Times,
+    serif;
 
   /* Light theme colors */
   --color-bg-body-light: #f5f5f5; /* Neutral 100 */
@@ -101,8 +109,12 @@
 }
 
 /* Theme-aware utilities using the mapped CSS variables */
-@utility font-body {
-  font-family: var(--font-family-body);
+@utility font-sans {
+  font-family: var(--font-family-sans);
+}
+
+@utility font-serif {
+  font-family: var(--font-family-serif);
 }
 
 @utility bg-body {

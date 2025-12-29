@@ -19,7 +19,7 @@ const HtmlHead: FC<Props> = ({ pageContext }) => {
 					pageContext.lang === Language.English
 						? "body-lang-english"
 						: "body-lang-farsi"
-				} font-body`}
+				} font-sans`}
 			/>
 		</Helmet>
 	);
