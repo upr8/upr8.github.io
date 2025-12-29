@@ -20,7 +20,12 @@ const serialize = ({ query: { site, allMdx } }: FeedQuery) =>
 		description: node.frontmatter?.desc,
 		url: site.siteMetadata.siteUrl + node.fields?.slug,
 		guid: site.siteMetadata.siteUrl + node.fields?.slug,
-		custom_elements: [{ "content:encoded": node?.excerpt }],
+		custom_elements: [
+			{
+				"content:encoded":
+					node.frontmatter?.hasReview === false ? "" : node?.excerpt,
+			},
+		],
 	}));
 
 const createFeedQuery = (typeFilter: string) => `{
@@ -32,7 +37,7 @@ const createFeedQuery = (typeFilter: string) => `{
 		edges {
 			node {
 				fields { slug }
-				frontmatter { date, title, desc }
+				frontmatter { date, title, desc, hasReview }
 				excerpt(pruneLength: 200)
 			}
 		}
