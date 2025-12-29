@@ -22,12 +22,15 @@ const CodeWithHighlight = ({ className, children }: Props) => {
 			wrapLongLines={false}
 			showLineNumbers={false}
 			style={state.theme === Theme.Dark ? darkTheme : lightTheme}
-			customStyle={{ marginTop: "0.5em" }}
+			customStyle={{
+				marginTop: "0.5em",
+				fontFamily: "'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace",
+			}}
 		>
 			{childrenString.trimEnd()}
 		</SyntaxHighlighter>
 	) : (
-		<code className={`bg-nav rounded-md px-1 ${className || ""}`}>{children}</code>
+		<code className={`font-mono bg-nav rounded-md px-1 ${className || ""}`}>{children}</code>
 	);
 };
 
