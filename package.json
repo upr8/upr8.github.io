@@ -39,6 +39,7 @@
     "@fontsource/ibm-plex-mono": "^5.2.7",
     "@fontsource/ibm-plex-serif": "^5.2.7",
     "@shikijs/transformers": "^3.21.0",
+    "@tailwindcss/vite": "^4.1.18",
     "astro": "^5.16.8",
     "rehype-autolink-headings": "^7.1.0",
     "rehype-external-links": "^3.0.0",
@@ -47,10 +48,8 @@
   },
   "devDependencies": {
     "@biomejs/biome": "2.3.10",
-    "@tailwindcss/postcss": "^4.1.18",
     "@types/node": "^24.10.4",
     "gh-pages": "^6.3.0",
-    "postcss": "^8.5.6",
     "tailwindcss": "^4.1.18",
     "typescript": "^5.9.3"
   }
