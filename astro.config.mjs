@@ -1,6 +1,7 @@
 import { defineConfig } from 'astro/config';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
+import tailwindcss from '@tailwindcss/vite';
 import remarkGfm from 'remark-gfm';
 import rehypeSlug from 'rehype-slug';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
@@ -91,8 +92,6 @@ export default defineConfig({
     },
   },
   vite: {
-    css: {
-      postcss: './postcss.config.js',
-    },
+    plugins: [tailwindcss()],
   },
 });
