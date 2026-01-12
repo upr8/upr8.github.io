@@ -1,0 +1,43 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+
+export function getStaticPaths() {
+  return [
+    { params: { lang: 'en' } },
+    { params: { lang: 'fa' } },
+  ];
+}
+
+const { lang } = Astro.params as { lang: 'en' | 'fa' };
+const dir = lang === 'fa' ? 'rtl' : 'ltr';
+
+// Get home page content
+const pages = await getCollection('pages', ({ data, id }) =>
+  data.published && data.lang === lang && id.includes('home')
+);
+
+const homePage = pages[0];
+let Content: any = null;
+
+if (homePage) {
+  const rendered = await render(homePage);
+  Content = rendered.Content;
+}
+---
+
+<BaseLayout
+  title={homePage?.data.title || 'Home'}
+  description={homePage?.data.desc || ''}
+  lang={lang}
+  dir={dir}
+>
+  <article class="post-body prose max-w-prose mt-8">
+    {Content && <Content />}
+    {!Content && (
+      <p class="text-secondary">
+        Welcome! Content coming soon.
+      </p>
+    )}
+  </article>
+</BaseLayout>

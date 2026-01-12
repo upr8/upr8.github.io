@@ -1,0 +1,91 @@
+---
+import ContentCard from './ContentCard.astro';
+import TagList from '../tags/TagList.astro';
+import Stars from '../tags/Stars.astro';
+import type { ImageMetadata } from 'astro';
+
+interface Props {
+  title: string;
+  date: Date;
+  description?: string;
+  slug: string;
+  tags?: string[];
+  rate?: number;
+  hasReview?: boolean;
+  coverImage?: ImageMetadata;
+  lang?: 'en' | 'fa';
+}
+
+const {
+  title,
+  date,
+  description = '',
+  slug,
+  tags = [],
+  rate,
+  hasReview = false,
+  coverImage,
+  lang = 'en',
+} = Astro.props;
+
+const formattedDate = `${date.getFullYear()}/${String(date.getMonth() + 1).padStart(2, '0')}/${String(date.getDate()).padStart(2, '0')}`;
+const postUrl = `/${lang}/${slug}`;
+const coverStyle = coverImage ? `background-image: url(${coverImage.src})` : '';
+---
+
+<ContentCard>
+  <Fragment slot="left">
+    <div
+      class="w-full h-48 @md:w-[120px] @md:h-[180px] bg-gray-400 bg-center bg-no-repeat bg-cover rounded shadow-sm"
+      style={coverStyle}
+      role="img"
+      aria-label={`Cover image for ${title}`}
+    />
+    <time
+      class="block mt-2 text-sm font-medium tracking-wide text-accent-primary"
+      datetime={date.toISOString()}
+    >
+      {formattedDate}
+    </time>
+  </Fragment>
+
+  <Fragment slot="title">
+    {hasReview ? (
+      <a
+        href={postUrl}
+        class="group no-underline"
+        aria-label={`Read review of ${title}`}
+      >
+        <h2 class="text-2xl font-semibold leading-snug text-primary group-hover:text-accent-primary transition-colors mb-2">
+          {title}
+          {rate && (
+            <span class="ml-2 inline-block">
+              <Stars rate={rate} />
+            </span>
+          )}
+        </h2>
+      </a>
+    ) : (
+      <h2 class="text-2xl font-semibold leading-snug text-primary mb-2">
+        {title}
+        {rate && (
+          <span class="ml-2 inline-block">
+            <Stars rate={rate} />
+          </span>
+        )}
+      </h2>
+    )}
+  </Fragment>
+
+  {description && (
+    <p slot="description" class="text-base leading-relaxed text-secondary">
+      {description}
+    </p>
+  )}
+
+  {tags.length > 0 && (
+    <div slot="tags">
+      <TagList tags={tags} lang={lang} />
+    </div>
+  )}
+</ContentCard>

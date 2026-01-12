@@ -1,0 +1,61 @@
+---
+import ContentCard from './ContentCard.astro';
+import TagList from '../tags/TagList.astro';
+
+interface Props {
+  title: string;
+  date: Date;
+  description?: string;
+  slug: string;
+  tags?: string[];
+  lang?: 'en' | 'fa';
+  headingLevel?: 2 | 3;
+}
+
+const {
+  title,
+  date,
+  description = '',
+  slug,
+  tags = [],
+  lang = 'en',
+  headingLevel = 2,
+} = Astro.props;
+
+const HeadingTag = `h${headingLevel}` as const;
+const formattedDate = `${date.getFullYear()}/${String(date.getMonth() + 1).padStart(2, '0')}/${String(date.getDate()).padStart(2, '0')}`; // YYYY/MM/DD format
+const postUrl = `/${lang}/${slug}`;
+---
+
+<ContentCard>
+  <time
+    slot="left"
+    class="inline-block text-sm font-medium tracking-wide text-accent-primary"
+    datetime={date.toISOString()}
+  >
+    {formattedDate}
+  </time>
+
+  <a
+    slot="title"
+    href={postUrl}
+    class="group no-underline"
+    aria-label={`Read blog post: ${title}`}
+  >
+    <HeadingTag class="text-2xl font-semibold leading-snug text-primary group-hover:text-accent-primary transition-colors mb-2">
+      {title}
+    </HeadingTag>
+  </a>
+
+  {description && (
+    <p slot="description" class="text-base leading-relaxed text-secondary">
+      {description}
+    </p>
+  )}
+
+  {tags.length > 0 && (
+    <div slot="tags">
+      <TagList tags={tags} lang={lang} isCenter={false} />
+    </div>
+  )}
+</ContentCard>

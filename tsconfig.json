@@ -1,40 +1,15 @@
 {
+  "extends": "astro/tsconfigs/strict",
   "compilerOptions": {
-    "target": "esnext",
-    "lib": [
-      "dom",
-      "esnext"
-    ],
-    "jsx": "react",
-    "module": "esnext",
-    "moduleResolution": "node",
-    "baseUrl": "./",
+    "baseUrl": ".",
     "paths": {
-      "@/components": ["src/components"],
+      "@/*": ["src/*"],
       "@/components/*": ["src/components/*"],
-      "@/gatsby": ["src/gatsby"],
-      "@/gatsby/*": ["src/gatsby/*"],
-      "@/hooks": ["src/hooks"],
-      "@/hooks/*": ["src/hooks/*"],
-      "@/states": ["src/states"],
-      "@/states/*": ["src/states/*"],
-      "@/styles": ["src/styles"],
-      "@/styles/*": ["src/styles/*"],
-      "@/utils": ["src/utils"],
-      "@/utils/*": ["src/utils/*"],      
+      "@/layouts/*": ["src/layouts/*"],
+      "@/utils/*": ["src/utils/*"],
+      "@/styles/*": ["src/styles/*"]
     },
-    "types": ["vitest/globals"],
-    "resolveJsonModule": true,
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "strict": true,
-    "plugins": [{ "name": "typescript-plugin-css-modules" }],
-    "skipLibCheck": true
+    "types": ["vitest/globals"]
   },
-  "include": [
-    "./src/**/*",
-    "./gatsby-node.ts",
-    "./gatsby-config.ts",
-    "./plugins/**/*"
-  ]
+  "include": ["src/**/*", "astro.config.mjs"]
 }

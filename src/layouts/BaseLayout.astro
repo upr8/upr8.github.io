@@ -1,0 +1,64 @@
+---
+import '@fontsource-variable/ibm-plex-sans';
+import '@fontsource/ibm-plex-mono';
+import '@fontsource/ibm-plex-serif';
+import '@/styles/global.css';
+import '@/styles/prose.css';
+import '@/styles/code.css';
+
+import BaseHead from '@/components/BaseHead.astro';
+import SkipLink from '@/components/SkipLink.astro';
+import Header from '@/components/Header.astro';
+import Main from '@/components/Main.astro';
+import Footer from '@/components/Footer.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+  lang?: 'en' | 'fa';
+  dir?: 'ltr' | 'rtl';
+  justContent?: boolean;
+}
+
+const {
+  title,
+  description = '',
+  lang = 'en',
+  dir = lang === 'fa' ? 'rtl' : 'ltr',
+  justContent = false,
+} = Astro.props;
+
+const bodyClass = `bg-body font-sans ${lang === 'en' ? 'body-lang-english' : 'body-lang-farsi'}`;
+---
+
+<!doctype html>
+<html lang={lang} dir={dir}>
+  <head>
+    <BaseHead title={title} description={description} lang={lang} />
+  </head>
+  <body class={bodyClass}>
+    <script is:inline>
+      // Set body theme class (html element already has dark class from head script)
+      (function() {
+        const theme = document.documentElement.dataset.theme || 'light';
+        document.body.classList.add(`body-theme-${theme}`);
+      })();
+    </script>
+    <SkipLink />
+    <div class="antialiased pt-10">
+      {justContent ? (
+        <div>
+          <slot />
+        </div>
+      ) : (
+        <div class="box-border max-w-full px-4 sm:mx-4 lg:max-w-4xl lg:mx-auto">
+          <Header pageTitle={title} pageSubtitle={description} lang={lang} />
+          <Main>
+            <slot />
+          </Main>
+          <Footer lang={lang} />
+        </div>
+      )}
+    </div>
+  </body>
+</html>

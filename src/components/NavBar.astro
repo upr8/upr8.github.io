@@ -1,0 +1,150 @@
+---
+import ThemeSwitcher from './ThemeSwitcher.astro';
+import Menu from './icons/Menu.astro';
+import Close from './icons/Close.astro';
+
+interface Props {
+  lang?: 'en' | 'fa';
+}
+
+const { lang = 'en' } = Astro.props;
+
+const navItems = [
+  { to: '/', label: 'Home', ariaLabel: 'Navigate to home page' },
+  { to: `/${lang}/blog`, label: 'Blog', ariaLabel: 'Navigate to blog posts' },
+  { to: `/${lang}/library`, label: 'Library', ariaLabel: 'Navigate to library and book reviews' },
+  { to: `/${lang}/archive`, label: 'Archive', ariaLabel: 'Navigate to curated archives' },
+  { to: `/${lang}/about`, label: 'About', ariaLabel: 'Navigate to about page' },
+];
+---
+
+<div class="fixed top-0 left-0 right-0 z-40 px-4 sm:px-0">
+  <nav
+    id="main-nav"
+    class="transition-[background] duration-150 max-w-full sm:mx-4 lg:max-w-4xl lg:mx-auto bg-nav"
+    role="navigation"
+    aria-label="Main navigation and reading progress"
+  >
+    <div class="flex items-center justify-between px-4 py-1">
+      <!-- Mobile menu button -->
+      <button
+        type="button"
+        id="mobile-menu-button"
+        class="sm:hidden p-1 -ml-1 text-primary hover:text-accent-primary transition-colors"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        aria-label="Open menu"
+      >
+        <span id="menu-icon"><Menu /></span>
+        <span id="close-icon" class="hidden"><Close /></span>
+      </button>
+
+      <!-- Desktop navigation -->
+      <ul class="hidden sm:flex sm:items-center sm:gap-6 text-primary">
+        {navItems.map((item) => (
+          <li>
+            <a
+              href={item.to}
+              class="no-underline hover:text-accent-primary transition-colors"
+              aria-label={item.ariaLabel}
+            >
+              {item.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+
+      <!-- Theme switcher - always visible -->
+      <div class="flex items-center">
+        <ThemeSwitcher />
+      </div>
+    </div>
+
+    <!-- Mobile navigation menu -->
+    <div
+      id="mobile-menu"
+      class="sm:hidden overflow-hidden transition-all duration-300 ease-in-out bg-nav max-h-0 opacity-0"
+    >
+      <ul class="flex flex-col px-4 pb-4 pt-2 space-y-2 text-primary">
+        {navItems.map((item) => (
+          <li>
+            <a
+              href={item.to}
+              class="block py-2 no-underline hover:text-accent-primary transition-colors mobile-nav-link"
+              aria-label={item.ariaLabel}
+            >
+              {item.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </nav>
+</div>
+
+<script>
+  function initNavBar() {
+    const nav = document.getElementById('main-nav');
+    const menuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const menuIcon = document.getElementById('menu-icon');
+    const closeIcon = document.getElementById('close-icon');
+    const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+    if (!nav || !menuButton || !mobileMenu || !menuIcon || !closeIcon) return;
+
+    let isMenuOpen = false;
+
+    // Toggle mobile menu
+    menuButton.addEventListener('click', () => {
+      isMenuOpen = !isMenuOpen;
+      updateMenuState();
+    });
+
+    // Close menu when clicking a link
+    mobileNavLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        isMenuOpen = false;
+        updateMenuState();
+      });
+    });
+
+    function updateMenuState() {
+      if (isMenuOpen) {
+        mobileMenu.classList.remove('max-h-0', 'opacity-0');
+        mobileMenu.classList.add('max-h-64', 'opacity-100');
+        menuIcon.classList.add('hidden');
+        closeIcon.classList.remove('hidden');
+        menuButton.setAttribute('aria-expanded', 'true');
+        menuButton.setAttribute('aria-label', 'Close menu');
+      } else {
+        mobileMenu.classList.add('max-h-0', 'opacity-0');
+        mobileMenu.classList.remove('max-h-64', 'opacity-100');
+        menuIcon.classList.remove('hidden');
+        closeIcon.classList.add('hidden');
+        menuButton.setAttribute('aria-expanded', 'false');
+        menuButton.setAttribute('aria-label', 'Open menu');
+      }
+    }
+
+    // Reading progress indicator
+    function updateProgress() {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight;
+      const winHeight = window.innerHeight;
+      const scrollable = docHeight - winHeight;
+      const progress = scrollable > 0 ? (scrollTop / scrollable) * 100 : 0;
+
+      nav.style.background = `linear-gradient(to right, var(--color-bg-nav-progress) 0%, var(--color-bg-nav-progress) ${progress}%, var(--color-bg-nav) ${progress}%, var(--color-bg-nav) 100%)`;
+    }
+
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
+  }
+
+  // Initialize on page load
+  initNavBar();
+
+  // Re-initialize on Astro page transitions
+  document.addEventListener('astro:after-swap', initNavBar);
+</script>

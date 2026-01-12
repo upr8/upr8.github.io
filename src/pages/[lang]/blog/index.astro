@@ -1,0 +1,54 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import BlogPostCard from '@/components/cards/BlogPostCard.astro';
+
+export function getStaticPaths() {
+  return [
+    { params: { lang: 'en' } },
+    { params: { lang: 'fa' } },
+  ];
+}
+
+const { lang } = Astro.params as { lang: 'en' | 'fa' };
+const dir = lang === 'fa' ? 'rtl' : 'ltr';
+
+// Get all published blog posts for this language
+const posts = await getCollection('blog', ({ data }) =>
+  data.published && data.lang === lang
+);
+
+// Sort by date descending
+posts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+// Extract slug from the content path (remove index.{lang} suffix)
+function getSlug(id: string): string {
+  // id looks like "bash-cheatsheet/index.en" or "bash-cheatsheet/index.fa"
+  const parts = id.split('/');
+  return parts[0];
+}
+---
+
+<BaseLayout
+  title="/dev/log"
+  description="List of Blog posts"
+  lang={lang}
+  dir={dir}
+>
+  <div class="@container mt-8">
+    {posts.length > 0 ? (
+      posts.map((post) => (
+        <BlogPostCard
+          title={post.data.title}
+          date={post.data.date}
+          description={post.data.desc}
+          slug={getSlug(post.id)}
+          tags={post.data.tags}
+          lang={lang}
+        />
+      ))
+    ) : (
+      <p class="text-secondary text-center py-8">No blog posts yet.</p>
+    )}
+  </div>
+</BaseLayout>

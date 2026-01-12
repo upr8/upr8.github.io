@@ -1,0 +1,56 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import LibraryBookCard from '@/components/cards/LibraryBookCard.astro';
+
+export function getStaticPaths() {
+  return [
+    { params: { lang: 'en' } },
+    { params: { lang: 'fa' } },
+  ];
+}
+
+const { lang } = Astro.params as { lang: 'en' | 'fa' };
+const dir = lang === 'fa' ? 'rtl' : 'ltr';
+
+// Get all published library items for this language
+const books = await getCollection('library', ({ data }) =>
+  data.published && data.lang === lang
+);
+
+// Sort by date descending
+books.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+// Extract slug from the content path
+function getSlug(id: string): string {
+  const parts = id.split('/');
+  return parts[0];
+}
+---
+
+<BaseLayout
+  title="$> ldconfig -p"
+  description="List of book that I read"
+  lang={lang}
+  dir={dir}
+>
+  <div class="@container mt-8">
+    {books.length > 0 ? (
+      books.map((book) => (
+        <LibraryBookCard
+          title={book.data.title}
+          date={book.data.date}
+          description={book.data.desc}
+          slug={getSlug(book.id)}
+          tags={book.data.tags}
+          rate={book.data.rate}
+          hasReview={book.data.hasReview}
+          coverImage={book.data.embeddedImagesLocal?.[0]}
+          lang={lang}
+        />
+      ))
+    ) : (
+      <p class="text-secondary text-center py-8">No books yet.</p>
+    )}
+  </div>
+</BaseLayout>

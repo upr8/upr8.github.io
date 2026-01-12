@@ -1,0 +1,61 @@
+/**
+ * Code Block Styles
+ * Shiki syntax highlighting, copy button, and transformer styles
+ */
+@reference "./global.css";
+
+/* Shiki dual theme switching */
+.astro-code, .astro-code span {
+    color: var(--shiki-light) !important;
+    background-color: var(--shiki-light-bg) !important;
+}
+
+.body-theme-dark :is(.astro-code, .astro-code span) {
+    color: var(--shiki-dark) !important;
+    background-color: var(--shiki-dark-bg) !important;
+}
+
+/* Code blocks in post body */
+.post-body {
+    pre {
+        @apply relative p-4 my-4 overflow-x-auto rounded-lg;
+        code { @apply bg-transparent p-0; }
+
+        /* Language label */
+        &[data-language]::before {
+            content: attr(data-language);
+            @apply absolute top-0 right-10 px-2 py-1 text-xs font-mono uppercase tracking-wide text-secondary opacity-70;
+        }
+
+        /* Copy button */
+        .copy-button {
+            @apply absolute top-1 right-1 p-1.5 rounded opacity-0 transition-opacity cursor-pointer border-0 bg-transparent text-secondary;
+            &:hover { @apply opacity-100 text-primary; }
+            &.copied { @apply opacity-100 text-green-500; }
+        }
+        &:hover .copy-button { @apply opacity-70; }
+
+        /* Transformer: Diff lines */
+        .line.diff {
+            &.add {
+                @apply bg-green-500/20;
+                &::before { content: '+'; @apply absolute left-1 text-green-500; }
+            }
+            &.remove {
+                @apply bg-red-500/20;
+                &::before { content: '-'; @apply absolute left-1 text-red-500; }
+            }
+        }
+
+        /* Transformer: Highlighted lines */
+        .line.highlighted { @apply bg-yellow-500/20; }
+
+        /* Transformer: Focused lines */
+        &:has(.line.focused) {
+            .line:not(.focused) { @apply opacity-40 transition-opacity; }
+            &:hover .line:not(.focused) { @apply opacity-100; }
+        }
+    }
+
+    code { @apply px-1 py-0.5 rounded text-sm bg-nav font-mono; }
+}

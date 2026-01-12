@@ -1,0 +1,23 @@
+---
+interface Props {
+  class?: string;
+}
+
+const { class: className = '' } = Astro.props;
+---
+
+<article class={`mt-6 mb-6 @md:flex @md:gap-6 ${className}`}>
+  <div class="@md:min-w-[120px]">
+    <slot name="left" />
+  </div>
+  <div class="flex-1 mt-2 @md:mt-0">
+    <slot name="title" />
+    <div class="space-y-3">
+      <slot name="description" />
+      <slot name="tags" />
+    </div>
+    <div class="mt-3">
+      <slot name="footer" />
+    </div>
+  </div>
+</article>
