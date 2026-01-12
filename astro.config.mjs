@@ -89,6 +89,7 @@ export default defineConfig({
     locales: ['en', 'fa'],
     routing: {
       prefixDefaultLocale: true,
+      redirectToDefaultLocale: false,
     },
   },
   vite: {
