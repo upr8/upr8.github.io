@@ -1,6 +1,5 @@
-export { default as ExternalLink } from "./external-link";
-export { default as Linkedin } from "./linkedin";
-export { default as Github } from "./github";
-export { default as Menu } from "./menu";
-export { default as Close } from "./close";
-export { default as Rss } from "./rss";
+export { default as ExternalLink } from "./ExternalLink.astro";
+export { default as Github } from "./Github.astro";
+export { default as Menu } from "./Menu.astro";
+export { default as Close } from "./Close.astro";
+export { default as Rss } from "./Rss.astro";

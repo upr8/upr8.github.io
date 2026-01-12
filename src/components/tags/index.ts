@@ -1,1 +1,1 @@
-export { default as TagList } from "./tag-list";
+export { default as TagList } from "./TagList.astro";

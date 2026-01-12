@@ -7,9 +7,9 @@
       "@/components/*": ["src/components/*"],
       "@/layouts/*": ["src/layouts/*"],
       "@/utils/*": ["src/utils/*"],
-      "@/styles/*": ["src/styles/*"]
-    },
-    "types": ["vitest/globals"]
+      "@/styles/*": ["src/styles/*"],
+      "@/types": ["src/content/types.ts"]
+    }
   },
   "include": ["src/**/*", "astro.config.mjs"]
 }

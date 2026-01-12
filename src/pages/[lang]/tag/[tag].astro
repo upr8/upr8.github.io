@@ -1,5 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
+import type { BlogEntry, LibraryEntry, ArchiveEntry } from '@/types';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import BlogPostCard from '@/components/cards/BlogPostCard.astro';
 import LibraryBookCard from '@/components/cards/LibraryBookCard.astro';
@@ -11,14 +12,14 @@ export async function getStaticPaths() {
 
   for (const lang of langs) {
     // Get all content and collect unique tags
-    const blogs = await getCollection('blog', ({ data }) =>
-      data.published && data.lang === lang
+    const blogs = await getCollection('blog', (entry: BlogEntry) =>
+      entry.data.published && entry.data.lang === lang
     );
-    const library = await getCollection('library', ({ data }) =>
-      data.published && data.lang === lang
+    const library = await getCollection('library', (entry: LibraryEntry) =>
+      entry.data.published && entry.data.lang === lang
     );
-    const archives = await getCollection('archive', ({ data }) =>
-      data.published && data.lang === lang
+    const archives = await getCollection('archive', (entry: ArchiveEntry) =>
+      entry.data.published && entry.data.lang === lang
     );
 
     const allTags = new Set<string>();
@@ -43,22 +44,23 @@ const { lang, tag } = Astro.params as { lang: 'en' | 'fa'; tag: string };
 const dir = lang === 'fa' ? 'rtl' : 'ltr';
 
 // Get all content with this tag
-const blogs = await getCollection('blog', ({ data }) =>
-  data.published && data.lang === lang && data.tags?.includes(tag)
+const blogs = await getCollection('blog', (entry: BlogEntry) =>
+  entry.data.published && entry.data.lang === lang && entry.data.tags?.includes(tag)
 );
 
-const library = await getCollection('library', ({ data }) =>
-  data.published && data.lang === lang && data.tags?.includes(tag)
+const library = await getCollection('library', (entry: LibraryEntry) =>
+  entry.data.published && entry.data.lang === lang && entry.data.tags?.includes(tag)
 );
 
-const archives = await getCollection('archive', ({ data }) =>
-  data.published && data.lang === lang && data.tags?.includes(tag)
+const archives = await getCollection('archive', (entry: ArchiveEntry) =>
+  entry.data.published && entry.data.lang === lang && entry.data.tags?.includes(tag)
 );
 
 // Sort all by date
-blogs.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
-library.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
-archives.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+blogs.sort((a: BlogEntry, b: BlogEntry) => b.data.date.getTime() - a.data.date.getTime());
+library.sort((a: LibraryEntry, b: LibraryEntry) => b.data.date.getTime() - a.data.date.getTime());
+archives.sort((a: ArchiveEntry, b: ArchiveEntry) => b.data.date.getTime() - a.data.date.getTime());
 
 function getSlug(id: string): string {
   return id.split('/')[0];
@@ -81,7 +83,7 @@ const hasContent = blogs.length > 0 || library.length > 0 || archives.length > 0
     {blogs.length > 0 && (
       <section>
         <h2 class="text-xl font-semibold text-primary mb-4">Blog Posts</h2>
-        {blogs.map((post) => (
+        {blogs.map((post: BlogEntry) => (
           <BlogPostCard
             title={post.data.title}
             date={post.data.date}
@@ -98,7 +100,7 @@ const hasContent = blogs.length > 0 || library.length > 0 || archives.length > 0
     {library.length > 0 && (
       <section class="mt-8">
         <h2 class="text-xl font-semibold text-primary mb-4">Books</h2>
-        {library.map((book) => (
+        {library.map((book: LibraryEntry) => (
           <LibraryBookCard
             title={book.data.title}
             date={book.data.date}
@@ -117,7 +119,7 @@ const hasContent = blogs.length > 0 || library.length > 0 || archives.length > 0
     {archives.length > 0 && (
       <section class="mt-8">
         <h2 class="text-xl font-semibold text-primary mb-4">Archived Links</h2>
-        {archives.map((item) => (
+        {archives.map((item: ArchiveEntry) => (
           <ArchivePostCard
             title={item.data.title}
             date={item.data.date}

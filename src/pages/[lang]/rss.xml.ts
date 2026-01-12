@@ -1,6 +1,7 @@
 import rss from '@astrojs/rss';
 import { getCollection } from 'astro:content';
 import type { APIContext } from 'astro';
+import type { BlogEntry, LibraryEntry, ContentEntry } from '@/types';
 
 export function getStaticPaths() {
   return [{ params: { lang: 'en' } }, { params: { lang: 'fa' } }];
@@ -10,14 +11,16 @@ export async function GET(context: APIContext) {
   const lang = context.params.lang as 'en' | 'fa';
 
   // Get all published content for this language
-  const blogs = await getCollection('blog', ({ data }) => data.published && data.lang === lang);
-  const library = await getCollection('library', ({ data }) =>
-    data.published && data.lang === lang && data.hasReview
+  const blogs = await getCollection('blog', (entry: BlogEntry) =>
+    entry.data.published && entry.data.lang === lang
+  );
+  const library = await getCollection('library', (entry: LibraryEntry) =>
+    entry.data.published && entry.data.lang === lang && entry.data.hasReview
   );
 
   // Combine and sort by date
   const allContent = [...blogs, ...library].sort(
-    (a, b) => b.data.date.getTime() - a.data.date.getTime()
+    (a: ContentEntry, b: ContentEntry) => b.data.date.getTime() - a.data.date.getTime()
   );
 
   // Extract slug from id
