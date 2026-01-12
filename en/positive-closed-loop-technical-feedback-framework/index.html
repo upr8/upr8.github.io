@@ -1,0 +1,231 @@
+<!DOCTYPE html><html lang="en" dir="ltr"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="generator" content="Astro v5.16.8"><title>Building a Positive Closed-Loop Technical Feedback Framework | Saeed Asaiyan</title><meta name="description" content="How to Provide Systematic and Positive Technical Feedback that Improves Performance Over Time"><link rel="canonical" href="https://www.asaiyan.com/en/positive-closed-loop-technical-feedback-framework/"><!-- Favicon --><link rel="icon" type="image/svg+xml" href="/images/favicon/favicon.svg"><!-- Open Graph / Facebook --><meta property="og:type" content="website"><meta property="og:url" content="https://www.asaiyan.com/en/positive-closed-loop-technical-feedback-framework/"><meta property="og:title" content="Building a Positive Closed-Loop Technical Feedback Framework"><meta property="og:description" content="How to Provide Systematic and Positive Technical Feedback that Improves Performance Over Time"><meta property="og:locale" content="en_US"><!-- Twitter --><meta name="twitter:card" content="summary"><meta name="twitter:title" content="Building a Positive Closed-Loop Technical Feedback Framework"><meta name="twitter:description" content="How to Provide Systematic and Positive Technical Feedback that Improves Performance Over Time"><meta name="twitter:site" content="https://www.asaiyan.com/en/positive-closed-loop-technical-feedback-framework/"><!-- Prevent FLoC tracking --><meta http-equiv="Permissions-Policy" content="interest-cohort=()"><!-- RSS Feed --><link rel="alternate" type="application/rss+xml" title="Saeed Asaiyan" href="/en/rss.xml"><!-- Sitemap --><link rel="sitemap" href="/sitemap-index.xml"><!-- Theme initialization script - runs before page render to prevent flash --><script>
+  (function() {
+    const stored = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const theme = stored || (prefersDark ? 'dark' : 'light');
+
+    // Set dark class on html element (body doesn't exist yet)
+    document.documentElement.classList.toggle('dark', theme === 'dark');
+    // Store theme for body script to use
+    document.documentElement.dataset.theme = theme;
+  })();
+</script><link rel="stylesheet" href="/_astro/_slug_.DxWS4iZI.css"><script type="module" src="/_astro/page.sJrt8mpm.js"></script></head> <body class="bg-body font-sans body-lang-english"> <script>
+      // Set body theme class (html element already has dark class from head script)
+      (function() {
+        const theme = document.documentElement.dataset.theme || 'light';
+        document.body.classList.add(`body-theme-${theme}`);
+      })();
+    </script> <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:px-4 focus:py-2 focus:bg-nav focus:text-primary focus:rounded focus:outline-2 focus:outline-offset-2 focus:outline-accent-primary">
+Skip to main content
+</a> <div class="antialiased pt-10"> <div class="box-border max-w-full px-4 sm:mx-4 lg:max-w-4xl lg:mx-auto"> <header class="border-b-2 border-primary"> <div class="fixed top-0 left-0 right-0 z-40 px-4 sm:px-0"> <nav id="main-nav" class="transition-[background] duration-150 max-w-full sm:mx-4 lg:max-w-4xl lg:mx-auto bg-nav" role="navigation" aria-label="Main navigation and reading progress"> <div class="flex items-center justify-between px-4 py-1"> <!-- Mobile menu button --> <button type="button" id="mobile-menu-button" class="sm:hidden p-1 -ml-1 text-primary hover:text-accent-primary transition-colors" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu"> <span id="menu-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6" aria-hidden="true"> <title>Menu</title> <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"></path> </svg></span> <span id="close-icon" class="hidden"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6" aria-hidden="true"> <title>Close</title> <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"></path> </svg></span> </button> <!-- Desktop navigation --> <ul class="hidden sm:flex sm:items-center sm:gap-6 text-primary"> <li> <a href="/" class="no-underline hover:text-accent-primary transition-colors" aria-label="Navigate to home page"> Home </a> </li><li> <a href="/en/blog" class="no-underline hover:text-accent-primary transition-colors" aria-label="Navigate to blog posts"> Blog </a> </li><li> <a href="/en/library" class="no-underline hover:text-accent-primary transition-colors" aria-label="Navigate to library and book reviews"> Library </a> </li><li> <a href="/en/archive" class="no-underline hover:text-accent-primary transition-colors" aria-label="Navigate to curated archives"> Archive </a> </li><li> <a href="/en/about" class="no-underline hover:text-accent-primary transition-colors" aria-label="Navigate to about page"> About </a> </li> </ul> <!-- Theme switcher - always visible --> <div class="flex items-center"> <label for="toggleTheme" class="relative flex items-center justify-center pt-1 cursor-pointer" id="theme-switcher-label"> <input id="toggleTheme" type="checkbox" class="hidden peer" aria-label="Toggle theme"> <div class="w-10 h-4 rounded-full shadow-inner bg-body" aria-hidden="true"></div> <div id="theme-indicator" class="absolute w-5 h-5 rounded-full shadow-sm inset-y-0 left-0 top-[0.1rem] flex items-center justify-center bg-yellow-200 peer-checked:bg-gray-200 peer-checked:translate-x-full transition-all duration-300 ease-in-out" aria-hidden="true"> <!-- Sun icon --> <span id="sun-icon"> <svg class="w-3 h-3 text-yellow-800 fill-current" viewBox="0 0 2267 2267" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"> <title>Sun icon for light theme</title> <path d="M0 1133q0-39 27-66 28-26 64-26h218q37 0 61.5 27t24.5 65-24.5 64.5T309 1224H91q-37 0-64-27t-27-64zm305 739q0-37 25-65l157-152q24-25 63-25 38 0 63.5 24t25.5 61q0 39-26 68l-152 152q-65 51-131 0-25-27-25-63zm0-1477q0-37 25-65 31-26 68-26 35 0 63 26l152 157q26 24 26 63 0 38-25.5 63.5T550 639q-39 0-63-26L330 461q-25-27-25-66zm272 738q0-149 75-277.5T855.5 652t277.5-75q112 0 215 44.5t177.5 119T1644 918t44 215q0 150-74.5 278T1411 1613.5t-278 74.5-278-74.5T652 1411t-75-278zm181 0q0 156 109.5 266.5T1133 1510t266.5-110.5T1510 1133q0-154-110.5-263T1133 761q-155 0-265 109t-110 263zm284 829q0-38 26.5-64t64.5-26q39 0 65 26t26 64v212q0 39-26.5 66t-64.5 27-64.5-27-26.5-66v-212zm0-1653V91q0-37 27-64t64-27 64 27 27 64v218q0 37-26.5 61.5T1133 395t-64.5-24.5T1042 309zm589 1406q0-37 24-60 24-25 60-25 39 0 64 25l156 152q26 28 26 65t-26 63q-64 50-128 0l-152-152q-24-27-24-68zm0-1165q0-40 24-63l152-157q28-26 63-26 38 0 64.5 27t26.5 64q0 40-26 66l-156 152q-29 26-64 26-36 0-60-25.5t-24-63.5zm241 583q0-38 26-66 26-26 61-26h216q37 0 64.5 27.5t27.5 64.5-27.5 64-64.5 27h-216q-37 0-62-26.5t-25-64.5z"></path> </svg> </span> <!-- Moon icon --> <span id="moon-icon" class="hidden"> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-3 h-3 text-gray-700 fill-current" aria-hidden="true" focusable="false"> <title>Moon icon for dark theme</title> <path class="heroicon-ui" d="M9.57 3.38a8 8 0 0 0 10.4 10.4 1 1 0 0 1 1.31 1.3 10 10 0 1 1-13-13 1 1 0 0 1 1.3 1.3zM7.1 5.04A8 8 0 1 0 18.3 16.27 10 10 0 0 1 7.08 5.04z"></path> </svg> </span> </div> </label> <script type="module">function m(){const t=document.getElementById("toggleTheme"),s=document.getElementById("theme-switcher-label"),d=document.getElementById("sun-icon"),o=document.getElementById("moon-icon");if(!t||!s||!d||!o)return;const c=document.documentElement.classList.contains("dark");t.checked=c,a(c),i(c),t.addEventListener("change",()=>{const e=t.checked,n=e?"dark":"light";localStorage.setItem("theme",n),document.documentElement.classList.toggle("dark",e),document.body.classList.remove("body-theme-light","body-theme-dark"),document.body.classList.add(`body-theme-${n}`),a(e),i(e)});function a(e){e?(d.classList.add("hidden"),o.classList.remove("hidden")):(d.classList.remove("hidden"),o.classList.add("hidden"))}function i(e){const n=e?"light":"dark";s?.setAttribute("aria-label",`Switch to ${n} theme`),t.setAttribute("aria-label",`Theme switcher, currently ${e?"dark":"light"} mode`)}}m();document.addEventListener("astro:after-swap",m);</script> </div> </div> <!-- Mobile navigation menu --> <div id="mobile-menu" class="sm:hidden overflow-hidden transition-all duration-300 ease-in-out bg-nav max-h-0 opacity-0"> <ul class="flex flex-col px-4 pb-4 pt-2 space-y-2 text-primary"> <li> <a href="/" class="block py-2 no-underline hover:text-accent-primary transition-colors mobile-nav-link" aria-label="Navigate to home page"> Home </a> </li><li> <a href="/en/blog" class="block py-2 no-underline hover:text-accent-primary transition-colors mobile-nav-link" aria-label="Navigate to blog posts"> Blog </a> </li><li> <a href="/en/library" class="block py-2 no-underline hover:text-accent-primary transition-colors mobile-nav-link" aria-label="Navigate to library and book reviews"> Library </a> </li><li> <a href="/en/archive" class="block py-2 no-underline hover:text-accent-primary transition-colors mobile-nav-link" aria-label="Navigate to curated archives"> Archive </a> </li><li> <a href="/en/about" class="block py-2 no-underline hover:text-accent-primary transition-colors mobile-nav-link" aria-label="Navigate to about page"> About </a> </li> </ul> </div> </nav> </div> <script type="module">function m(){const i=document.getElementById("main-nav"),e=document.getElementById("mobile-menu-button"),t=document.getElementById("mobile-menu"),o=document.getElementById("menu-icon"),s=document.getElementById("close-icon"),u=document.querySelectorAll(".mobile-nav-link");if(!i||!e||!t||!o||!s)return;let n=!1;e.addEventListener("click",()=>{n=!n,c()}),u.forEach(a=>{a.addEventListener("click",()=>{n=!1,c()})});function c(){n?(t.classList.remove("max-h-0","opacity-0"),t.classList.add("max-h-64","opacity-100"),o.classList.add("hidden"),s.classList.remove("hidden"),e.setAttribute("aria-expanded","true"),e.setAttribute("aria-label","Close menu")):(t.classList.add("max-h-0","opacity-0"),t.classList.remove("max-h-64","opacity-100"),o.classList.remove("hidden"),s.classList.add("hidden"),e.setAttribute("aria-expanded","false"),e.setAttribute("aria-label","Open menu"))}function l(){const a=window.scrollY,v=document.documentElement.scrollHeight,g=window.innerHeight,r=v-g,d=r>0?a/r*100:0;i.style.background=`linear-gradient(to right, var(--color-bg-nav-progress) 0%, var(--color-bg-nav-progress) ${d}%, var(--color-bg-nav) ${d}%, var(--color-bg-nav) 100%)`}window.addEventListener("scroll",l,{passive:!0}),l()}m();document.addEventListener("astro:after-swap",m);</script> <div class="pt-16 pb-8 text-center"> <h1 class="text-4xl md:text-5xl font-extrabold text-primary leading-tight tracking-tight"> Building a Positive Closed-Loop Technical Feedback Framework </h1> <p class="mt-3 text-lg md:text-xl font-medium text-secondary max-w-2xl mx-auto"> How to Provide Systematic and Positive Technical Feedback that Improves Performance Over Time </p> </div> </header> <main id="main-content" class="box-border min-w-0 m-0 leading-relaxed tracking-normal">   <article class="mt-8"> <!-- Article content --> <div class="post-body"> <h2 id="introduction">Introduction<a class="autolink-hdrs" aria-hidden="true" tabindex="-1" href="#introduction"><span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M4.715 6.542 3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1.002 1.002 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4.018 4.018 0 0 1-.128-1.287z"></path><path d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 1 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 1 0-4.243-4.243L6.586 4.672z"></path></svg></span></a></h2>
+<p>I’ve observed that feedback is one of the most critical factors in a development team’s long-term success. When done well, technical feedback isn’t just about pointing out errors or inconsistencies; it’s about <em>co-creating solutions</em>, reinforcing positives, and continuously levelling up as a team.</p>
+<p>A positive closed-loop means creating a cycle where feedback is given, acted upon, reviewed, and validated for impact. This approach ensures that feedback leads to tangible improvements and that successes are acknowledged. By closing the loop, teams build a culture of accountability and trust, turning feedback into a tool for ongoing collaboration and excellence. </p>
+<hr/>
+<h2 id="1-lay-the-foundation-agree-on-technical-conventions">1. Lay the Foundation: Agree on Technical Conventions<a class="autolink-hdrs" aria-hidden="true" tabindex="-1" href="#1-lay-the-foundation-agree-on-technical-conventions"><span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M4.715 6.542 3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1.002 1.002 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4.018 4.018 0 0 1-.128-1.287z"></path><path d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 1 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 1 0-4.243-4.243L6.586 4.672z"></path></svg></span></a></h2>
+<p>Team members can’t fix what they don’t know is “broken.” Having explicit coding style guidelines, naming conventions, or user story templates removes ambiguity. When you offer feedback, you can align it with <em>agreed-upon technical norms</em> rather than personal preference.</p>
+<p>Documenting and socializing your shared standards makes it clear what quality looks like, forming the bedrock of constructive technical feedback.</p>
+<h3 id="example-scenarios">Example Scenarios<a class="autolink-hdrs" aria-hidden="true" tabindex="-1" href="#example-scenarios"><span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M4.715 6.542 3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1.002 1.002 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4.018 4.018 0 0 1-.128-1.287z"></path><path d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 1 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 1 0-4.243-4.243L6.586 4.672z"></path></svg></span></a></h3>
+<ol>
+<li>
+<p><strong>Code Style Guide</strong></p>
+<ul>
+<li><em>Situation</em>: During a code review, you notice inconsistent brace styles.</li>
+<li><em>Action</em>: Refer to the documented style guide (e.g., “We’re using [brace on the same line], as noted in our <code>CONTRIBUTING.md</code>.”).</li>
+<li><em>Outcome</em>: Everyone follows the same convention, reducing friction and confusion.</li>
+</ul>
+</li>
+<li>
+<p><strong>File Naming Rules</strong></p>
+<ul>
+<li><em>Situation</em>: A new feature branch contains files named inconsistently (e.g., <code>Order-service.js</code> vs. <code>orderService.js</code>).</li>
+<li><em>Action</em>: Remind the developer of the team’s standard for file naming (say, <code>camelCase</code> for JS files).</li>
+<li><em>Outcome</em>: A uniform system that makes files easier to locate and manage.</li>
+</ul>
+</li>
+<li>
+<p><strong>User Story Template</strong></p>
+<ul>
+<li><em>Situation</em>: User stories lack clarity or acceptance criteria.</li>
+<li><em>Action</em>: Point your teammate to the template in the project wiki and suggest they include “As a [user], I want [feature], so that [benefit]” plus acceptance criteria.</li>
+<li><em>Outcome</em>: Clear, consistent user stories that keep everyone aligned.</li>
+</ul>
+</li>
+</ol>
+<hr/>
+<h2 id="2-start-each-feedback-with-curiosity">2. Start Each Feedback with Curiosity<a class="autolink-hdrs" aria-hidden="true" tabindex="-1" href="#2-start-each-feedback-with-curiosity"><span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M4.715 6.542 3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1.002 1.002 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4.018 4.018 0 0 1-.128-1.287z"></path><path d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 1 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 1 0-4.243-4.243L6.586 4.672z"></path></svg></span></a></h2>
+<p>Even with conventions in place, sometimes deviations happen for good reasons (e.g., library constraints or performance optimizations). Initiating with curiosity—rather than an assumption—shows openness and respect.</p>
+<p>By asking questions first, you encourage transparency, reduce defensiveness, and promote a psychologically safe environment where everyone feels comfortable sharing insights.</p>
+<h3 id="example-approaches">Example Approaches<a class="autolink-hdrs" aria-hidden="true" tabindex="-1" href="#example-approaches"><span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M4.715 6.542 3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1.002 1.002 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4.018 4.018 0 0 1-.128-1.287z"></path><path d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 1 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 1 0-4.243-4.243L6.586 4.672z"></path></svg></span></a></h3>
+<ol>
+<li>
+<p><strong>Query the Logic</strong></p>
+<ul>
+<li><em>Situation</em>: The logic in <code>paymentController.js</code> appears redundant.</li>
+<li><em>Question</em>: “I see a couple of similar functions; is there a particular reason you separated them instead of merging them into one?”</li>
+<li><em>Benefit</em>: You open the door to learn about any hidden constraints or performance considerations.</li>
+</ul>
+</li>
+<li>
+<p><strong>Ask About External Factors</strong></p>
+<ul>
+<li><em>Situation</em>: A developer uses a lesser-known library for form validations.</li>
+<li><em>Question</em>: “I notice we’re using <code>ValidatorX</code> instead of our usual library. What led you to pick that one?”</li>
+<li><em>Benefit</em>: You show genuine curiosity, and the developer may reveal a significant advantage you weren’t aware of.</li>
+</ul>
+</li>
+<li>
+<p><strong>Explore Team Norms</strong></p>
+<ul>
+<li><em>Situation</em>: A pull request uses an unconventional branching strategy.</li>
+<li><em>Question</em>: “I noticed the branch name <code>feature/BugFix</code>. Are we experimenting with a new naming strategy?”</li>
+<li><em>Benefit</em>: You remain open-minded instead of accusing someone of going off-track.</li>
+</ul>
+</li>
+</ol>
+<hr/>
+<h2 id="3-focus-on-specific-observable-behaviors">3. Focus on Specific, Observable Behaviors<a class="autolink-hdrs" aria-hidden="true" tabindex="-1" href="#3-focus-on-specific-observable-behaviors"><span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M4.715 6.542 3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1.002 1.002 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4.018 4.018 0 0 1-.128-1.287z"></path><path d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 1 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 1 0-4.243-4.243L6.586 4.672z"></path></svg></span></a></h2>
+<p>Technical feedback should spotlight what’s actually happening in the code or documentation—<em>not</em> on the person’s traits or worth as a developer.</p>
+<p>Being behaviour-oriented keeps the discussion on track and actionable. Developers can fix or adapt behaviours more easily than personal qualities.</p>
+<h3 id="example-reframes">Example Reframes<a class="autolink-hdrs" aria-hidden="true" tabindex="-1" href="#example-reframes"><span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M4.715 6.542 3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1.002 1.002 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4.018 4.018 0 0 1-.128-1.287z"></path><path d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 1 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 1 0-4.243-4.243L6.586 4.672z"></path></svg></span></a></h3>
+<ol>
+<li>
+<p><strong>Code Comments</strong></p>
+<ul>
+<li><em>Instead of</em>: “You never comment your code.”</li>
+<li><em>Use</em>: “I noticed <code>fetchOrders()</code> and <code>fetchProducts()</code> don’t have any JSDoc comments; adding those might help new team members understand them faster.”</li>
+</ul>
+</li>
+<li>
+<p><strong>Commit Messages</strong></p>
+<ul>
+<li><em>Instead of</em>: “Your commit messages are terrible.”</li>
+<li><em>Use</em>: “The commit messages in your last PR don’t follow the ‘feature/fix/docs’ format. Sticking to that format helps our CI pipeline generate automated release notes.”</li>
+</ul>
+</li>
+<li>
+<p><strong>UI Changes</strong></p>
+<ul>
+<li><em>Instead of</em>: “You’re ignoring our design guidelines.”</li>
+<li><em>Use</em>: “The colour scheme in the new login page is slightly different than our style guide’s specified palette. Could we align them for a consistent user experience?”</li>
+</ul>
+</li>
+</ol>
+<hr/>
+<h2 id="4-link-feedback-to-a-larger-goal">4. Link Feedback to a Larger Goal<a class="autolink-hdrs" aria-hidden="true" tabindex="-1" href="#4-link-feedback-to-a-larger-goal"><span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M4.715 6.542 3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1.002 1.002 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4.018 4.018 0 0 1-.128-1.287z"></path><path d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 1 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 1 0-4.243-4.243L6.586 4.672z"></path></svg></span></a></h2>
+<p>Reminding the team of the “why” makes feedback more meaningful. Whether it’s improved readability, faster onboarding of new hires, or fewer merge conflicts, tie your remarks to a shared benefit.</p>
+<p>Contextualizing feedback with a collective outcome—like higher code quality or better maintainability—helps everyone see the bigger picture.</p>
+<h3 id="example-connections">Example Connections<a class="autolink-hdrs" aria-hidden="true" tabindex="-1" href="#example-connections"><span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M4.715 6.542 3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1.002 1.002 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4.018 4.018 0 0 1-.128-1.287z"></path><path d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 1 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 1 0-4.243-4.243L6.586 4.672z"></path></svg></span></a></h3>
+<ol>
+<li>
+<p><strong>Performance Optimization</strong></p>
+<ul>
+<li><em>Feedback</em>: “If we refactor these nested loops into a more efficient query, we could potentially reduce load times for the entire user base.”</li>
+<li><em>Larger Goal</em>: Faster application response time and better user satisfaction.</li>
+</ul>
+</li>
+<li>
+<p><strong>Maintainability</strong></p>
+<ul>
+<li><em>Feedback</em>: “By limiting function length to around 20 lines, we make future refactors easier and ensure new contributors can grasp what each function does.”</li>
+<li><em>Larger Goal</em>: A codebase that scales gracefully as the team grows.</li>
+</ul>
+</li>
+<li>
+<p><strong>Developer Experience</strong></p>
+<ul>
+<li><em>Feedback</em>: “Standardizing on <code>eslint</code> rules means fewer nitpicks in code reviews, so we can spend more time discussing architecture rather than syntax.”</li>
+<li><em>Larger Goal</em>: A happier, more collaborative dev environment.</li>
+</ul>
+</li>
+</ol>
+<hr/>
+<h2 id="5-offer-actionable-recommendations">5. Offer Actionable Recommendations<a class="autolink-hdrs" aria-hidden="true" tabindex="-1" href="#5-offer-actionable-recommendations"><span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M4.715 6.542 3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1.002 1.002 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4.018 4.018 0 0 1-.128-1.287z"></path><path d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 1 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 1 0-4.243-4.243L6.586 4.672z"></path></svg></span></a></h2>
+<p>Technical feedback is most effective when it doesn’t just identify an issue but also suggests a way to address it. This can include updating documentation, adopting specific tools, or scheduling knowledge-sharing sessions.</p>
+<p>Turning feedback into concrete next steps ensures continuous improvement rather than endless debate.</p>
+<h3 id="example-action-steps">Example Action Steps<a class="autolink-hdrs" aria-hidden="true" tabindex="-1" href="#example-action-steps"><span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M4.715 6.542 3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1.002 1.002 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4.018 4.018 0 0 1-.128-1.287z"></path><path d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 1 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 1 0-4.243-4.243L6.586 4.672z"></path></svg></span></a></h3>
+<ol>
+<li>
+<p><strong>Documentation Updates</strong></p>
+<ul>
+<li><em>Situation</em>: Inconsistent coding styles keep popping up.</li>
+<li><em>Recommendation</em>: “Let’s update our <code>CodingConventions.md</code> with a new section on function naming, and review it together in the next sprint retrospective.”</li>
+</ul>
+</li>
+<li>
+<p><strong>Automation Tools</strong></p>
+<ul>
+<li><em>Situation</em>: Developers keep forgetting to run tests before pushing code.</li>
+<li><em>Recommendation</em>: “We could set up a pre-push hook in Git to automatically run tests. Let’s configure <code>husky</code> to enforce that.”</li>
+</ul>
+</li>
+<li>
+<p><strong>Team Workshops</strong></p>
+<ul>
+<li><em>Situation</em>: The team struggles with new Docker configurations.</li>
+<li><em>Recommendation</em>: “How about a 30-minute lunch-and-learn session on Docker best practices next week? We can record it for future onboarding.”</li>
+</ul>
+</li>
+</ol>
+<hr/>
+<h2 id="6-incorporate-positive-feedback-in-the-loop">6. Incorporate Positive Feedback in the Loop<a class="autolink-hdrs" aria-hidden="true" tabindex="-1" href="#6-incorporate-positive-feedback-in-the-loop"><span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M4.715 6.542 3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1.002 1.002 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4.018 4.018 0 0 1-.128-1.287z"></path><path d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 1 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 1 0-4.243-4.243L6.586 4.672z"></path></svg></span></a></h2>
+<p>Constructive feedback isn’t just about pointing out errors; it’s also about <em>recognizing what’s working</em>. Positive reinforcement encourages the repetition of good practices and builds confidence.</p>
+<p>Balancing suggestions for improvement with praise for what’s done right creates a healthy, motivating environment where developers feel valued.</p>
+<h3 id="example-positive-reinforcements">Example Positive Reinforcements<a class="autolink-hdrs" aria-hidden="true" tabindex="-1" href="#example-positive-reinforcements"><span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M4.715 6.542 3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1.002 1.002 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4.018 4.018 0 0 1-.128-1.287z"></path><path d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 1 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 1 0-4.243-4.243L6.586 4.672z"></path></svg></span></a></h3>
+<ol>
+<li>
+<p><strong>Code Readability Praise</strong></p>
+<ul>
+<li><em>“Your new functions in <strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><code>reportService.js</code></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong> are really well-documented. It’s super easy to follow the logic—great job!”</em></li>
+</ul>
+</li>
+<li>
+<p><strong>Adherence to Standards</strong></p>
+<ul>
+<li><em>“Your last commit perfectly followed our commit message guidelines. This makes our changelog updates so much smoother.”</em></li>
+</ul>
+</li>
+<li>
+<p><strong>Proactive Problem-Solving</strong></p>
+<ul>
+<li><em>“I noticed you took the initiative to improve our Dockerfile to reduce build times. That’s a big win for everyone—awesome!”</em></li>
+</ul>
+</li>
+</ol>
+<hr/>
+<h2 id="7-close-the-loop-review-reflect-repeat">7. Close the Loop: Review, Reflect, Repeat<a class="autolink-hdrs" aria-hidden="true" tabindex="-1" href="#7-close-the-loop-review-reflect-repeat"><span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M4.715 6.542 3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1.002 1.002 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4.018 4.018 0 0 1-.128-1.287z"></path><path d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 1 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 1 0-4.243-4.243L6.586 4.672z"></path></svg></span></a></h2>
+<p>Agile teams thrive on continuous improvement. After offering feedback and seeing changes, revisit them in retrospectives or stand-ups.</p>
+<p>A feedback loop is only complete when you circle back to assess whether the changes had the desired impact. This fosters a culture of continuous learning and adaptation.</p>
+<h3 id="example-follow-ups">Example Follow-Ups<a class="autolink-hdrs" aria-hidden="true" tabindex="-1" href="#example-follow-ups"><span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M4.715 6.542 3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1.002 1.002 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4.018 4.018 0 0 1-.128-1.287z"></path><path d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 1 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 1 0-4.243-4.243L6.586 4.672z"></path></svg></span></a></h3>
+<ol>
+<li>
+<p><strong>Retrospective Check-In</strong></p>
+<ul>
+<li><em>Question</em>: “How did our new naming convention impact code reviews this sprint? Did we see fewer merge conflicts or clarifications needed?”</li>
+</ul>
+</li>
+<li>
+<p><strong>Metrics-Driven Validation</strong></p>
+<ul>
+<li><em>Situation</em>: You introduced automated tests or lint checks.</li>
+<li><em>Check</em>: “Since we added pre-push testing, have we reduced the number of broken builds in CI?”</li>
+</ul>
+</li>
+<li>
+<p><strong>Feedback Roundtable</strong></p>
+<ul>
+<li><em>Meeting Format</em>: A short session where each team member shares one thing that went well and one area they’re still struggling with.</li>
+<li><em>Benefit</em>: Everyone continuously learns from each other’s experiences and feels safe discussing improvements.</li>
+</ul>
+</li>
+</ol>
+<hr/>
+<h2 id="conclusion">Conclusion<a class="autolink-hdrs" aria-hidden="true" tabindex="-1" href="#conclusion"><span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M4.715 6.542 3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1.002 1.002 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4.018 4.018 0 0 1-.128-1.287z"></path><path d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 1 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 1 0-4.243-4.243L6.586 4.672z"></path></svg></span></a></h2>
+<p>Technical feedback should be systematic, solutions-driven, and infused with positive reinforcement. By agreeing on shared conventions, starting discussions with curiosity, zeroing in on behaviours, providing actionable suggestions, and circling back in retrospectives, your team can <em>continuously</em> refine its technical practices and maintain a trusting environment.</p>
+<p>Remember, the ultimate goal is <em>long-term performance and team unity</em>. A well-structured, closed-loop approach to technical feedback ensures that each positive or constructive comment propels your team toward ever-better collaboration and higher-quality outcomes.</p>
+<hr/>
+<h2 id="ai-contribution">AI Contribution<a class="autolink-hdrs" aria-hidden="true" tabindex="-1" href="#ai-contribution"><span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M4.715 6.542 3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1.002 1.002 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4.018 4.018 0 0 1-.128-1.287z"></path><path d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 1 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 1 0-4.243-4.243L6.586 4.672z"></path></svg></span></a></h2>
+<p>This article was refined using ChatGPT (version o1) to structure and polish the content. While the insights come from my experiences, ChatGPT helped streamline articulation for clarity and cohesion.</p> </div> <!-- Article metadata at the end --> <div class="mt-8 text-sm text-secondary"> <div class="mt-32"> <p class="mt-8 text-center text-secondary">Tags of this Post:</p> <ul class="flex flex-wrap items-baseline mt-2 ms-1 @md:mt-0 justify-center"> <li class="z-10 inline-block px-2 m-1 text-sm border-2 rounded-full shadow-xs bg-nav text-primary"> <a href="/en/tag/team-working" class="no-underline hover:text-accent-primary transition-colors">
+#team-working </a> </li><li class="z-10 inline-block px-2 m-1 text-sm border-2 rounded-full shadow-xs bg-nav text-primary"> <a href="/en/tag/psychological-safety" class="no-underline hover:text-accent-primary transition-colors">
+#psychological-safety </a> </li> </ul> </div> </div> </article>   </main> <footer class="box-border flex flex-row justify-between pt-4 mt-8 mb-4 border-t-2 border-primary"> <p class="text-center align-middle text-secondary">
+Copyright &copy; 2026 by <a href="/en/about" class="font-medium no-underline hover:text-accent-primary transition-colors" aria-label="Navigate to about page">Saeed Asaiyan</a>.
+</p> <ul class="flex justify-center" aria-label="Social media and feed links"> <li class="mx-4"> <a href="/en/rss.xml" target="_blank" rel="noreferrer" aria-label="Subscribe to RSS feed (opens in new tab)"> <svg class="w-8 h-8 fill-current text-secondary" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"> <title>RSS Feed</title> <path d="M6.18 15.64a2.18 2.18 0 1 1 0 4.36 2.18 2.18 0 0 1 0-4.36m12.18 4.36A14.38 14.38 0 0 0 4 5.64v3.09a11.28 11.28 0 0 1 11.27 11.27h3.09M13.09 20a9.27 9.27 0 0 0-9.09-9.09v3.09A6.18 6.18 0 0 1 10 20h3.09"></path> </svg> </a> </li> <li class="mx-4"> <a href="https://github.com/upr8" target="_blank" rel="noreferrer" aria-label="Visit GitHub profile (opens in new tab)"> <svg class="w-8 h-8 fill-current text-secondary" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false"> <title>GitHub</title> <path d="M12 .3a12 12 0 00-3.8 23.38c.6.12.83-.26.83-.57L9 21.07c-3.34.72-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.08-.74.09-.73.09-.73 1.2.09 1.83 1.24 1.83 1.24 1.07 1.83 2.81 1.3 3.5 1 .1-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.14-.3-.54-1.52.1-3.18 0 0 1-.32 3.3 1.23a11.5 11.5 0 016 0c2.28-1.55 3.29-1.23 3.29-1.23.64 1.66.24 2.88.12 3.18a4.65 4.65 0 011.23 3.22c0 4.61-2.8 5.63-5.48 5.92.42.36.81 1.1.81 2.22l-.01 3.29c0 .31.2.69.82.57A12 12 0 0012 .3"></path> </svg> </a> </li> </ul> </footer> </div> </div> </body></html> <script type="module">const a='<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1z"/><path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0z"/></svg>',c='<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425z"/></svg>';document.querySelectorAll(".post-body pre").forEach(t=>{const e=document.createElement("button");e.className="copy-button",e.setAttribute("aria-label","Copy code"),e.insertAdjacentHTML("beforeend",a),e.addEventListener("click",async()=>{const o=t.querySelector("code")?.textContent||"";await navigator.clipboard.writeText(o),e.classList.add("copied"),e.replaceChildren(),e.insertAdjacentHTML("beforeend",c),setTimeout(()=>{e.classList.remove("copied"),e.replaceChildren(),e.insertAdjacentHTML("beforeend",a)},2e3)}),t.appendChild(e)});</script>
