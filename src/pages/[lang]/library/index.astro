@@ -1,5 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
+import type { LibraryEntry } from '@/types';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import LibraryBookCard from '@/components/cards/LibraryBookCard.astro';
 
@@ -14,12 +15,12 @@ const { lang } = Astro.params as { lang: 'en' | 'fa' };
 const dir = lang === 'fa' ? 'rtl' : 'ltr';
 
 // Get all published library items for this language
-const books = await getCollection('library', ({ data }) =>
-  data.published && data.lang === lang
+const books = await getCollection('library', (entry: LibraryEntry) =>
+  entry.data.published && entry.data.lang === lang
 );
 
 // Sort by date descending
-books.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+books.sort((a: LibraryEntry, b: LibraryEntry) => b.data.date.getTime() - a.data.date.getTime());
 
 // Extract slug from the content path
 function getSlug(id: string): string {
@@ -36,7 +37,7 @@ function getSlug(id: string): string {
 >
   <div class="@container mt-8">
     {books.length > 0 ? (
-      books.map((book) => (
+      books.map((book: LibraryEntry) => (
         <LibraryBookCard
           title={book.data.title}
           date={book.data.date}

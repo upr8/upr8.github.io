@@ -1,5 +1,6 @@
 ---
 import { getCollection, render } from 'astro:content';
+import type { PagesEntry } from '@/types';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 
 export function getStaticPaths() {
@@ -13,8 +14,8 @@ const { lang } = Astro.params as { lang: 'en' | 'fa' };
 const dir = lang === 'fa' ? 'rtl' : 'ltr';
 
 // Get home page content
-const pages = await getCollection('pages', ({ data, id }) =>
-  data.published && data.lang === lang && id.includes('home')
+const pages = await getCollection('pages', (entry: PagesEntry) =>
+  entry.data.published && entry.data.lang === lang && entry.id.includes('home')
 );
 
 const homePage = pages[0];

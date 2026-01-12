@@ -1,7 +1,7 @@
 ---
-import ThemeSwitcher from './ThemeSwitcher.astro';
-import Menu from './icons/Menu.astro';
-import Close from './icons/Close.astro';
+import ThemeSwitcher from '@/components/ThemeSwitcher.astro';
+import Menu from '@/components/icons/Menu.astro';
+import Close from '@/components/icons/Close.astro';
 
 interface Props {
   lang?: 'en' | 'fa';
@@ -111,19 +111,19 @@ const navItems = [
 
     function updateMenuState() {
       if (isMenuOpen) {
-        mobileMenu.classList.remove('max-h-0', 'opacity-0');
-        mobileMenu.classList.add('max-h-64', 'opacity-100');
-        menuIcon.classList.add('hidden');
-        closeIcon.classList.remove('hidden');
-        menuButton.setAttribute('aria-expanded', 'true');
-        menuButton.setAttribute('aria-label', 'Close menu');
+        mobileMenu!.classList.remove('max-h-0', 'opacity-0');
+        mobileMenu!.classList.add('max-h-64', 'opacity-100');
+        menuIcon!.classList.add('hidden');
+        closeIcon!.classList.remove('hidden');
+        menuButton!.setAttribute('aria-expanded', 'true');
+        menuButton!.setAttribute('aria-label', 'Close menu');
       } else {
-        mobileMenu.classList.add('max-h-0', 'opacity-0');
-        mobileMenu.classList.remove('max-h-64', 'opacity-100');
-        menuIcon.classList.remove('hidden');
-        closeIcon.classList.add('hidden');
-        menuButton.setAttribute('aria-expanded', 'false');
-        menuButton.setAttribute('aria-label', 'Open menu');
+        mobileMenu!.classList.add('max-h-0', 'opacity-0');
+        mobileMenu!.classList.remove('max-h-64', 'opacity-100');
+        menuIcon!.classList.remove('hidden');
+        closeIcon!.classList.add('hidden');
+        menuButton!.setAttribute('aria-expanded', 'false');
+        menuButton!.setAttribute('aria-label', 'Open menu');
       }
     }
 
@@ -135,7 +135,7 @@ const navItems = [
       const scrollable = docHeight - winHeight;
       const progress = scrollable > 0 ? (scrollTop / scrollable) * 100 : 0;
 
-      nav.style.background = `linear-gradient(to right, var(--color-bg-nav-progress) 0%, var(--color-bg-nav-progress) ${progress}%, var(--color-bg-nav) ${progress}%, var(--color-bg-nav) 100%)`;
+      nav!.style.background = `linear-gradient(to right, var(--color-bg-nav-progress) 0%, var(--color-bg-nav-progress) ${progress}%, var(--color-bg-nav) ${progress}%, var(--color-bg-nav) 100%)`;
     }
 
     window.addEventListener('scroll', updateProgress, { passive: true });

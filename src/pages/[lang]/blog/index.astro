@@ -1,5 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
+import type { BlogEntry } from '@/types';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import BlogPostCard from '@/components/cards/BlogPostCard.astro';
 
@@ -14,12 +15,12 @@ const { lang } = Astro.params as { lang: 'en' | 'fa' };
 const dir = lang === 'fa' ? 'rtl' : 'ltr';
 
 // Get all published blog posts for this language
-const posts = await getCollection('blog', ({ data }) =>
-  data.published && data.lang === lang
+const posts = await getCollection('blog', (entry: BlogEntry) =>
+  entry.data.published && entry.data.lang === lang
 );
 
 // Sort by date descending
-posts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+posts.sort((a: BlogEntry, b: BlogEntry) => b.data.date.getTime() - a.data.date.getTime());
 
 // Extract slug from the content path (remove index.{lang} suffix)
 function getSlug(id: string): string {
@@ -37,7 +38,7 @@ function getSlug(id: string): string {
 >
   <div class="@container mt-8">
     {posts.length > 0 ? (
-      posts.map((post) => (
+      posts.map((post: BlogEntry) => (
         <BlogPostCard
           title={post.data.title}
           date={post.data.date}

@@ -1,4 +1,4 @@
-export { default as ContentCard } from "./content-card";
-export { default as BlogPostCard } from "./blog-post-card";
-export { default as ArchivePostCard } from "./archive-post-card";
-export { default as LibraryBookCard } from "./library-book-card";
+export { default as ContentCard } from "./ContentCard.astro";
+export { default as BlogPostCard } from "./BlogPostCard.astro";
+export { default as ArchivePostCard } from "./ArchivePostCard.astro";
+export { default as LibraryBookCard } from "./LibraryBookCard.astro";

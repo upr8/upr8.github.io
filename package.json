@@ -47,6 +47,7 @@
     "remark-gfm": "^4.0.1"
   },
   "devDependencies": {
+    "@astrojs/check": "^0.9.6",
     "@biomejs/biome": "2.3.10",
     "@types/node": "^24.10.4",
     "gh-pages": "^6.3.0",
