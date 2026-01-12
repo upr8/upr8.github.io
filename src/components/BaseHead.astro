@@ -1,0 +1,60 @@
+---
+interface Props {
+  title: string;
+  description?: string;
+  lang?: 'en' | 'fa';
+}
+
+const { title, description = '', lang = 'en' } = Astro.props;
+const siteTitle = 'Saeed Asaiyan';
+const siteUrl = 'https://www.asaiyan.com';
+const locale = lang === 'fa' ? 'fa_IR' : 'en_US';
+const canonicalUrl = new URL(Astro.url.pathname, siteUrl);
+---
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="generator" content={Astro.generator} />
+
+<title>{title} | {siteTitle}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonicalUrl} />
+
+<!-- Favicon -->
+<link rel="icon" type="image/svg+xml" href="/images/favicon/favicon.svg" />
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website" />
+<meta property="og:url" content={canonicalUrl} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:locale" content={locale} />
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:site" content={canonicalUrl.toString()} />
+
+<!-- Prevent FLoC tracking -->
+<meta http-equiv="Permissions-Policy" content="interest-cohort=()" />
+
+<!-- RSS Feed -->
+<link rel="alternate" type="application/rss+xml" title={siteTitle} href={`/${lang}/rss.xml`} />
+
+<!-- Sitemap -->
+<link rel="sitemap" href="/sitemap-index.xml" />
+
+<!-- Theme initialization script - runs before page render to prevent flash -->
+<script is:inline>
+  (function() {
+    const stored = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const theme = stored || (prefersDark ? 'dark' : 'light');
+
+    // Set dark class on html element (body doesn't exist yet)
+    document.documentElement.classList.toggle('dark', theme === 'dark');
+    // Store theme for body script to use
+    document.documentElement.dataset.theme = theme;
+  })();
+</script>

@@ -1,0 +1,136 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import BlogPostCard from '@/components/cards/BlogPostCard.astro';
+import LibraryBookCard from '@/components/cards/LibraryBookCard.astro';
+import ArchivePostCard from '@/components/cards/ArchivePostCard.astro';
+
+export async function getStaticPaths() {
+  const langs: Array<'en' | 'fa'> = ['en', 'fa'];
+  const paths: Array<{ params: { lang: string; tag: string } }> = [];
+
+  for (const lang of langs) {
+    // Get all content and collect unique tags
+    const blogs = await getCollection('blog', ({ data }) =>
+      data.published && data.lang === lang
+    );
+    const library = await getCollection('library', ({ data }) =>
+      data.published && data.lang === lang
+    );
+    const archives = await getCollection('archive', ({ data }) =>
+      data.published && data.lang === lang
+    );
+
+    const allTags = new Set<string>();
+
+    for (const post of [...blogs, ...library, ...archives]) {
+      if (post.data.tags) {
+        for (const tag of post.data.tags) {
+          allTags.add(tag);
+        }
+      }
+    }
+
+    for (const tag of allTags) {
+      paths.push({ params: { lang, tag } });
+    }
+  }
+
+  return paths;
+}
+
+const { lang, tag } = Astro.params as { lang: 'en' | 'fa'; tag: string };
+const dir = lang === 'fa' ? 'rtl' : 'ltr';
+
+// Get all content with this tag
+const blogs = await getCollection('blog', ({ data }) =>
+  data.published && data.lang === lang && data.tags?.includes(tag)
+);
+
+const library = await getCollection('library', ({ data }) =>
+  data.published && data.lang === lang && data.tags?.includes(tag)
+);
+
+const archives = await getCollection('archive', ({ data }) =>
+  data.published && data.lang === lang && data.tags?.includes(tag)
+);
+
+// Sort all by date
+blogs.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+library.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+archives.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+function getSlug(id: string): string {
+  return id.split('/')[0];
+}
+
+const hasContent = blogs.length > 0 || library.length > 0 || archives.length > 0;
+---
+
+<BaseLayout
+  title={`Tag: #${tag}`}
+  description={`All content tagged with #${tag}`}
+  lang={lang}
+  dir={dir}
+>
+  <div class="@container mt-8">
+    {!hasContent && (
+      <p class="text-secondary text-center py-8">No content found with this tag.</p>
+    )}
+
+    {blogs.length > 0 && (
+      <section>
+        <h2 class="text-xl font-semibold text-primary mb-4">Blog Posts</h2>
+        {blogs.map((post) => (
+          <BlogPostCard
+            title={post.data.title}
+            date={post.data.date}
+            description={post.data.desc}
+            slug={getSlug(post.id)}
+            tags={post.data.tags}
+            lang={lang}
+            headingLevel={3}
+          />
+        ))}
+      </section>
+    )}
+
+    {library.length > 0 && (
+      <section class="mt-8">
+        <h2 class="text-xl font-semibold text-primary mb-4">Books</h2>
+        {library.map((book) => (
+          <LibraryBookCard
+            title={book.data.title}
+            date={book.data.date}
+            description={book.data.desc}
+            slug={getSlug(book.id)}
+            tags={book.data.tags}
+            rate={book.data.rate}
+            hasReview={book.data.hasReview}
+            coverImage={book.data.embeddedImagesLocal?.[0]}
+            lang={lang}
+          />
+        ))}
+      </section>
+    )}
+
+    {archives.length > 0 && (
+      <section class="mt-8">
+        <h2 class="text-xl font-semibold text-primary mb-4">Archived Links</h2>
+        {archives.map((item) => (
+          <ArchivePostCard
+            title={item.data.title}
+            date={item.data.date}
+            description={item.data.desc}
+            externalLink={item.data.externalLink}
+            tags={item.data.tags}
+            hasReview={item.data.hasReview}
+            slug={getSlug(item.id)}
+            lang={lang}
+            headingLevel={3}
+          />
+        ))}
+      </section>
+    )}
+  </div>
+</BaseLayout>

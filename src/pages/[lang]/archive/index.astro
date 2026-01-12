@@ -1,0 +1,55 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import ArchivePostCard from '@/components/cards/ArchivePostCard.astro';
+
+export function getStaticPaths() {
+  return [
+    { params: { lang: 'en' } },
+    { params: { lang: 'fa' } },
+  ];
+}
+
+const { lang } = Astro.params as { lang: 'en' | 'fa' };
+const dir = lang === 'fa' ? 'rtl' : 'ltr';
+
+// Get all published archive items for this language
+const archives = await getCollection('archive', ({ data }) =>
+  data.published && data.lang === lang
+);
+
+// Sort by date descending
+archives.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+// Extract slug from the content path
+function getSlug(id: string): string {
+  const parts = id.split('/');
+  return parts[0];
+}
+---
+
+<BaseLayout
+  title="$> find . -type l -ls"
+  description="List of links"
+  lang={lang}
+  dir={dir}
+>
+  <div class="@container mt-8">
+    {archives.length > 0 ? (
+      archives.map((item) => (
+        <ArchivePostCard
+          title={item.data.title}
+          date={item.data.date}
+          description={item.data.desc}
+          externalLink={item.data.externalLink}
+          tags={item.data.tags}
+          hasReview={item.data.hasReview}
+          slug={getSlug(item.id)}
+          lang={lang}
+        />
+      ))
+    ) : (
+      <p class="text-secondary text-center py-8">No archived links yet.</p>
+    )}
+  </div>
+</BaseLayout>

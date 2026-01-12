@@ -1,0 +1,43 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+
+export function getStaticPaths() {
+  return [
+    { params: { lang: 'en' } },
+    { params: { lang: 'fa' } },
+  ];
+}
+
+const { lang } = Astro.params as { lang: 'en' | 'fa' };
+const dir = lang === 'fa' ? 'rtl' : 'ltr';
+
+// Get about page content
+const pages = await getCollection('pages', ({ data, id }) =>
+  data.published && data.lang === lang && id.includes('about')
+);
+
+const aboutPage = pages[0];
+let Content: any = null;
+
+if (aboutPage) {
+  const rendered = await render(aboutPage);
+  Content = rendered.Content;
+}
+---
+
+<BaseLayout
+  title={aboutPage?.data.title || 'About'}
+  description={aboutPage?.data.desc || ''}
+  lang={lang}
+  dir={dir}
+>
+  <article class="post-body prose max-w-none mt-8">
+    {Content && <Content />}
+    {!Content && (
+      <p class="text-secondary">
+        About page content coming soon.
+      </p>
+    )}
+  </article>
+</BaseLayout>

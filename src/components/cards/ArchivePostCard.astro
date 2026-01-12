@@ -1,0 +1,80 @@
+---
+import ContentCard from './ContentCard.astro';
+import TagList from '../tags/TagList.astro';
+import ExternalLink from '../icons/ExternalLink.astro';
+
+interface Props {
+  title: string;
+  date: Date;
+  description?: string;
+  externalLink: string;
+  tags?: string[];
+  hasReview?: boolean;
+  slug?: string;
+  lang?: 'en' | 'fa';
+  headingLevel?: 2 | 3;
+}
+
+const {
+  title,
+  date,
+  description = '',
+  externalLink,
+  tags = [],
+  hasReview = false,
+  slug,
+  lang = 'en',
+  headingLevel = 2,
+} = Astro.props;
+
+const HeadingTag = `h${headingLevel}` as const;
+const formattedDate = `${date.getFullYear()}/${String(date.getMonth() + 1).padStart(2, '0')}/${String(date.getDate()).padStart(2, '0')}`;
+const reviewUrl = hasReview && slug ? `/${lang}/${slug}` : null;
+---
+
+<ContentCard>
+  <time
+    slot="left"
+    class="inline-block text-base font-semibold tracking-wide text-accent-primary"
+    datetime={date.toISOString()}
+  >
+    {formattedDate}
+  </time>
+
+  <a
+    slot="title"
+    href={externalLink}
+    target="_blank"
+    rel="noreferrer"
+    class="group no-underline"
+    aria-label={`Visit external link: ${title} (opens in new tab)`}
+  >
+    <HeadingTag class="text-2xl font-semibold leading-snug text-primary group-hover:text-accent-primary transition-colors mb-2">
+      {title} <ExternalLink />
+    </HeadingTag>
+  </a>
+
+  <Fragment slot="description">
+    {reviewUrl ? (
+      <a
+        href={reviewUrl}
+        class="no-underline hover:underline"
+        aria-label={`Read notes about: ${title}`}
+      >
+        <p class="text-base leading-relaxed text-secondary">
+          {description}
+        </p>
+      </a>
+    ) : (
+      <p class="text-base leading-relaxed text-secondary">
+        {description}
+      </p>
+    )}
+  </Fragment>
+
+  {tags.length > 0 && (
+    <div slot="tags">
+      <TagList tags={tags} lang={lang} isCenter={false} />
+    </div>
+  )}
+</ContentCard>

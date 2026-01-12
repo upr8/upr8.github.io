@@ -1,0 +1,26 @@
+---
+import Github from './icons/Github.astro';
+import Rss from './icons/Rss.astro';
+
+interface Props {
+  lang?: 'en' | 'fa';
+}
+
+const { lang = 'en' } = Astro.props;
+
+const github = 'https://github.com/upr8';
+---
+
+<footer class="box-border flex flex-row justify-between pt-4 mt-8 mb-4 border-t-2 border-primary">
+  <p class="text-center align-middle text-secondary">
+    Copyright &copy; {new Date().getFullYear()} by <a href={`/${lang}/about`} class="font-medium no-underline hover:text-accent-primary transition-colors" aria-label="Navigate to about page">Saeed Asaiyan</a>.
+  </p>
+  <ul class="flex justify-center" aria-label="Social media and feed links">
+    <li class="mx-4">
+      <Rss link={`/${lang}/rss.xml`} />
+    </li>
+    <li class="mx-4">
+      <Github link={github} />
+    </li>
+  </ul>
+</footer>

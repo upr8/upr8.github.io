@@ -1,0 +1,90 @@
+/**
+ * MDX Content Styles
+ * Styles for rendered markdown/MDX content within .post-body
+ */
+@reference "./global.css";
+
+/* Links within body text */
+:is(.prose, .post-body) a {
+    @apply underline underline-offset-4;
+    text-decoration-color: color-mix(in srgb, var(--color-link-primary) 50%, transparent);
+
+    &:hover {
+        @apply decoration-accent-hover;
+    }
+}
+
+/* MDX Content Styles */
+.post-body {
+    @apply w-full max-w-prose-relaxed mx-auto mt-2 px-1 font-serif text-primary [unicode-bidi:bidi-override] [content-visibility:auto];
+
+    /* Text elements */
+    p { @apply text-xl leading-8 text-start; }
+    em { @apply italic; }
+    strong { @apply font-bold; }
+
+    /* Tables */
+    table {
+        @apply w-5/6 mx-auto table-auto border border-collapse border-table;
+
+        thead {
+            @apply bg-table-head border border-table;
+            th { @apply border border-table; }
+        }
+
+        tbody {
+            tr:nth-child(odd) { @apply bg-table-odd; }
+            tr:nth-child(even) { @apply bg-table-even; }
+            td { @apply border border-table; }
+        }
+    }
+
+    /* Blockquotes */
+    blockquote {
+        @apply p-2 mx-2 mt-4 shadow-md bg-bq border-0 border-s-4 border-secondary;
+
+        p { @apply text-primary; text-indent: 0; }
+
+        > cite {
+            @apply block mt-2 ms-16 italic text-secondary;
+            &::before { content: '-- '; @apply text-secondary; }
+        }
+    }
+
+    /* Headings - shared styles */
+    :is(h2, h3, h4, h5, h6) {
+        @apply flex;
+
+        > a.autolink-hdrs > span > svg {
+            @apply inline-block ms-2 w-4 h-4 fill-current text-secondary;
+        }
+    }
+
+    /* Heading sizes */
+    h2 { @apply pt-3 font-sans text-2xl font-semibold; }
+    h3 { @apply pt-2 font-sans text-xl font-semibold; }
+    h4 { @apply pt-2 font-sans text-lg font-medium; }
+    h5 { @apply pt-2 font-sans text-base font-medium; }
+    h6 { @apply pt-2 font-sans text-sm font-medium uppercase tracking-wide; }
+
+    /* Block elements */
+    hr { @apply h-px mx-2 my-4 bg-gray-300 border-0; }
+    img { @apply border-2 border-secondary shadow-md mx-auto; }
+    summary { @apply text-blue-400 cursor-pointer; }
+
+    /* Spacing */
+    p + p { margin-top: 1.5rem; }
+    :is(h2, h3, h4) + p { margin-top: 0.75rem; }
+    li > p:first-child { display: inline; }
+
+    /* Lists */
+    :is(ul, ol) { @apply my-4 ps-8; }
+    ul { @apply mt-4 text-start list-disc ps-6 space-y-2; }
+    ol { @apply mt-4 text-start list-decimal ps-6 space-y-2; }
+    li { @apply my-1; }
+}
+
+/* Dark mode HR */
+.body-theme-dark .post-body hr {
+    @apply bg-gray-600;
+}

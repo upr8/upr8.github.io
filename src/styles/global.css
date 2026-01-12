@@ -1,8 +1,8 @@
 @import 'tailwindcss';
 
 /* Specify content sources for Tailwind to scan */
-@source "../../data/**/*.mdx";
-@source "../{components,templates,pages}/**/*.{ts,tsx}";
+@source "../../data/**/[!_]*.mdx";
+@source "../{components,layouts,pages}/**/*.{astro,ts,tsx}";
 
 @theme {
   /* Font families */
@@ -101,6 +101,8 @@
     --color-bg-table-even: var(--color-bg-table-even-light);
     --color-bg-table-odd: var(--color-bg-table-odd-light);
     --color-border-table: var(--color-border-table-light);
+    /* Apply text color to body */
+    color: var(--color-text-primary-light);
   }
 
   .body-theme-dark {
@@ -120,6 +122,8 @@
     --color-bg-table-even: var(--color-bg-table-even-dark);
     --color-bg-table-odd: var(--color-bg-table-odd-dark);
     --color-border-table: var(--color-border-table-dark);
+    /* Apply text color to body */
+    color: var(--color-text-primary-dark);
   }
 }
 
@@ -233,37 +237,11 @@ html {
 
 /* Base link styles */
 a {
-    @apply text-accent-primary;
-    @apply transition-colors duration-150;
-    @apply underline underline-offset-2;
+    @apply text-accent-primary transition-colors duration-150 underline underline-offset-2;
     text-decoration-color: color-mix(in srgb, var(--color-link-primary) 30%, transparent);
 
-    &:hover {
-        @apply text-accent-hover decoration-accent-hover;
-    }
-
-    &:active {
-        @apply text-accent-active;
-    }
-
-    &:focus-visible {
-        @apply outline-hidden ring-2 ring-accent-primary ring-offset-2 ring-offset-body;
-    }
-
-    /* Visited links */
-    &:visited {
-        @apply text-accent-visited;
-    }
+    &:hover { @apply text-accent-hover decoration-accent-hover; }
+    &:active { @apply text-accent-active; }
+    &:visited { @apply text-accent-visited; }
+    &:focus-visible { @apply outline-hidden ring-2 ring-accent-primary ring-offset-2 ring-offset-body; }
 }
-
-/* Links within body text should have visible underline */
-.prose a,
-.post-body a {
-    @apply underline underline-offset-4;
-    text-decoration-color: color-mix(in srgb, var(--color-link-primary) 50%, transparent);
-
-    &:hover {
-        @apply decoration-accent-hover;
-    }
-}
-
