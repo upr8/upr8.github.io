@@ -1,0 +1,84 @@
+direction: right
+
+title: {
+  label: Traditional SPA vs Islands Architecture
+  near: top-center
+  shape: text
+  style.font-size: 24
+  style.bold: true
+}
+
+traditional: Traditional SPA {
+  style.fill: "#fef3c7"
+
+  page: Full Page {
+    shape: rectangle
+    style.fill: "#fde68a"
+  }
+
+  bundle: Single JS Bundle {
+    shape: rectangle
+    style.fill: "#f59e0b"
+    style.font-color: "#fff"
+  }
+
+  hydrate: Hydrate Everything {
+    shape: rectangle
+    style.fill: "#d97706"
+    style.font-color: "#fff"
+  }
+
+  page -> bundle -> hydrate
+}
+
+islands: Islands Architecture {
+  style.fill: "#dbeafe"
+
+  html: Static HTML Page {
+    shape: rectangle
+    style.fill: "#93c5fd"
+  }
+
+  island1: Search {
+    shape: rectangle
+    style.fill: "#3b82f6"
+    style.font-color: "#fff"
+  }
+
+  island2: Theme Toggle {
+    shape: rectangle
+    style.fill: "#3b82f6"
+    style.font-color: "#fff"
+  }
+
+  island3: Chart {
+    shape: rectangle
+    style.fill: "#3b82f6"
+    style.font-color: "#fff"
+  }
+
+  js1: Small JS {
+    shape: rectangle
+    style.fill: "#1d4ed8"
+    style.font-color: "#fff"
+    style.font-size: 12
+  }
+
+  js2: Small JS {
+    shape: rectangle
+    style.fill: "#1d4ed8"
+    style.font-color: "#fff"
+    style.font-size: 12
+  }
+
+  js3: Small JS {
+    shape: rectangle
+    style.fill: "#1d4ed8"
+    style.font-color: "#fff"
+    style.font-size: 12
+  }
+
+  html -> island1 -> js1
+  html -> island2 -> js2
+  html -> island3 -> js3
+}
