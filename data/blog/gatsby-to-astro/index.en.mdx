@@ -1,0 +1,90 @@
+---
+title: 'Saying Goodbye to Gatsby: A Calm Refactor'
+date: '2026-01-13'
+lang: 'en'
+type: 'blog'
+published: true
+desc: 'A short reflection on migrating a personal website from Gatsby to Astro, driven by maintenance fatigue, curiosity, and an unexpectedly smooth refactor.'
+tags: ['frontend', 'gatsby', 'astro', 'web', 'maintenance']
+---
+
+It happened again.
+
+After almost four years of using [Gatsby.js](https://www.gatsbyjs.com/), I
+eventually felt the need to drop it from the list of technologies I quietly say
+goodbye to. The feeling did not arrive suddenly. It accumulated slowly, almost
+passively, every time I ran the install command and was greeted by a long list
+of red warnings.
+
+Dependencies with known vulnerabilities. No meaningful releases for a long time.
+The number of warnings increasing over time instead of shrinking.
+
+None of this broke the site immediately, but it created a constant background
+noise, a sense that the project was aging in a way that demanded attention.
+
+## When maintenance becomes friction
+
+For a personal website, maintenance overhead matters more than feature power.
+I do not need cutting-edge performance tricks or complex abstractions. I need
+something that stays quiet when I am not thinking about it.
+
+Gatsby slowly stopped being quiet.
+
+At some point, ignoring the warnings felt more irresponsible than doing something
+about them. So I decided to refactor the site and move to a different technology.
+
+## Choosing the next tool
+
+I had two realistic options: [Next.js](https://nextjs.org/) or [Astro](https://astro.build/).
+
+Next.js was the safe and obvious choice. It is mature, popular, and well-supported.
+But for personal projects, I often prefer the slightly odd option, not for
+productivity, but for curiosity.
+
+Astro caught my attention because of its focus on content-first sites and its
+idea of [Islands Architecture](https://www.patterns.dev/vanilla/islands-architecture/).
+I wanted to understand how that model feels in practice, not just in theory.
+
+### A brief explanation of Island Architecture
+
+In simple terms, Island Architecture treats most of a website as
+**static HTML by default**, and then adds interactivity only where it is truly
+needed.
+
+* The page is the "ocean": mostly static content.
+* Small interactive components are the "islands": they are **hydrated independently** on the client.
+
+Instead of shipping one big JavaScript bundle to power the whole page, you ship
+small pieces of JavaScript only for the parts that require it (a search box, a
+theme toggle, a dynamic chart). This often improves performance, but for me the
+bigger win is conceptual: fewer moving parts, less global complexity.
+
+So I chose Astro.
+
+## A surprisingly uneventful migration
+
+The migration took only a few hours.
+
+That was both surprising and, honestly, a little disappointing. I had expected
+friction, unexpected edge cases, or at least some small architectural puzzles to
+solve. Instead, the process was smooth and mostly mechanical.
+
+Pages moved cleanly. Content stayed intact. The mental overhead was minimal.
+
+## Small wins that matter
+
+During the migration, I finally took the opportunity to refactor the code block
+syntax highlighting, something I had been postponing for a long time. It was a
+small change, but it improved readability and maintainability more than I expected.
+
+The final result felt calm. The site became easier to reason about, faster to
+build, and quieter during installs.
+
+## Closing thoughts
+
+This refactor reminded me that technology choices do not always need dramatic
+justifications. Sometimes, the right time to move on is simply when maintenance
+starts to feel heavier than curiosity.
+
+Astro did not amaze me with complexity or novelty. Instead, it surprised me by
+staying out of the way, and that might be its strongest feature.
