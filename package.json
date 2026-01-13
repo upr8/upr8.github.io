@@ -10,7 +10,7 @@
     "personal-website"
   ],
   "scripts": {
-    "diagrams": "find data -name '*.d2' -exec sh -c 'd2 \"$1\" \"$1.svg\" --theme 0' _ {} \\;",
+    "diagrams": "for f in $(find data -name '*.d2'); do d2 \"$f\" \"$f.svg\" --theme 0; done",
     "dev": "npm run diagrams && astro dev",
     "start": "astro dev",
     "build": "npm run diagrams && astro build",
