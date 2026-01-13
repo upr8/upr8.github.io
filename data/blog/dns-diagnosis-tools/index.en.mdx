@@ -1,0 +1,393 @@
+---
+title: 'DNS Troubleshooting: A Systematic Approach'
+date: '2022-04-23'
+lang: 'en'
+type: 'blog'
+published: true
+desc: 'Systematic DNS troubleshooting and optimization using Linux CLI tools'
+tags: ['dns', 'linux', 'networking', 'troubleshooting']
+---
+
+## Introduction
+
+DNS issues can be frustrating to debug because failures can occur at multiple layers:
+local configuration, network connectivity, DNS server, or the domain itself.
+This guide provides a systematic approach to DNS troubleshooting using Linux CLI tools.
+
+## Troubleshooting methodology
+
+When facing DNS issues, follow this systematic approach:
+
+1. **Verify local configuration** - Check `/etc/resolv.conf` and local DNS settings
+2. **Test connectivity** - Ensure network path to DNS server is working
+3. **Query DNS directly** - Bypass caches and test the DNS server
+4. **Trace resolution path** - Follow the DNS query through the hierarchy
+5. **Analyze responses** - Check for errors, misconfigurations, or delays
+6. **Capture traffic** - Use packet capture for deeper analysis
+7. **Validate DNSSEC** - Check for security-related issues
+
+## Essential tools overview
+
+| Tool | Purpose |
+|------|---------|
+| `dig` | Detailed DNS queries and debugging |
+| `host` | Simple DNS lookups |
+| `nslookup` | Interactive DNS queries |
+| `resolvectl` | systemd DNS resolver status |
+| `nc` | Test DNS port connectivity |
+| `tcpdump` | Capture DNS traffic |
+| `delv` | DNSSEC validation |
+| `whois` | Check domain registration |
+
+## Step 1: Verify local configuration
+
+### Check resolver configuration
+
+```bash
+# View current DNS configuration
+cat /etc/resolv.conf
+
+# Check if systemd-resolved is managing DNS
+ls -la /etc/resolv.conf
+```
+
+If using systemd-resolved:
+
+```bash
+# Check systemd-resolved status
+resolvectl status
+
+# View DNS statistics
+resolvectl statistics
+
+# Flush DNS cache
+resolvectl flush-caches
+```
+
+### Check hosts file
+
+```bash
+# Ensure no conflicting entries
+grep -v "^#" /etc/hosts | grep -v "^$"
+```
+
+## Step 2: Test network connectivity
+
+### Verify DNS port is reachable
+
+```bash
+# Test TCP connectivity to DNS server (port 53)
+nc -zv 8.8.8.8 53
+
+# Test UDP connectivity
+nc -zuv 8.8.8.8 53
+```
+
+### Check for firewall issues
+
+```bash
+# Test with traceroute to DNS server
+traceroute -n 8.8.8.8
+
+# Check iptables rules affecting DNS
+iptables -L -n | grep -i 53
+```
+
+## Step 3: Query DNS directly with dig
+
+The `dig` command is the most powerful DNS debugging tool.
+
+### Basic queries
+
+```bash
+# Simple lookup
+dig example.com
+
+# Query specific DNS server
+dig @8.8.8.8 example.com
+
+# Short output
+dig +short example.com
+
+# Query specific record types
+dig example.com A      # IPv4 address
+dig example.com AAAA   # IPv6 address
+dig example.com MX     # Mail servers
+dig example.com NS     # Nameservers
+dig example.com TXT    # Text records
+dig example.com SOA    # Start of Authority
+dig example.com CAA    # Certificate Authority Authorization
+```
+
+### Understanding dig output
+
+```bash
+dig example.com
+```
+
+Key sections to analyze:
+- **HEADER**: Status codes (`NOERROR`, `NXDOMAIN`, `SERVFAIL`, `REFUSED`)
+- **QUESTION**: What was queried
+- **ANSWER**: The DNS records returned
+- **AUTHORITY**: Authoritative nameservers
+- **Query time**: Response latency in milliseconds
+
+### Advanced dig options
+
+```bash
+# Show only answer section
+dig +noall +answer example.com
+
+# Include all sections with comments
+dig +comments example.com
+
+# Disable recursion (test authoritative response)
+dig +norecurse @ns1.example.com example.com
+
+# Set query timeout (useful for slow servers)
+dig +time=5 example.com
+
+# Retry count
+dig +tries=3 example.com
+
+# Query over TCP instead of UDP
+dig +tcp example.com
+
+# Reverse DNS lookup
+dig -x 93.184.216.34
+```
+
+## Step 4: Trace DNS resolution
+
+### Full resolution trace
+
+```bash
+# Trace from root servers to authoritative
+dig +trace example.com
+```
+
+This shows the complete resolution path:
+1. Root servers (`.`)
+2. TLD servers (`.com`)
+3. Authoritative servers (`example.com`)
+
+### Check authoritative nameservers
+
+```bash
+# Find authoritative nameservers
+dig +short NS example.com
+
+# Query authoritative server directly
+dig @ns1.example.com example.com +norecurse
+```
+
+### Compare responses from different servers
+
+```bash
+# Query multiple DNS servers and compare
+for dns in 8.8.8.8 1.1.1.1 9.9.9.9; do
+    echo "=== $dns ==="
+    dig @$dns +short example.com
+done
+```
+
+## Step 5: Diagnose common problems
+
+### Problem: NXDOMAIN (domain not found)
+
+```bash
+# Check if domain exists
+dig example.com
+
+# If NXDOMAIN, verify domain registration
+whois example.com | grep -i "expir\|status"
+
+# Check parent zone delegation
+dig +trace example.com
+```
+
+### Problem: SERVFAIL (server failure)
+
+```bash
+# Test authoritative server directly
+dig @$(dig +short NS example.com | head -1) example.com
+
+# Check for DNSSEC issues
+dig example.com +dnssec
+delv example.com
+```
+
+### Problem: Slow DNS resolution
+
+```bash
+# Measure query time
+dig example.com | grep "Query time"
+
+# Compare local vs external DNS
+time dig @127.0.0.1 example.com
+time dig @8.8.8.8 example.com
+
+# Check for timeouts in trace
+dig +trace +time=2 example.com
+```
+
+### Problem: Inconsistent responses
+
+```bash
+# Check TTL values
+dig +noall +answer +ttlid example.com
+
+# Query authoritative servers
+dig +short NS example.com | while read ns; do
+    echo "=== $ns ==="
+    dig @$ns +short example.com
+done
+```
+
+### Problem: Reverse DNS not working
+
+```bash
+# Perform reverse lookup
+dig -x 192.168.1.1
+
+# Check PTR record
+dig 1.1.168.192.in-addr.arpa PTR
+
+# Verify zone delegation for reverse zone
+dig +trace -x 192.168.1.1
+```
+
+## Step 6: Network-level debugging
+
+### Capture DNS traffic with tcpdump
+
+```bash
+# Capture all DNS traffic
+tcpdump -i any port 53 -n
+
+# Capture with packet contents
+tcpdump -i any port 53 -n -vvv
+
+# Save to file for analysis
+tcpdump -i any port 53 -w dns_capture.pcap
+
+# Filter by specific host
+tcpdump -i any port 53 and host 8.8.8.8
+```
+
+### Analyze DNS packets
+
+```bash
+# Read captured file
+tcpdump -r dns_capture.pcap -n
+
+# Show DNS query details
+tcpdump -i any port 53 -n -l | grep -E "A\?|AAAA\?|PTR\?"
+```
+
+## Step 7: DNSSEC validation
+
+### Check DNSSEC status
+
+```bash
+# Query with DNSSEC
+dig example.com +dnssec
+
+# Check for AD (Authenticated Data) flag
+dig example.com +dnssec | grep flags
+
+# Detailed DNSSEC validation
+delv example.com
+
+# Check DNSKEY records
+dig example.com DNSKEY
+
+# Check DS records at parent
+dig example.com DS
+```
+
+### Diagnose DNSSEC failures
+
+```bash
+# Trace DNSSEC chain
+dig +trace +dnssec example.com
+
+# Check signature expiration
+dig example.com RRSIG | grep -i expire
+```
+
+## Quick reference: host command
+
+The `host` command provides simpler output for quick checks:
+
+```bash
+# Basic lookup
+host example.com
+
+# Reverse lookup
+host 93.184.216.34
+
+# Query specific record type
+host -t MX example.com
+host -t NS example.com
+host -t TXT example.com
+
+# Use specific DNS server
+host example.com 8.8.8.8
+
+# Verbose output
+host -v example.com
+```
+
+## Quick reference: nslookup
+
+```bash
+# Basic lookup
+nslookup example.com
+
+# Use specific server
+nslookup example.com 8.8.8.8
+
+# Query specific record type
+nslookup -type=MX example.com
+nslookup -type=NS example.com
+nslookup -type=SOA example.com
+
+# Enable debug mode
+nslookup -debug example.com
+```
+
+## Performance testing
+
+### Measure query latency
+
+```bash
+# Multiple queries to measure consistency
+for i in {1..10}; do
+    dig example.com | grep "Query time"
+done
+```
+
+### Compare DNS providers
+
+```bash
+# Test different public DNS servers
+for dns in 8.8.8.8 1.1.1.1 9.9.9.9 208.67.222.222; do
+    echo "=== $dns ==="
+    dig @$dns example.com | grep "Query time"
+done
+```
+
+## Troubleshooting checklist
+
+Use this checklist when debugging DNS issues:
+
+- [ ] Is `/etc/resolv.conf` configured correctly?
+- [ ] Can you reach the DNS server? (`nc -zv dns_server 53`)
+- [ ] Does the query work with `dig @server domain`?
+- [ ] What status code is returned? (`NOERROR`, `NXDOMAIN`, `SERVFAIL`)
+- [ ] Is the TTL reasonable?
+- [ ] Do authoritative servers respond correctly?
+- [ ] Are there DNSSEC validation issues?
+- [ ] Are there firewall rules blocking DNS?
+- [ ] Do different public DNS servers return the same result?
