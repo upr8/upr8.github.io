@@ -72,6 +72,17 @@
     img { @apply border-2 border-secondary shadow-md mx-auto; }
     summary { @apply text-blue-400 cursor-pointer; }
 
+    /* Figures with captions */
+    figure {
+        @apply my-6 mx-auto;
+
+        img { @apply mb-2; }
+
+        figcaption {
+            @apply text-center text-sm text-secondary italic;
+        }
+    }
+
     /* Spacing */
     p + p { margin-top: 1.5rem; }
     :is(h2, h3, h4) + p { margin-top: 0.75rem; }
