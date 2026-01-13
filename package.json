@@ -10,9 +10,10 @@
     "personal-website"
   ],
   "scripts": {
-    "dev": "astro dev",
+    "diagrams": "find data -name '*.d2' -exec sh -c 'd2 \"$1\" \"$1.svg\" --theme 0' _ {} \\;",
+    "dev": "npm run diagrams && astro dev",
     "start": "astro dev",
-    "build": "astro build",
+    "build": "npm run diagrams && astro build",
     "preview": "astro preview",
     "check": "astro check",
     "gh-pages-action": "gh-pages -d dist -b release --dotfiles --remove '**/*'",

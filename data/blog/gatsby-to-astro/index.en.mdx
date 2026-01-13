@@ -54,6 +54,8 @@ needed.
 * The page is the "ocean": mostly static content.
 * Small interactive components are the "islands": they are **hydrated independently** on the client.
 
+![Traditional SPA vs Islands Architecture](./islands-architecture.d2.svg)
+
 Instead of shipping one big JavaScript bundle to power the whole page, you ship
 small pieces of JavaScript only for the parts that require it (a search box, a
 theme toggle, a dynamic chart). This often improves performance, but for me the
