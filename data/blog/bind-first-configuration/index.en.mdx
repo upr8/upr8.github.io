@@ -5,7 +5,7 @@ lang: 'en'
 type: 'blog'
 published: true
 desc: 'Installing and configuring a BIND DNS Server'
-tags: ['dns', 'bind', 'linux']
+tags: ['dns', 'bind', 'linux', 'networking']
 ---
 
 ## Introduction
@@ -43,10 +43,10 @@ This file contains global server options and specifies zone configurations.
 Make sure to take a backup of the original file before making any changes.
 
 Configurations can be divided into four main categories:
-- General configurations in the `named.conf.options` section 
-- Configuration of log files in the `named.conf.logs` section 
-- Configurations of displaying domain for internal networks in the `named.conf.internal-zones` section 
-- Configurations for public and external networks in the `named.conf.external-zones`. 
+- General configurations in the `named.conf.options` section
+- Configuration of log files in the `named.conf.logs` section
+- Configurations of displaying domain for internal networks in the `named.conf.internal-zones` section
+- Configurations for public and external networks in the `named.conf.external-zones`.
 Therefore, the `/etc/bind/named.conf` file will look like as follows:
 
 ```dns-zone
@@ -275,78 +275,17 @@ logging {
 
 </details>
 
-## Troubleshooting
+## Validating configuration files
 
-### Validating "configuration file"
-
-For configuration files validation, the following commands can be useful:
+After making changes to your BIND configuration, always validate your configuration files before restarting the service:
 
 ```bash
 named-checkconf
 ```
 
+For zone file validation:
+
 ```bash
 named-checkzone example.com /etc/bind/zones/db.example.com
 named-checkzone 1.0.0.in-addr.arpa /etc/bind/zones/db.127
 ```
-
-### dig
-
-To check if BIND is configured correctly, you can use the dig command-line tool,
-which is commonly available on Linux systems.
-
-#### Check if the DNS server is running
-
-By using the following command, if the DNS server is running and reachable,
-you will see the server's version and some query-related information:
-
-```bash
-dig @dns_server_ip
-```
-
-#### Perform a basic DNS lookup
-
-This command queries your DNS server for the IP address associated with the domain "example.com".
-You should receive a response with the IP address (A record) of the domain.
-
-```bash
-dig @dns_server_ip example.com
-```
-
-#### Reverse DNS lookup
-
-The response should include the domain name (PTR record) associated with the IP address.
-
-```bash
-dig @dns_server_ip -x your_ip_address
-```
-
-### nslookup
-
-To check if BIND is configured correctly using the nslookup command, you can follow these steps:
-
-1. Start the `nslookup` command-line tool
-    ```bash
-    nslookup
-    ```
-2. By default, nslookup uses your system's configured DNS server for lookups.
-    To specify a specific DNS server, use the following command, replacing "your_dns_server_ip"
-    with the IP address of your DNS server:
-    ```bash
-    server your_dns_server_ip
-    ```
-3. Once you have set the DNS server, you can perform DNS lookups. Type the domain name you want to query, such as:
-    ```bash
-    example.com
-    ```
-    You will receive a response with various details, including the IP address (A record) associated
-    with the domain, the authoritative DNS server, and additional records if available.
-4. To query a specific record type, for example, to query the CNAME records for a domain, you would use:
-    ```bash
-    set type=CNAME
-    ```
-    Then, you can query the domain again to retrieve the specific record information.
-    ```bash
-    example.com
-    ```
-5. To exit the nslookup tool, type exit.
