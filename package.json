@@ -10,6 +10,7 @@
     "personal-website"
   ],
   "scripts": {
+    "clean": "rm -rf .astro dist",
     "diagrams": "for f in $(find data -name '*.d2'); do d2 \"$f\" \"$f.svg\" --theme 0; done",
     "dev": "npm run diagrams && astro dev",
     "start": "astro dev",
