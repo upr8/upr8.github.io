@@ -1,7 +1,11 @@
 ---
 import { getCollection, render } from 'astro:content';
-import type { PagesEntry } from '@/types';
+import type { PagesEntry, BlogEntry, LibraryEntry } from '@/types';
 import BaseLayout from '@/layouts/BaseLayout.astro';
+import TagCloud from '@/components/tags/TagCloud.astro';
+import BlogPostCard from '@/components/cards/BlogPostCard.astro';
+import LibraryBookCard from '@/components/cards/LibraryBookCard.astro';
+import { getSlug, getLatestPosts, getLatestBooks } from '@/utils';
 
 export function getStaticPaths() {
   return [
@@ -25,6 +29,10 @@ if (homePage) {
   const rendered = await render(homePage);
   Content = rendered.Content;
 }
+
+// Get latest content
+const latestPosts = await getLatestPosts(lang, 5);
+const latestBooks = await getLatestBooks(lang, 5);
 ---
 
 <BaseLayout
@@ -33,12 +41,74 @@ if (homePage) {
   lang={lang}
   dir={dir}
 >
-  <article class="post-body prose max-w-prose mt-8">
-    {Content && <Content />}
-    {!Content && (
-      <p class="text-secondary">
-        Welcome! Content coming soon.
-      </p>
+  <!-- Hero Section -->
+  <section class="mt-8 mb-8">
+    {Content && (
+      <div class="prose max-w-prose">
+        <Content />
+      </div>
     )}
-  </article>
+  </section>
+
+  <!-- Favorite Topics Section -->
+  <section class="mb-12">
+    <h2 class="text-xl font-semibold text-primary mb-4">Favorite Topics</h2>
+    <TagCloud lang={lang} maxTags={100} minCount={1} />
+  </section>
+
+  <hr class="border-secondary my-8" />
+
+  <!-- Latest Posts Section -->
+  {latestPosts.length > 0 && (
+    <section class="mb-12">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-xl font-semibold text-primary">Latest Posts</h2>
+        <a href={`/${lang}/blog`} class="text-sm text-accent-primary hover:underline">
+          View all →
+        </a>
+      </div>
+      <div class="@container">
+        {latestPosts.map((post: BlogEntry) => (
+          <BlogPostCard
+            title={post.data.title}
+            date={post.data.date}
+            description={post.data.desc}
+            slug={getSlug(post.id)}
+            tags={post.data.tags}
+            lang={lang}
+            headingLevel={3}
+          />
+        ))}
+      </div>
+    </section>
+  )}
+
+  <hr class="border-secondary my-8" />
+
+  <!-- Latest Books Section -->
+  {latestBooks.length > 0 && (
+    <section class="mb-12">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-xl font-semibold text-primary">Latest from the Library</h2>
+        <a href={`/${lang}/library`} class="text-sm text-accent-primary hover:underline">
+          View all →
+        </a>
+      </div>
+      <div class="@container">
+        {latestBooks.map((book: LibraryEntry) => (
+          <LibraryBookCard
+            title={book.data.title}
+            date={book.data.date}
+            description={book.data.desc}
+            slug={getSlug(book.id)}
+            tags={book.data.tags}
+            rate={book.data.rate}
+            hasReview={book.data.hasReview}
+            coverImage={book.data.embeddedImagesLocal?.[0]}
+            lang={lang}
+          />
+        ))}
+      </div>
+    </section>
+  )}
 </BaseLayout>

@@ -1,0 +1,192 @@
+---
+import { getTagData } from '@/utils';
+
+interface Props {
+  lang?: 'en' | 'fa';
+  maxTags?: number;
+  minCount?: number;
+}
+
+const { lang = 'en', maxTags = 50, minCount = 1 } = Astro.props;
+
+// Get tag data from utility function
+const tagData = await getTagData(lang, { maxTags, minCount });
+---
+
+<nav aria-label="Tag cloud" class="my-8">
+  <div id="wordcloud-container" class="wordcloud-container">
+    <svg id="wordcloud-svg"></svg>
+  </div>
+  <!-- Fallback for no-JS / accessibility -->
+  <noscript>
+    <div class="flex flex-wrap gap-2 justify-center">
+      {tagData.map((tag) => (
+        <a href={tag.url} class="text-primary hover:text-accent-primary">
+          {tag.text} ({tag.count})
+        </a>
+      ))}
+    </div>
+  </noscript>
+</nav>
+
+<script>
+  import * as d3 from 'd3';
+  import cloud from 'd3-cloud';
+
+  // Get tag data from the page
+  const tagDataScript = document.querySelector('[data-tag-data]');
+  const tagData = tagDataScript ? JSON.parse(tagDataScript.textContent || '[]') : [];
+
+  // Calculate min/max counts once
+  const counts = tagData.map((t: any) => t.count);
+  const maxCount = Math.max(...counts);
+  const minCount = Math.min(...counts);
+
+  // Color scale based on frequency and current theme
+  function getColorScale() {
+    const isDark = document.documentElement.dataset.theme === 'dark';
+    return (count: number) => {
+      const ratio = maxCount > minCount
+        ? (Math.log(count) - Math.log(minCount)) / (Math.log(maxCount) - Math.log(minCount))
+        : 0.5;
+      if (isDark) {
+        const lightness = 50 + ratio * 40;
+        return `hsl(210, 10%, ${lightness}%)`;
+      } else {
+        const lightness = 55 - ratio * 40;
+        return `hsl(210, 10%, ${lightness}%)`;
+      }
+    };
+  }
+
+  // Update only the colors without regenerating layout
+  function updateColors() {
+    const svg = document.getElementById('wordcloud-svg');
+    if (!svg) return;
+
+    const colorScale = getColorScale();
+    d3.select(svg)
+      .selectAll<SVGTextElement, unknown>('.wordcloud-word')
+      .style('fill', function() {
+        const count = Number(this.getAttribute('data-count'));
+        return colorScale(count);
+      });
+  }
+
+  function initWordCloud() {
+    const container = document.getElementById('wordcloud-container');
+    const svg = document.getElementById('wordcloud-svg') as unknown as SVGSVGElement;
+
+    if (!container || !svg || tagData.length === 0) return;
+
+    // Clear previous content
+    svg.innerHTML = '';
+
+    const width = container.offsetWidth || 600;
+    const height = Math.min(350, width * 0.5);
+
+    svg.setAttribute('width', String(width));
+    svg.setAttribute('height', String(height));
+
+    const sizeScale = d3.scaleLog()
+      .domain([minCount || 1, maxCount || 1])
+      .range([14, 55]);
+
+    const colorScale = getColorScale();
+
+    // Prepare words for d3-cloud
+    const words = tagData.map((d: any) => ({
+      text: d.text,
+      size: sizeScale(d.count),
+      count: d.count,
+      url: d.url
+    }));
+
+    // Create cloud layout
+    const layout = cloud()
+      .size([width, height])
+      .words(words)
+      .padding(4)
+      .rotate(() => (Math.random() > 0.7 ? 90 : 0))
+      .font('IBM Plex Sans, system-ui, sans-serif')
+      .fontSize((d: any) => d.size)
+      .spiral('archimedean')
+      .on('end', draw);
+
+    layout.start();
+
+    function draw(words: any[]) {
+      const g = d3.select(svg)
+        .append('g')
+        .attr('transform', `translate(${width / 2},${height / 2})`);
+
+      g.selectAll('text')
+        .data(words)
+        .enter()
+        .append('a')
+        .attr('href', (d: any) => d.url)
+        .attr('class', 'wordcloud-link')
+        .append('text')
+        .attr('class', 'wordcloud-word')
+        .attr('data-count', (d: any) => d.count)
+        .style('font-size', (d: any) => `${d.size}px`)
+        .style('font-family', 'IBM Plex Sans, system-ui, sans-serif')
+        .style('fill', (d: any) => colorScale(d.count))
+        .attr('text-anchor', 'middle')
+        .attr('transform', (d: any) => `translate(${d.x},${d.y}) rotate(${d.rotate})`)
+        .text((d: any) => d.text);
+    }
+  }
+
+  // Initialize on load
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initWordCloud);
+  } else {
+    initWordCloud();
+  }
+
+  // Update colors only on theme change (preserve layout)
+  document.addEventListener('theme-changed', updateColors);
+
+  // Re-initialize on resize (debounced)
+  let resizeTimeout: number;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = window.setTimeout(initWordCloud, 300);
+  });
+</script>
+
+<!-- Pass tag data to client -->
+<script is:inline type="application/json" data-tag-data set:html={JSON.stringify(tagData)}></script>
+
+<style>
+  .wordcloud-container {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    height: 350px;
+    max-height: 350px;
+  }
+
+  #wordcloud-svg {
+    display: block;
+    margin: 0 auto;
+  }
+
+  .wordcloud-container :global(.wordcloud-link) {
+    text-decoration: none;
+    transition: transform 0.2s ease;
+    transform-origin: center;
+    transform-box: fill-box;
+  }
+
+  .wordcloud-container :global(.wordcloud-link:hover),
+  .wordcloud-container :global(.wordcloud-link:focus) {
+    transform: scale(1.08);
+    outline: none;
+  }
+
+  .wordcloud-container :global(.wordcloud-word) {
+    cursor: pointer;
+  }
+</style>

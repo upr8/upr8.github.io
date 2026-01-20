@@ -72,11 +72,15 @@
 
       localStorage.setItem('theme', newTheme);
       document.documentElement.classList.toggle('dark', newIsDark);
+      document.documentElement.dataset.theme = newTheme;
       document.body.classList.remove('body-theme-light', 'body-theme-dark');
       document.body.classList.add(`body-theme-${newTheme}`);
 
       updateIcons(newIsDark);
       updateAriaLabel(newIsDark);
+
+      // Dispatch theme-changed event for components that need to react
+      document.dispatchEvent(new CustomEvent('theme-changed', { detail: { theme: newTheme } }));
     });
 
     function updateIcons(isDark: boolean) {
