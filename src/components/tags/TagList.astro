@@ -9,12 +9,12 @@ const { tags, lang = 'en', isCenter = true } = Astro.props;
 ---
 
 <ul
-  class={`flex flex-wrap items-baseline mt-2 ms-1 @md:mt-0 ${
-    isCenter ? 'justify-center' : 'justify-start'
+  class={`flex items-baseline mt-2 ms-1 @md:mt-0 overflow-x-auto @md:overflow-x-visible @md:flex-wrap ${
+    isCenter ? '@md:justify-center' : 'justify-start'
   }`}
 >
   {tags.map((tag) => (
-    <li class="z-10 inline-block px-2 m-1 text-sm border-2 rounded-full shadow-xs bg-nav text-primary">
+    <li class="z-10 inline-block shrink-0 px-2 m-1 text-sm border-2 rounded-full shadow-xs bg-nav text-primary">
       <a href={`/${lang}/tag/${tag}`} class="no-underline hover:text-accent-primary transition-colors">
         #{tag}
       </a>
