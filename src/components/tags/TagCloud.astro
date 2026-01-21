@@ -109,9 +109,14 @@ const tagData = await getTagData(lang, { maxTags, minCount });
       return;
     }
 
+    // Scale font sizes based on container width (reference: 600px)
+    const scaleFactor = Math.min(1, width / 600);
+    const minFontSize = Math.round(14 * scaleFactor);
+    const maxFontSize = Math.round(55 * scaleFactor);
+
     const sizeScale = d3.scaleLog()
       .domain([minCount || 1, maxCount || 1])
-      .range([14, 55]);
+      .range([minFontSize, maxFontSize]);
 
     // Create seeded random for deterministic rotation
     const rotationRandom = createSeededRandom(tagSeed);
