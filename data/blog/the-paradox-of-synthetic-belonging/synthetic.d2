@@ -1,0 +1,51 @@
+direction: down
+
+feed: {
+  label: Algorithmic Feed
+  shape: rectangle
+  style: {
+    fill: "#fff3cd"
+    stroke: "#c4a000"
+    font-size: 14
+  }
+}
+
+recognition: {
+  label: "Simulated Recognition\n(no mutual obligation)"
+  shape: rectangle
+  style: {
+    fill: "#e8f4f8"
+    stroke: "#5b9aa0"
+    font-size: 12
+  }
+}
+
+belonging: {
+  label: "Belonging\n(as commodity)"
+  shape: rectangle
+  style: {
+    fill: "#f8d7da"
+    stroke: "#c0392b"
+    font-size: 12
+  }
+}
+
+identity: {
+  label: "Identity\n(feels safe)"
+  shape: rectangle
+  style: {
+    fill: "#d4edda"
+    stroke: "#28a745"
+    font-size: 12
+  }
+}
+
+feed -> recognition: delivers
+recognition -> belonging: produces
+belonging -> identity: reinforces
+identity -> feed: optimizes {
+  style: {
+    stroke: "#666"
+    stroke-dash: 3
+  }
+}
