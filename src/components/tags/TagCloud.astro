@@ -32,6 +32,7 @@ const tagData = await getTagData(lang, { maxTags, minCount });
 <script>
   import * as d3 from 'd3';
   import cloud from 'd3-cloud';
+  import { createSeededRandom } from '@/utils/seeded-random';
 
   // Get tag data from the page
   const tagDataScript = document.querySelector('[data-tag-data]');
@@ -41,6 +42,11 @@ const tagData = await getTagData(lang, { maxTags, minCount });
   const counts = tagData.map((t: any) => t.count);
   const maxCount = Math.max(...counts);
   const minCount = Math.min(...counts);
+
+  // Create a seed from tag data so layout is consistent for same tags
+  const tagSeed = tagData.reduce((acc: number, t: any, i: number) => {
+    return acc + t.text.charCodeAt(0) * (i + 1) + t.count;
+  }, 12345);
 
   // Color scale based on frequency and current theme
   function getColorScale() {
@@ -73,6 +79,11 @@ const tagData = await getTagData(lang, { maxTags, minCount });
       });
   }
 
+  // Store computed layout to reuse on resize
+  let cachedLayout: any[] | null = null;
+  let cachedWidth: number = 0;
+  let cachedHeight: number = 0;
+
   function initWordCloud() {
     const container = document.getElementById('wordcloud-container');
     const svg = document.getElementById('wordcloud-svg') as unknown as SVGSVGElement;
@@ -80,7 +91,9 @@ const tagData = await getTagData(lang, { maxTags, minCount });
     if (!container || !svg || tagData.length === 0) return;
 
     // Clear previous content
-    svg.innerHTML = '';
+    while (svg.firstChild) {
+      svg.removeChild(svg.firstChild);
+    }
 
     const width = container.offsetWidth || 600;
     const height = Math.min(350, width * 0.5);
@@ -88,30 +101,49 @@ const tagData = await getTagData(lang, { maxTags, minCount });
     svg.setAttribute('width', String(width));
     svg.setAttribute('height', String(height));
 
+    const colorScale = getColorScale();
+
+    // If we have cached layout and dimensions match, reuse it
+    if (cachedLayout && cachedWidth === width && cachedHeight === height) {
+      draw(cachedLayout);
+      return;
+    }
+
     const sizeScale = d3.scaleLog()
       .domain([minCount || 1, maxCount || 1])
       .range([14, 55]);
 
-    const colorScale = getColorScale();
+    // Create seeded random for deterministic rotation
+    const rotationRandom = createSeededRandom(tagSeed);
 
     // Prepare words for d3-cloud
     const words = tagData.map((d: any) => ({
       text: d.text,
       size: sizeScale(d.count),
       count: d.count,
-      url: d.url
+      url: d.url,
+      rotate: rotationRandom() > 0.7 ? 90 : 0
     }));
+
+    // Create seeded random for d3-cloud placement
+    const placementRandom = createSeededRandom(tagSeed + 1);
 
     // Create cloud layout
     const layout = cloud()
       .size([width, height])
       .words(words)
       .padding(4)
-      .rotate(() => (Math.random() > 0.7 ? 90 : 0))
+      .rotate((d: any) => d.rotate)
       .font('IBM Plex Sans, system-ui, sans-serif')
       .fontSize((d: any) => d.size)
       .spiral('archimedean')
-      .on('end', draw);
+      .random(placementRandom)
+      .on('end', (layoutWords: any[]) => {
+        cachedLayout = layoutWords;
+        cachedWidth = width;
+        cachedHeight = height;
+        draw(layoutWords);
+      });
 
     layout.start();
 
