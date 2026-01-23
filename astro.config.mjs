@@ -1,6 +1,7 @@
 import { defineConfig } from 'astro/config';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
+import AstroPWA from '@vite-pwa/astro';
 import tailwindcss from '@tailwindcss/vite';
 import remarkGfm from 'remark-gfm';
 import rehypeSlug from 'rehype-slug';
@@ -19,6 +20,42 @@ export default defineConfig({
   integrations: [
     mdx({ remarkPlugins: [remarkGfm] }),
     sitemap(),
+    AstroPWA({
+      registerType: 'autoUpdate',
+      manifest: {
+        name: 'Saeed Asaiyan',
+        short_name: 'Saeed',
+        description: 'Software enthusiast exploring systems, philosophy, and the craft of building things',
+        theme_color: '#ffffff',
+        background_color: '#ffffff',
+        display: 'standalone',
+        icons: [
+          {
+            src: 'pwa-192x192.png',
+            sizes: '192x192',
+            type: 'image/png',
+          },
+          {
+            src: 'pwa-512x512.png',
+            sizes: '512x512',
+            type: 'image/png',
+          },
+          {
+            src: 'pwa-512x512.png',
+            sizes: '512x512',
+            type: 'image/png',
+            purpose: 'any maskable',
+          },
+        ],
+      },
+      workbox: {
+        navigateFallback: '/404',
+        globPatterns: ['**/*.{css,js,html,svg,png,ico,txt,woff,woff2}'],
+      },
+      devOptions: {
+        enabled: false,
+      },
+    }),
   ],
   markdown: {
     remarkPlugins: [remarkGfm],
