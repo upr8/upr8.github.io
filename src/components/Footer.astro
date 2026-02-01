@@ -1,26 +1,28 @@
 ---
 import Github from '@/components/icons/Github.astro';
 import Rss from '@/components/icons/Rss.astro';
+import { t, type Lang } from '@/i18n';
 
 interface Props {
-  lang?: 'en' | 'fa';
+  lang?: Lang;
 }
 
 const { lang = 'en' } = Astro.props;
+const i18n = t(lang);
 
 const github = 'https://github.com/upr8';
 ---
 
 <footer class="box-border flex flex-row justify-between pt-4 mt-8 mb-4 border-t-2 border-primary">
   <p class="text-center align-middle text-secondary">
-    Copyright &copy; {new Date().getFullYear()} by <a href={`/${lang}/about`} class="font-medium no-underline hover:text-accent-primary transition-colors" aria-label="Navigate to about page">Saeed Asaiyan</a>.
+    Copyright &copy; {new Date().getFullYear()} by <a href={`/${lang}/about`} class="font-medium no-underline hover:text-accent-primary transition-colors" aria-label={i18n.footer.copyright}>Saeed Asaiyan</a>.
   </p>
-  <ul class="flex justify-center" aria-label="Social media and feed links">
+  <ul class="flex justify-center" aria-label={i18n.accessibility.socialLinks}>
     <li class="mx-4">
-      <Rss link={`/${lang}/rss.xml`} />
+      <Rss link={`/${lang}/rss.xml`} lang={lang} />
     </li>
     <li class="mx-4">
-      <Github link={github} />
+      <Github link={github} lang={lang} />
     </li>
   </ul>
 </footer>

@@ -5,9 +5,10 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import BlogPostCard from '@/components/cards/BlogPostCard.astro';
 import LibraryBookCard from '@/components/cards/LibraryBookCard.astro';
 import ArchivePostCard from '@/components/cards/ArchivePostCard.astro';
+import { t, type Lang } from '@/i18n';
 
 export async function getStaticPaths() {
-  const langs: Array<'en' | 'fa'> = ['en', 'fa'];
+  const langs: Array<Lang> = ['en', 'fa'];
   const paths: Array<{ params: { lang: string; tag: string } }> = [];
 
   for (const lang of langs) {
@@ -40,8 +41,9 @@ export async function getStaticPaths() {
   return paths;
 }
 
-const { lang, tag } = Astro.params as { lang: 'en' | 'fa'; tag: string };
+const { lang, tag } = Astro.params as { lang: Lang; tag: string };
 const dir = lang === 'fa' ? 'rtl' : 'ltr';
+const i18n = t(lang);
 
 // Get all content with this tag
 const blogs = await getCollection('blog', (entry: BlogEntry) =>
@@ -77,12 +79,12 @@ const hasContent = blogs.length > 0 || library.length > 0 || archives.length > 0
 >
   <div class="@container mt-8">
     {!hasContent && (
-      <p class="text-secondary text-center py-8">No content found with this tag.</p>
+      <p class="text-secondary text-center py-8">{i18n.tag.emptyState}</p>
     )}
 
     {blogs.length > 0 && (
       <section>
-        <h2 class="text-xl font-semibold text-primary mb-4">Blog Posts</h2>
+        <h2 class="text-xl font-semibold text-primary mb-4">{i18n.tag.blogPosts}</h2>
         {blogs.map((post: BlogEntry) => (
           <BlogPostCard
             title={post.data.title}
@@ -99,7 +101,7 @@ const hasContent = blogs.length > 0 || library.length > 0 || archives.length > 0
 
     {library.length > 0 && (
       <section class="mt-8">
-        <h2 class="text-xl font-semibold text-primary mb-4">Books</h2>
+        <h2 class="text-xl font-semibold text-primary mb-4">{i18n.tag.books}</h2>
         {library.map((book: LibraryEntry) => (
           <LibraryBookCard
             title={book.data.title}
@@ -118,7 +120,7 @@ const hasContent = blogs.length > 0 || library.length > 0 || archives.length > 0
 
     {archives.length > 0 && (
       <section class="mt-8">
-        <h2 class="text-xl font-semibold text-primary mb-4">Archived Links</h2>
+        <h2 class="text-xl font-semibold text-primary mb-4">{i18n.tag.archivedLinks}</h2>
         {archives.map((item: ArchiveEntry) => (
           <ArchivePostCard
             title={item.data.title}

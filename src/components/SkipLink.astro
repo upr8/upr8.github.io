@@ -1,10 +1,17 @@
 ---
-// SkipLink - Accessibility component for keyboard navigation
+import { t, type Lang } from '@/i18n';
+
+interface Props {
+  lang?: Lang;
+}
+
+const { lang = 'en' } = Astro.props;
+const i18n = t(lang);
 ---
 
 <a
   href="#main-content"
   class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:px-4 focus:py-2 focus:bg-nav focus:text-primary focus:rounded focus:outline-2 focus:outline-offset-2 focus:outline-accent-primary"
 >
-  Skip to main content
+  {i18n.accessibility.skipToContent}
 </a>

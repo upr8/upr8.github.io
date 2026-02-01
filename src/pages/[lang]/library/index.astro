@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import type { LibraryEntry } from '@/types';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import LibraryBookCard from '@/components/cards/LibraryBookCard.astro';
+import { t, type Lang } from '@/i18n';
 
 export function getStaticPaths() {
   return [
@@ -11,8 +12,9 @@ export function getStaticPaths() {
   ];
 }
 
-const { lang } = Astro.params as { lang: 'en' | 'fa' };
+const { lang } = Astro.params as { lang: Lang };
 const dir = lang === 'fa' ? 'rtl' : 'ltr';
+const i18n = t(lang);
 
 // Get all published library items for this language
 const books = await getCollection('library', (entry: LibraryEntry) =>
@@ -31,7 +33,7 @@ function getSlug(id: string): string {
 
 <BaseLayout
   title="$> ldconfig -p"
-  description="List of book that I read"
+  description={i18n.library.description}
   lang={lang}
   dir={dir}
 >
@@ -51,7 +53,7 @@ function getSlug(id: string): string {
         />
       ))
     ) : (
-      <p class="text-secondary text-center py-8">No books yet.</p>
+      <p class="text-secondary text-center py-8">{i18n.library.emptyState}</p>
     )}
   </div>
 </BaseLayout>

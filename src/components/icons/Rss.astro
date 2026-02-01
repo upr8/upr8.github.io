@@ -1,12 +1,16 @@
 ---
+import { t, type Lang } from '@/i18n';
+
 interface Props {
   link: string;
+  lang?: Lang;
 }
 
-const { link } = Astro.props;
+const { link, lang = 'en' } = Astro.props;
+const i18n = t(lang);
 ---
 
-<a href={link} target="_blank" rel="noreferrer" aria-label="Subscribe to RSS feed (opens in new tab)">
+<a href={link} target="_blank" rel="noreferrer" aria-label={i18n.accessibility.rssAriaLabel}>
   <svg
     class="w-8 h-8 fill-current text-secondary"
     viewBox="0 0 24 24"

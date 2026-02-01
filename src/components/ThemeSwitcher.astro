@@ -1,17 +1,28 @@
 ---
-// ThemeSwitcher - Dark mode toggle component
+import { t, type Lang } from '@/i18n';
+
+interface Props {
+  lang?: Lang;
+}
+
+const { lang = 'en' } = Astro.props;
+const i18n = t(lang);
 ---
 
 <label
   for="toggleTheme"
   class="relative flex items-center justify-center pt-1 cursor-pointer"
   id="theme-switcher-label"
+  data-switch-to-light={i18n.theme.switchToLight}
+  data-switch-to-dark={i18n.theme.switchToDark}
+  data-currently-light={i18n.theme.currentlyLight}
+  data-currently-dark={i18n.theme.currentlyDark}
 >
   <input
     id="toggleTheme"
     type="checkbox"
     class="hidden peer"
-    aria-label="Toggle theme"
+    aria-label={i18n.theme.toggle}
   />
   <div class="w-10 h-4 rounded-full shadow-inner bg-body" aria-hidden="true"></div>
   <div
@@ -60,6 +71,12 @@
 
     if (!toggle || !label || !sunIcon || !moonIcon) return;
 
+    // Get translations from data attributes
+    const switchToLight = label.dataset.switchToLight || 'Switch to light theme';
+    const switchToDark = label.dataset.switchToDark || 'Switch to dark theme';
+    const currentlyLight = label.dataset.currentlyLight || 'Theme switcher, currently light mode';
+    const currentlyDark = label.dataset.currentlyDark || 'Theme switcher, currently dark mode';
+
     // Set initial state based on current theme
     const isDark = document.documentElement.classList.contains('dark');
     toggle.checked = isDark;
@@ -94,9 +111,10 @@
     }
 
     function updateAriaLabel(isDark: boolean) {
-      const targetTheme = isDark ? 'light' : 'dark';
-      label?.setAttribute('aria-label', `Switch to ${targetTheme} theme`);
-      toggle.setAttribute('aria-label', `Theme switcher, currently ${isDark ? 'dark' : 'light'} mode`);
+      const targetLabel = isDark ? switchToLight : switchToDark;
+      const currentLabel = isDark ? currentlyDark : currentlyLight;
+      label?.setAttribute('aria-label', targetLabel);
+      toggle.setAttribute('aria-label', currentLabel);
     }
   }
 

@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import type { BlogEntry } from '@/types';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import BlogPostCard from '@/components/cards/BlogPostCard.astro';
+import { t, type Lang } from '@/i18n';
 
 export function getStaticPaths() {
   return [
@@ -11,8 +12,9 @@ export function getStaticPaths() {
   ];
 }
 
-const { lang } = Astro.params as { lang: 'en' | 'fa' };
+const { lang } = Astro.params as { lang: Lang };
 const dir = lang === 'fa' ? 'rtl' : 'ltr';
+const i18n = t(lang);
 
 // Get all published blog posts for this language
 const posts = await getCollection('blog', (entry: BlogEntry) =>
@@ -32,7 +34,7 @@ function getSlug(id: string): string {
 
 <BaseLayout
   title="/dev/log"
-  description="List of Blog posts"
+  description={i18n.blog.description}
   lang={lang}
   dir={dir}
 >
@@ -49,7 +51,7 @@ function getSlug(id: string): string {
         />
       ))
     ) : (
-      <p class="text-secondary text-center py-8">No blog posts yet.</p>
+      <p class="text-secondary text-center py-8">{i18n.blog.emptyState}</p>
     )}
   </div>
 </BaseLayout>

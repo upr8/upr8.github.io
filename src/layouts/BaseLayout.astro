@@ -11,11 +11,12 @@ import SkipLink from '@/components/SkipLink.astro';
 import Header from '@/components/Header.astro';
 import Main from '@/components/Main.astro';
 import Footer from '@/components/Footer.astro';
+import type { Lang } from '@/i18n';
 
 interface Props {
   title: string;
   description?: string;
-  lang?: 'en' | 'fa';
+  lang?: Lang;
   dir?: 'ltr' | 'rtl';
   justContent?: boolean;
 }
@@ -44,7 +45,7 @@ const bodyClass = `bg-body font-sans ${lang === 'en' ? 'body-lang-english' : 'bo
         document.body.classList.add(`body-theme-${theme}`);
       })();
     </script>
-    <SkipLink />
+    <SkipLink lang={lang} />
     <div class="antialiased pt-10">
       {justContent ? (
         <div>

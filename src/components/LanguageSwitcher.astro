@@ -1,0 +1,95 @@
+---
+import { t, type Lang } from '@/i18n';
+
+interface Props {
+  lang?: Lang;
+}
+
+const { lang = 'en' } = Astro.props;
+const i18n = t(lang);
+const isEnglish = lang === 'en';
+const targetLang = isEnglish ? 'fa' : 'en';
+---
+
+<label
+  for="toggleLang"
+  class="relative flex items-center justify-center pt-1 cursor-pointer"
+  id="lang-switcher-label"
+  data-current-lang={lang}
+  aria-label={i18n.lang.switchTo}
+>
+  <input
+    id="toggleLang"
+    type="checkbox"
+    class="hidden peer"
+    checked={!isEnglish}
+    aria-label={i18n.lang.current}
+  />
+  <div class="w-10 h-4 rounded-full shadow-inner bg-body" aria-hidden="true"></div>
+  <div
+    id="lang-indicator"
+    class="absolute w-5 h-5 rounded-full shadow-sm inset-y-0 left-0 top-[0.1rem] flex items-center justify-center bg-blue-200 peer-checked:bg-emerald-200 peer-checked:translate-x-full transition-all duration-300 ease-in-out"
+    aria-hidden="true"
+  >
+    <!-- EN label -->
+    <span id="en-label" class="text-[10px] font-bold text-blue-800">
+      EN
+    </span>
+    <!-- FA label -->
+    <span id="fa-label" class="hidden text-[10px] font-bold text-emerald-800">
+      فا
+    </span>
+  </div>
+</label>
+
+<script>
+  function initLangSwitcher() {
+    const toggle = document.getElementById('toggleLang') as HTMLInputElement;
+    const label = document.getElementById('lang-switcher-label');
+    const enLabel = document.getElementById('en-label');
+    const faLabel = document.getElementById('fa-label');
+
+    if (!toggle || !label || !enLabel || !faLabel) return;
+
+    const currentLang = label.dataset.currentLang || 'en';
+    const isEnglish = currentLang === 'en';
+
+    // Set initial state
+    toggle.checked = !isEnglish;
+    updateLabels(!isEnglish);
+
+    toggle.addEventListener('change', () => {
+      const switchToFa = toggle.checked;
+      const targetLang = switchToFa ? 'fa' : 'en';
+
+      updateLabels(switchToFa);
+
+      // Navigate to the equivalent page in the other language
+      const currentPath = window.location.pathname;
+      const newPath = currentPath.replace(/^\/(en|fa)(\/|$)/, `/${targetLang}$2`);
+
+      // If path didn't change (e.g., on root), redirect to language root
+      if (newPath === currentPath || newPath === '/') {
+        window.location.href = `/${targetLang}/`;
+      } else {
+        window.location.href = newPath;
+      }
+    });
+
+    function updateLabels(isFa: boolean) {
+      if (isFa) {
+        enLabel!.classList.add('hidden');
+        faLabel!.classList.remove('hidden');
+      } else {
+        enLabel!.classList.remove('hidden');
+        faLabel!.classList.add('hidden');
+      }
+    }
+  }
+
+  // Initialize on page load
+  initLangSwitcher();
+
+  // Re-initialize on Astro page transitions
+  document.addEventListener('astro:after-swap', initLangSwitcher);
+</script>

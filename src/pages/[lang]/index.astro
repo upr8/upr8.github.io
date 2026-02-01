@@ -6,6 +6,7 @@ import TagCloud from '@/components/tags/TagCloud.astro';
 import BlogPostCard from '@/components/cards/BlogPostCard.astro';
 import LibraryBookCard from '@/components/cards/LibraryBookCard.astro';
 import { getSlug, getLatestPosts, getLatestBooks } from '@/utils';
+import { t, type Lang } from '@/i18n';
 
 export function getStaticPaths() {
   return [
@@ -14,8 +15,9 @@ export function getStaticPaths() {
   ];
 }
 
-const { lang } = Astro.params as { lang: 'en' | 'fa' };
+const { lang } = Astro.params as { lang: Lang };
 const dir = lang === 'fa' ? 'rtl' : 'ltr';
+const i18n = t(lang);
 
 // Get home page content
 const pages = await getCollection('pages', (entry: PagesEntry) =>
@@ -52,7 +54,7 @@ const latestBooks = await getLatestBooks(lang, 5);
 
   <!-- Favorite Topics Section -->
   <section class="mb-12">
-    <h2 class="text-xl font-semibold text-primary mb-4">Favorite Topics</h2>
+    <h2 class="text-xl font-semibold text-primary mb-4">{i18n.home.favoriteTopics}</h2>
     <TagCloud lang={lang} maxTags={100} minCount={1} />
   </section>
 
@@ -62,9 +64,9 @@ const latestBooks = await getLatestBooks(lang, 5);
   {latestPosts.length > 0 && (
     <section class="mb-12">
       <div class="flex items-center justify-between mb-4">
-        <h2 class="text-xl font-semibold text-primary">Latest Posts</h2>
+        <h2 class="text-xl font-semibold text-primary">{i18n.home.latestPosts}</h2>
         <a href={`/${lang}/blog`} class="text-sm text-accent-primary hover:underline">
-          View all →
+          {i18n.home.viewAll} {i18n.home.viewAllArrow}
         </a>
       </div>
       <div class="@container">
@@ -89,9 +91,9 @@ const latestBooks = await getLatestBooks(lang, 5);
   {latestBooks.length > 0 && (
     <section class="mb-12">
       <div class="flex items-center justify-between mb-4">
-        <h2 class="text-xl font-semibold text-primary">Latest from the Library</h2>
+        <h2 class="text-xl font-semibold text-primary">{i18n.home.latestFromLibrary}</h2>
         <a href={`/${lang}/library`} class="text-sm text-accent-primary hover:underline">
-          View all →
+          {i18n.home.viewAll} {i18n.home.viewAllArrow}
         </a>
       </div>
       <div class="@container">
