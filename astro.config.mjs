@@ -19,7 +19,9 @@ export default defineConfig({
   output: 'static',
   integrations: [
     mdx({ remarkPlugins: [remarkGfm] }),
-    sitemap(),
+    sitemap({
+      filter: (page) => !page.endsWith('.mdx'),
+    }),
     AstroPWA({
       registerType: 'autoUpdate',
       manifest: {
