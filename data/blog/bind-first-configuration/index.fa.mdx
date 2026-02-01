@@ -1,0 +1,290 @@
+---
+title: 'BIND: یک نمونه پیکربندی'
+date: '2022-04-24'
+lang: 'fa'
+type: 'blog'
+published: true
+desc: 'نصب و پیکربندی سرور DNS با استفاده از BIND'
+tags: ['linux', 'networking']
+---
+
+## مقدمه
+
+BIND یکی از قدیمی‌ترین و پرکاربردترین نرم‌افزارهای سرور DNS است.
+سال‌هاست که وجود دارد و به یک راه‌حل پایدار و قابل اعتماد تبدیل شده است.
+سابقه طولانی و استفاده گسترده آن در محیط‌های تولیدی، آن را به یک انتخاب مطمئن تبدیل کرده است.
+
+BIND طیف وسیعی از قابلیت‌ها را ارائه می‌دهد که آن را برای پیکربندی‌های مختلف سرور DNS مناسب می‌سازد.
+این نرم‌افزار از هر دو حالت authoritative و recursive پشتیبانی می‌کند، همچنین DNSSEC برای امنیت بیشتر،
+به‌روزرسانی‌های پویا، انتقال zone، IPv6 و موارد بیشتر را پشتیبانی می‌کند.
+BIND همچنین قابلیت‌های گسترده‌ای برای ثبت لاگ و آمار برای نظارت و عیب‌یابی فراهم می‌کند.
+
+BIND امکان کنترل دقیق بر پیکربندی‌های DNS را فراهم می‌کند.
+این نرم‌افزار از پیکربندی‌های پیچیده zone پشتیبانی می‌کند، از جمله امکان تعریف انواع مختلف رکوردها
+(A، AAAA، CNAME، MX، NS و غیره) و رکوردهای مربوط به DNSSEC.
+می‌توانید BIND را برای برآورده کردن نیازهای خاص خود سفارشی کنید و آن را در
+تنظیمات شبکه موجود ادغام نمایید.
+
+## نصب
+
+### نصب BIND برای توزیع Debian
+
+```bash
+sudo apt -y install bind9 bind9utils dnsutils
+```
+
+## پیکربندی عمومی
+
+### اعمال ساختار پیکربندی
+
+فایل پیکربندی اصلی BIND معمولاً در مسیر `/etc/named.conf` یا `/etc/bind/named.conf` قرار دارد.
+این فایل شامل تنظیمات سراسری سرور و مشخصات پیکربندی zone‌ها است.
+قبل از اعمال هرگونه تغییر، حتماً از فایل اصلی پشتیبان تهیه کنید.
+
+پیکربندی‌ها را می‌توان به چهار دسته اصلی تقسیم کرد:
+- پیکربندی‌های عمومی در بخش `named.conf.options`
+- پیکربندی فایل‌های لاگ در بخش `named.conf.logs`
+- پیکربندی‌های نمایش دامنه برای شبکه‌های داخلی در بخش `named.conf.internal-zones`
+- پیکربندی‌ها برای شبکه‌های عمومی و خارجی در بخش `named.conf.external-zones`
+بنابراین، فایل `/etc/bind/named.conf` به صورت زیر خواهد بود:
+
+```dns-zone
+include "/etc/bind/named.conf.options";
+include "/etc/bind/named.conf.logs";
+include "/etc/bind/named.conf.internal-zones";
+include "/etc/bind/named.conf.external-zones";
+```
+
+### named.conf.options: تنظیمات عمومی سرویس
+
+تنظیمات عمومی (`/etc/bind/named.conf.options`)، که به آن _options_ نیز گفته می‌شود، به صورت زیر پیکربندی می‌شوند:
+
+```dns-zone
+options {
+        directory "/var/cache/bind";
+
+        recursion no;
+        allow-transfer { none; };
+
+        forwarders {
+                8.8.8.8;
+        };
+        forward only;
+
+        //========================================================================
+        // If BIND logs error messages about the root key being expired,
+        // you will need to update your keys.  See https://www.isc.org/bind-keys
+        //========================================================================
+        dnssec-validation auto;
+        auth-nxdomain no;        // conform to RFC1035
+        listen-on-v6 { any; };
+};
+```
+
+### named.conf.internal-zones: تنظیمات شبکه داخلی
+
+```dns-zone
+view "internal" {
+        match-clients {
+                localhost;
+                192.168.1.0/24;
+        };
+        # set zone for internal
+        zone "example.com" {
+                type master;
+                file "/etc/bind/zones/db.example.com";
+        };
+        # set zone for internal *note
+        zone "1.168.192.in-addr.arpa" {
+                type master;
+                file "/etc/bind/zones/db.1.168.192";
+        };
+        include "/etc/bind/named.conf.default-zones";
+};
+```
+### نمونه فایل‌های Zone
+
+BIND از فایل‌های zone برای تعریف رکوردهای DNS دامنه‌ها استفاده می‌کند.
+هر دامنه معمولاً دو فایل zone دارد: یک فایل forward zone و یک فایل reverse zone.
+
+#### تنظیمات Forward zone
+
+فایل forward zone (مثلاً db.example.com یا example.com.zone) را برای تعریف رکوردهای DNS دامنه خود پیکربندی کنید.
+این شامل مشخص کردن نام دامنه، سرورهای نام، رکوردهای A، رکوردهای CNAME، رکوردهای MX و غیره می‌شود.
+
+به عنوان مثال، فایل `/etc/bind/zones/db.example.com` می‌تواند شامل رکورد زیر باشد:
+
+```dns-zone
+;
+$TTL    604800
+@       IN      SOA     ns1.example.com. admin.example.com (
+                            1           ; Serial
+                            604800      ; Refresh
+                            86400       ; Retry
+                            2419200     ; Expire
+                            604800      ; Negative Cache TTL
+                            )
+;
+@       IN      NS      ns1.example.com.
+
+; edit this line!
+edit-this     IN      A       192.168.1.80
+```
+
+#### تنظیمات Reverse zone
+
+فایل reverse zone (مثلاً db.1.168.192) را برای نگاشت آدرس‌های IP به نام دامنه‌ها پیکربندی کنید.
+این معمولاً برای جستجوی معکوس DNS استفاده می‌شود. رکوردهای PTR را برای نگاشت آدرس‌های IP به نام‌های میزبان مشخص کنید.
+
+به عنوان مثال، فایل `/etc/bind/zones/db.1.168.192` می‌تواند شامل رکورد زیر باشد:
+
+```dns-zone
+;
+$TTL    604800
+@       IN      SOA     ns1.example.com. admin.example.com (
+                            1           ; Serial
+                            604800      ; Refresh
+                            86400       ; Retry
+                            2419200     ; Expire
+                            604800      ; Negative Cache TTL
+                            )
+;
+@       IN      NS      ns1.example.com.
+1.      IN      PTR     ns1.example.com.
+```
+
+### named.conf.logs: تنظیمات ثبت لاگ
+
+<details>
+<summary>برای مشاهده کد کلیک کنید</summary>
+
+```bash
+mkdir /var/log/named/
+chown bind:bind /var/log/named/
+```
+
+```dns-zone
+logging {
+    channel default_file {
+        file "/var/log/named/default.log" versions 3 size 5m;
+        severity dynamic;
+        print-time yes;
+    };
+    channel general_file {
+        file "/var/log/named/general.log" versions 3 size 5m;
+        severity dynamic;
+        print-time yes;
+    };
+    channel database_file {
+        file "/var/log/named/database.log" versions 3 size 5m;
+        severity dynamic;
+        print-time yes;
+    };
+    channel security_file {
+        file "/var/log/named/security.log" versions 3 size 5m;
+        severity dynamic;
+        print-time yes;
+    };
+    channel config_file {
+        file "/var/log/named/config.log" versions 3 size 5m;
+        severity dynamic;
+        print-time yes;
+    };
+    channel resolver_file {
+        file "/var/log/named/resolver.log" versions 3 size 5m;
+        severity dynamic;
+        print-time yes;
+    };
+    channel xfer-in_file {
+        file "/var/log/named/xfer-in.log" versions 3 size 5m;
+        severity dynamic;
+        print-time yes;
+    };
+    channel xfer-out_file {
+        file "/var/log/named/xfer-out.log" versions 3 size 5m;
+        severity dynamic;
+        print-time yes;
+    };
+    channel notify_file {
+        file "/var/log/named/notify.log" versions 3 size 5m;
+        severity dynamic;
+        print-time yes;
+    };
+    channel client_file {
+        file "/var/log/named/client.log" versions 3 size 5m;
+        severity dynamic;
+        print-time yes;
+    };
+    channel unmatched_file {
+        file "/var/log/named/unmatched.log" versions 3 size 5m;
+        severity dynamic;
+        print-time yes;
+    };
+    channel queries_file {
+        file "/var/log/named/queries.log" versions 3 size 5m;
+        severity dynamic;
+        print-time yes;
+    };
+    channel network_file {
+        file "/var/log/named/network.log" versions 3 size 5m;
+        severity dynamic;
+        print-time yes;
+    };
+    channel update_file {
+        file "/var/log/named/update.log" versions 3 size 5m;
+        severity dynamic;
+        print-time yes;
+    };
+    channel dispatch_file {
+        file "/var/log/named/dispatch.log" versions 3 size 5m;
+        severity dynamic;
+        print-time yes;
+    };
+    channel dnssec_file {
+        file "/var/log/named/dnssec.log" versions 3 size 5m;
+        severity dynamic;
+        print-time yes;
+    };
+    channel lame-servers_file {
+        file "/var/log/named/lame-servers.log" versions 3 size 5m;
+        severity dynamic;
+        print-time yes;
+    };
+
+    category default { default_file; };
+    category general { general_file; };
+    category database { database_file; };
+    category security { security_file; };
+    category config { config_file; };
+    category resolver { resolver_file; };
+    category xfer-in { xfer-in_file; };
+    category xfer-out { xfer-out_file; };
+    category notify { notify_file; };
+    category client { client_file; };
+    category unmatched { unmatched_file; };
+    category queries { queries_file; };
+    category network { network_file; };
+    category update { update_file; };
+    category dispatch { dispatch_file; };
+    category dnssec { dnssec_file; };
+    category lame-servers { lame-servers_file; };
+};
+
+```
+
+</details>
+
+## اعتبارسنجی فایل‌های پیکربندی
+
+پس از اعمال تغییرات در پیکربندی BIND، همیشه قبل از راه‌اندازی مجدد سرویس، فایل‌های پیکربندی را اعتبارسنجی کنید:
+
+```bash
+named-checkconf
+```
+
+برای اعتبارسنجی فایل‌های zone:
+
+```bash
+named-checkzone example.com /etc/bind/zones/db.example.com
+named-checkzone 1.0.0.in-addr.arpa /etc/bind/zones/db.127
+```

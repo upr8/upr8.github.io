@@ -1,0 +1,393 @@
+---
+title: 'عیب‌یابی DNS: یک رویکرد سیستماتیک'
+date: '2022-04-23'
+lang: 'fa'
+type: 'blog'
+published: true
+desc: 'عیب‌یابی و بهینه‌سازی سیستماتیک DNS با استفاده از ابزارهای خط فرمان لینوکس'
+tags: ['devops', 'linux', 'networking']
+---
+
+## مقدمه
+
+اشکال‌زدایی مشکلات DNS می‌تواند خسته‌کننده باشد، زیرا خرابی ممکن است در لایه‌های مختلفی رخ دهد:
+پیکربندی محلی، اتصال شبکه، سرور DNS یا خود دامنه.
+این راهنما یک رویکرد سیستماتیک برای عیب‌یابی DNS با استفاده از ابزارهای خط فرمان لینوکس ارائه می‌دهد.
+
+## روش عیب‌یابی
+
+هنگام مواجهه با مشکلات DNS، این رویکرد سیستماتیک را دنبال کنید:
+
+1. **بررسی پیکربندی محلی** - فایل `/etc/resolv.conf` و تنظیمات DNS محلی را بررسی کنید
+2. **آزمایش اتصال** - اطمینان حاصل کنید که مسیر شبکه به سرور DNS کار می‌کند
+3. **پرس‌وجوی مستقیم DNS** - کش‌ها را دور بزنید و سرور DNS را آزمایش کنید
+4. **ردیابی مسیر تفکیک** - پرس‌وجوی DNS را در سلسله‌مراتب دنبال کنید
+5. **تحلیل پاسخ‌ها** - خطاها، پیکربندی‌های نادرست یا تأخیرها را بررسی کنید
+6. **ضبط ترافیک** - برای تحلیل عمیق‌تر از ضبط بسته‌ها استفاده کنید
+7. **اعتبارسنجی DNSSEC** - مشکلات مرتبط با امنیت را بررسی کنید
+
+## معرفی ابزارهای ضروری
+
+| ابزار | کاربرد |
+|------|---------|
+| `dig` | پرس‌وجوهای دقیق DNS و اشکال‌زدایی |
+| `host` | جستجوهای ساده DNS |
+| `nslookup` | پرس‌وجوهای تعاملی DNS |
+| `resolvectl` | وضعیت resolver در systemd |
+| `nc` | آزمایش اتصال به پورت DNS |
+| `tcpdump` | ضبط ترافیک DNS |
+| `delv` | اعتبارسنجی DNSSEC |
+| `whois` | بررسی ثبت دامنه |
+
+## گام ۱: بررسی پیکربندی محلی
+
+### بررسی تنظیمات resolver
+
+```bash
+# مشاهده پیکربندی فعلی DNS
+cat /etc/resolv.conf
+
+# بررسی اینکه آیا systemd-resolved مدیریت DNS را بر عهده دارد
+ls -la /etc/resolv.conf
+```
+
+اگر از systemd-resolved استفاده می‌کنید:
+
+```bash
+# بررسی وضعیت systemd-resolved
+resolvectl status
+
+# مشاهده آمار DNS
+resolvectl statistics
+
+# پاک کردن کش DNS
+resolvectl flush-caches
+```
+
+### بررسی فایل hosts
+
+```bash
+# اطمینان از عدم وجود ورودی‌های متناقض
+grep -v "^#" /etc/hosts | grep -v "^$"
+```
+
+## گام ۲: آزمایش اتصال شبکه
+
+### بررسی دسترسی به پورت DNS
+
+```bash
+# آزمایش اتصال TCP به سرور DNS (پورت 53)
+nc -zv 8.8.8.8 53
+
+# آزمایش اتصال UDP
+nc -zuv 8.8.8.8 53
+```
+
+### بررسی مشکلات فایروال
+
+```bash
+# آزمایش با traceroute به سرور DNS
+traceroute -n 8.8.8.8
+
+# بررسی قوانین iptables که بر DNS تأثیر می‌گذارند
+iptables -L -n | grep -i 53
+```
+
+## گام ۳: پرس‌وجوی مستقیم DNS با dig
+
+دستور `dig` قدرتمندترین ابزار اشکال‌زدایی DNS است.
+
+### پرس‌وجوهای پایه
+
+```bash
+# جستجوی ساده
+dig example.com
+
+# پرس‌وجو از سرور DNS خاص
+dig @8.8.8.8 example.com
+
+# خروجی کوتاه
+dig +short example.com
+
+# پرس‌وجوی انواع رکورد خاص
+dig example.com A      # آدرس IPv4
+dig example.com AAAA   # آدرس IPv6
+dig example.com MX     # سرورهای ایمیل
+dig example.com NS     # سرورهای نام
+dig example.com TXT    # رکوردهای متنی
+dig example.com SOA    # Start of Authority
+dig example.com CAA    # مجوز صدور گواهی
+```
+
+### درک خروجی dig
+
+```bash
+dig example.com
+```
+
+بخش‌های کلیدی برای تحلیل:
+- **HEADER**: کدهای وضعیت (`NOERROR`، `NXDOMAIN`، `SERVFAIL`، `REFUSED`)
+- **QUESTION**: چه چیزی پرس‌وجو شده
+- **ANSWER**: رکوردهای DNS برگردانده شده
+- **AUTHORITY**: سرورهای نام معتبر
+- **Query time**: تأخیر پاسخ بر حسب میلی‌ثانیه
+
+### گزینه‌های پیشرفته dig
+
+```bash
+# نمایش فقط بخش پاسخ
+dig +noall +answer example.com
+
+# شامل همه بخش‌ها با توضیحات
+dig +comments example.com
+
+# غیرفعال کردن بازگشت (آزمایش پاسخ معتبر)
+dig +norecurse @ns1.example.com example.com
+
+# تنظیم زمان انتظار پرس‌وجو (مفید برای سرورهای کند)
+dig +time=5 example.com
+
+# تعداد تلاش‌های مجدد
+dig +tries=3 example.com
+
+# پرس‌وجو از طریق TCP به جای UDP
+dig +tcp example.com
+
+# جستجوی DNS معکوس
+dig -x 93.184.216.34
+```
+
+## گام ۴: ردیابی تفکیک DNS
+
+### ردیابی کامل تفکیک
+
+```bash
+# ردیابی از سرورهای ریشه تا معتبر
+dig +trace example.com
+```
+
+این مسیر کامل تفکیک را نشان می‌دهد:
+1. سرورهای ریشه (`.`)
+2. سرورهای TLD (`.com`)
+3. سرورهای معتبر (`example.com`)
+
+### بررسی سرورهای نام معتبر
+
+```bash
+# یافتن سرورهای نام معتبر
+dig +short NS example.com
+
+# پرس‌وجوی مستقیم از سرور معتبر
+dig @ns1.example.com example.com +norecurse
+```
+
+### مقایسه پاسخ‌ها از سرورهای مختلف
+
+```bash
+# پرس‌وجو از چند سرور DNS و مقایسه
+for dns in 8.8.8.8 1.1.1.1 9.9.9.9; do
+    echo "=== $dns ==="
+    dig @$dns +short example.com
+done
+```
+
+## گام ۵: تشخیص مشکلات رایج
+
+### مشکل: NXDOMAIN (دامنه یافت نشد)
+
+```bash
+# بررسی وجود دامنه
+dig example.com
+
+# اگر NXDOMAIN بود، ثبت دامنه را تأیید کنید
+whois example.com | grep -i "expir\|status"
+
+# بررسی تفویض منطقه والد
+dig +trace example.com
+```
+
+### مشکل: SERVFAIL (خرابی سرور)
+
+```bash
+# آزمایش مستقیم سرور معتبر
+dig @$(dig +short NS example.com | head -1) example.com
+
+# بررسی مشکلات DNSSEC
+dig example.com +dnssec
+delv example.com
+```
+
+### مشکل: تفکیک DNS کند
+
+```bash
+# اندازه‌گیری زمان پرس‌وجو
+dig example.com | grep "Query time"
+
+# مقایسه DNS محلی با خارجی
+time dig @127.0.0.1 example.com
+time dig @8.8.8.8 example.com
+
+# بررسی timeout در ردیابی
+dig +trace +time=2 example.com
+```
+
+### مشکل: پاسخ‌های ناسازگار
+
+```bash
+# بررسی مقادیر TTL
+dig +noall +answer +ttlid example.com
+
+# پرس‌وجو از سرورهای معتبر
+dig +short NS example.com | while read ns; do
+    echo "=== $ns ==="
+    dig @$ns +short example.com
+done
+```
+
+### مشکل: DNS معکوس کار نمی‌کند
+
+```bash
+# انجام جستجوی معکوس
+dig -x 192.168.1.1
+
+# بررسی رکورد PTR
+dig 1.1.168.192.in-addr.arpa PTR
+
+# تأیید تفویض منطقه برای منطقه معکوس
+dig +trace -x 192.168.1.1
+```
+
+## گام ۶: اشکال‌زدایی در سطح شبکه
+
+### ضبط ترافیک DNS با tcpdump
+
+```bash
+# ضبط تمام ترافیک DNS
+tcpdump -i any port 53 -n
+
+# ضبط با محتوای بسته‌ها
+tcpdump -i any port 53 -n -vvv
+
+# ذخیره در فایل برای تحلیل
+tcpdump -i any port 53 -w dns_capture.pcap
+
+# فیلتر بر اساس میزبان خاص
+tcpdump -i any port 53 and host 8.8.8.8
+```
+
+### تحلیل بسته‌های DNS
+
+```bash
+# خواندن فایل ضبط شده
+tcpdump -r dns_capture.pcap -n
+
+# نمایش جزئیات پرس‌وجوی DNS
+tcpdump -i any port 53 -n -l | grep -E "A\?|AAAA\?|PTR\?"
+```
+
+## گام ۷: اعتبارسنجی DNSSEC
+
+### بررسی وضعیت DNSSEC
+
+```bash
+# پرس‌وجو با DNSSEC
+dig example.com +dnssec
+
+# بررسی پرچم AD (داده‌های احراز هویت شده)
+dig example.com +dnssec | grep flags
+
+# اعتبارسنجی دقیق DNSSEC
+delv example.com
+
+# بررسی رکوردهای DNSKEY
+dig example.com DNSKEY
+
+# بررسی رکوردهای DS در والد
+dig example.com DS
+```
+
+### تشخیص خرابی‌های DNSSEC
+
+```bash
+# ردیابی زنجیره DNSSEC
+dig +trace +dnssec example.com
+
+# بررسی انقضای امضا
+dig example.com RRSIG | grep -i expire
+```
+
+## مرجع سریع: دستور host
+
+دستور `host` خروجی ساده‌تری برای بررسی‌های سریع ارائه می‌دهد:
+
+```bash
+# جستجوی پایه
+host example.com
+
+# جستجوی معکوس
+host 93.184.216.34
+
+# پرس‌وجوی نوع رکورد خاص
+host -t MX example.com
+host -t NS example.com
+host -t TXT example.com
+
+# استفاده از سرور DNS خاص
+host example.com 8.8.8.8
+
+# خروجی مفصل
+host -v example.com
+```
+
+## مرجع سریع: nslookup
+
+```bash
+# جستجوی پایه
+nslookup example.com
+
+# استفاده از سرور خاص
+nslookup example.com 8.8.8.8
+
+# پرس‌وجوی نوع رکورد خاص
+nslookup -type=MX example.com
+nslookup -type=NS example.com
+nslookup -type=SOA example.com
+
+# فعال کردن حالت اشکال‌زدایی
+nslookup -debug example.com
+```
+
+## آزمایش عملکرد
+
+### اندازه‌گیری تأخیر پرس‌وجو
+
+```bash
+# چندین پرس‌وجو برای اندازه‌گیری یکپارچگی
+for i in {1..10}; do
+    dig example.com | grep "Query time"
+done
+```
+
+### مقایسه ارائه‌دهندگان DNS
+
+```bash
+# آزمایش سرورهای DNS عمومی مختلف
+for dns in 8.8.8.8 1.1.1.1 9.9.9.9 208.67.222.222; do
+    echo "=== $dns ==="
+    dig @$dns example.com | grep "Query time"
+done
+```
+
+## چک‌لیست عیب‌یابی
+
+هنگام اشکال‌زدایی مشکلات DNS از این چک‌لیست استفاده کنید:
+
+- [ ] آیا `/etc/resolv.conf` به درستی پیکربندی شده است؟
+- [ ] آیا می‌توانید به سرور DNS دسترسی پیدا کنید؟ (`nc -zv dns_server 53`)
+- [ ] آیا پرس‌وجو با `dig @server domain` کار می‌کند؟
+- [ ] چه کد وضعیتی برگردانده می‌شود؟ (`NOERROR`، `NXDOMAIN`، `SERVFAIL`)
+- [ ] آیا TTL معقول است؟
+- [ ] آیا سرورهای معتبر به درستی پاسخ می‌دهند؟
+- [ ] آیا مشکلات اعتبارسنجی DNSSEC وجود دارد؟
+- [ ] آیا قوانین فایروال DNS را مسدود می‌کنند؟
+- [ ] آیا سرورهای DNS عمومی مختلف نتیجه یکسانی برمی‌گردانند؟
