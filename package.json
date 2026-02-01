@@ -38,6 +38,7 @@
     "@astrojs/rss": "^4.0.14",
     "@astrojs/sitemap": "^3.6.1",
     "@fontsource-variable/ibm-plex-sans": "^5.2.8",
+    "@fontsource-variable/vazirmatn": "^5.2.8",
     "@fontsource/ibm-plex-mono": "^5.2.7",
     "@fontsource/ibm-plex-serif": "^5.2.7",
     "@shikijs/transformers": "^3.21.0",

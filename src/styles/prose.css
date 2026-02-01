@@ -99,3 +99,13 @@
 .body-theme-dark .post-body hr {
     @apply bg-gray-600;
 }
+
+/* Persian prose adjustments */
+.body-lang-farsi .post-body {
+    font-family: var(--font-family-serif-fa);
+
+    p {
+        /* Slightly larger line-height for Persian readability */
+        @apply leading-9;
+    }
+}

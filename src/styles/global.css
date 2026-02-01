@@ -5,7 +5,7 @@
 @source "../{components,layouts,pages}/**/*.{astro,ts,tsx}";
 
 @theme {
-  /* Font families */
+  /* Font families - English */
   --font-family-sans:
     "IBM Plex Sans Variable",
     "IBM Plex Sans",
@@ -41,6 +41,20 @@
     "Liberation Mono",
     "Courier New",
     monospace;
+
+  /* Font families - Persian */
+  --font-family-sans-fa:
+    "Vazirmatn Variable",
+    "Vazirmatn",
+    "Tahoma",
+    "Arial",
+    sans-serif;
+
+  --font-family-serif-fa:
+    "Vazirmatn Variable",
+    "Vazirmatn",
+    "Tahoma",
+    serif;
 
   /* Light theme colors */
   --color-bg-body-light: #f5f5f5; /* Neutral 100 */
@@ -125,15 +139,27 @@
     /* Apply text color to body */
     color: var(--color-text-primary-dark);
   }
+
+  /* English typography (default) */
+  .body-lang-english {
+    --font-family-sans-current: var(--font-family-sans);
+    --font-family-serif-current: var(--font-family-serif);
+  }
+
+  /* Persian typography */
+  .body-lang-farsi {
+    --font-family-sans-current: var(--font-family-sans-fa);
+    --font-family-serif-current: var(--font-family-serif-fa);
+  }
 }
 
 /* Theme-aware utilities using the mapped CSS variables */
 @utility font-sans {
-  font-family: var(--font-family-sans);
+  font-family: var(--font-family-sans-current, var(--font-family-sans));
 }
 
 @utility font-serif {
-  font-family: var(--font-family-serif);
+  font-family: var(--font-family-serif-current, var(--font-family-serif));
 }
 
 @utility font-mono {
