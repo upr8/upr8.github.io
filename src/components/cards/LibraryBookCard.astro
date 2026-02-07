@@ -58,7 +58,7 @@ const coverStyle = coverImage ? `background-image: url(${coverImage.src})` : '';
         class="group no-underline"
         aria-label={i18n.accessibility.readReview(title)}
       >
-        <h2 class="text-2xl font-semibold leading-snug text-primary group-hover:text-accent-primary transition-colors mb-2">
+        <h2 class="text-2xl font-display font-semibold leading-snug text-primary group-hover:text-accent-primary transition-colors mb-2">
           {title}
           {rate && (
             <span class="ml-2 inline-block">
@@ -68,7 +68,7 @@ const coverStyle = coverImage ? `background-image: url(${coverImage.src})` : '';
         </h2>
       </a>
     ) : (
-      <h2 class="text-2xl font-semibold leading-snug text-primary mb-2">
+      <h2 class="text-2xl font-display font-semibold leading-snug text-primary mb-2">
         {title}
         {rate && (
           <span class="ml-2 inline-block">
