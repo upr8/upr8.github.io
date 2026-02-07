@@ -8,12 +8,16 @@ interface Props {
 }
 
 const { pageTitle, pageSubtitle = '', lang = 'en' } = Astro.props;
+
+// Detect terminal-style titles that should always be LTR and monospaced
+const isTerminalTitle = /^[/$>~]/.test(pageTitle.trim());
+const titleClass = isTerminalTitle ? 'bidi-en font-mono' : '';
 ---
 
 <header class="border-b-2 border-primary">
   <NavBar lang={lang} />
   <div class="pt-16 pb-8 text-center">
-    <h1 class="text-4xl md:text-5xl font-display font-extrabold text-primary leading-tight tracking-tight">
+    <h1 class={`text-4xl md:text-5xl font-display font-extrabold text-primary leading-tight tracking-tight ${titleClass}`}>
       {pageTitle}
     </h1>
     {pageSubtitle && (
