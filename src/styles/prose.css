@@ -61,11 +61,11 @@
     }
 
     /* Heading sizes */
-    h2 { @apply pt-3 font-sans text-2xl font-semibold; }
-    h3 { @apply pt-2 font-sans text-xl font-semibold; }
-    h4 { @apply pt-2 font-sans text-lg font-medium; }
-    h5 { @apply pt-2 font-sans text-base font-medium; }
-    h6 { @apply pt-2 font-sans text-sm font-medium uppercase tracking-wide; }
+    h2 { @apply pt-3 font-display text-2xl font-semibold; }
+    h3 { @apply pt-2 font-display text-xl font-semibold; }
+    h4 { @apply pt-2 font-display text-lg font-medium; }
+    h5 { @apply pt-2 font-display text-base font-medium; }
+    h6 { @apply pt-2 font-display text-sm font-medium uppercase tracking-wide; }
 
     /* Block elements */
     hr { @apply h-px mx-2 my-4 bg-gray-300 border-0; }
@@ -102,7 +102,7 @@
 
 /* Persian prose adjustments */
 .body-lang-farsi .post-body {
-    font-family: var(--font-family-serif-fa);
+    font-family: var(--font-serif-fa);
 
     p {
         /* Slightly larger line-height for Persian readability */

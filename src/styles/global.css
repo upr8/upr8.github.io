@@ -1,12 +1,20 @@
 @import 'tailwindcss';
 
+/* Gandom font (Persian display) */
+@font-face {
+  font-family: 'Gandom';
+  src: url('/fonts/gandom/Gandom.woff2') format('woff2');
+  font-weight: normal;
+  font-display: swap;
+}
+
 /* Specify content sources for Tailwind to scan */
 @source "../../data/**/[!_]*.mdx";
 @source "../{components,layouts,pages}/**/*.{astro,ts,tsx}";
 
 @theme {
   /* Font families - English */
-  --font-family-sans:
+  --font-sans-en:
     "IBM Plex Sans Variable",
     "IBM Plex Sans",
     system-ui,
@@ -23,7 +31,7 @@
     "Segoe UI Symbol",
     "Noto Color Emoji";
 
-  --font-family-serif:
+  --font-serif-en:
     "IBM Plex Serif",
     Georgia,
     Cambria,
@@ -31,7 +39,7 @@
     Times,
     serif;
 
-  --font-family-mono:
+  --font-mono-en:
     "IBM Plex Mono",
     ui-monospace,
     SFMono-Regular,
@@ -43,18 +51,30 @@
     monospace;
 
   /* Font families - Persian */
-  --font-family-sans-fa:
+  --font-sans-fa:
     "Vazirmatn Variable",
     "Vazirmatn",
     "Tahoma",
     "Arial",
     sans-serif;
 
-  --font-family-serif-fa:
+  --font-serif-fa:
     "Vazirmatn Variable",
     "Vazirmatn",
     "Tahoma",
     serif;
+
+  --font-display-fa:
+    "Gandom",
+    "Vazirmatn Variable",
+    "Tahoma",
+    sans-serif;
+
+  /* Dynamic font variables (set by language classes, default to English) */
+  --font-sans: var(--font-sans-en);
+  --font-serif: var(--font-serif-en);
+  --font-mono: var(--font-mono-en);
+  --font-display: var(--font-sans-en);
 
   /* Light theme colors */
   --color-bg-body-light: #f5f5f5; /* Neutral 100 */
@@ -140,30 +160,20 @@
     color: var(--color-text-primary-dark);
   }
 
-  /* English typography (default) */
+  /* English typography */
   .body-lang-english {
-    --font-family-sans-current: var(--font-family-sans);
-    --font-family-serif-current: var(--font-family-serif);
+    --font-sans: var(--font-sans-en);
+    --font-serif: var(--font-serif-en);
+    --font-mono: var(--font-mono-en);
+    --font-display: var(--font-sans-en);
   }
 
   /* Persian typography */
   .body-lang-farsi {
-    --font-family-sans-current: var(--font-family-sans-fa);
-    --font-family-serif-current: var(--font-family-serif-fa);
+    --font-sans: var(--font-sans-fa);
+    --font-serif: var(--font-serif-fa);
+    --font-display: var(--font-display-fa);
   }
-}
-
-/* Theme-aware utilities using the mapped CSS variables */
-@utility font-sans {
-  font-family: var(--font-family-sans-current, var(--font-family-sans));
-}
-
-@utility font-serif {
-  font-family: var(--font-family-serif-current, var(--font-family-serif));
-}
-
-@utility font-mono {
-  font-family: var(--font-family-mono);
 }
 
 @utility max-w-prose-relaxed {
