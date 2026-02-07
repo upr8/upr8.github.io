@@ -159,7 +159,7 @@ const fa: Translations = {
     home: 'خانه',
     blog: 'بلاگ',
     library: 'کتابخانه',
-    archive: 'آرشیو',
+    archive: 'لینک‌ها',
     about: 'درباره',
     ariaHome: 'رفتن به صفحه اصلی',
     ariaBlog: 'رفتن به نوشته‌ها',
@@ -195,7 +195,7 @@ const fa: Translations = {
     emptyState: 'هنوز کتابی اضافه نشده است.',
   },
   archive: {
-    description: 'فهرست لینک‌ها',
+    description: 'فهرست لینک‌ها (لینک‌دونی)',
     emptyState: 'هنوز لینکی آرشیو نشده است.',
   },
   tag: {

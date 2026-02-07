@@ -268,7 +268,6 @@ html {
 .bidi-en {
     unicode-bidi: bidi-override;
     direction: ltr;
-    text-align: left;
 }
 
 /* Base link styles */

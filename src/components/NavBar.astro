@@ -13,7 +13,7 @@ const { lang = 'en' } = Astro.props;
 const i18n = t(lang);
 
 const navItems = [
-  { to: '/', label: i18n.nav.home, ariaLabel: i18n.nav.ariaHome },
+  { to: `/${lang}/`, label: i18n.nav.home, ariaLabel: i18n.nav.ariaHome },
   { to: `/${lang}/blog`, label: i18n.nav.blog, ariaLabel: i18n.nav.ariaBlog },
   { to: `/${lang}/library`, label: i18n.nav.library, ariaLabel: i18n.nav.ariaLibrary },
   { to: `/${lang}/archive`, label: i18n.nav.archive, ariaLabel: i18n.nav.ariaArchive },
