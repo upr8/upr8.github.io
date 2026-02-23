@@ -15,6 +15,7 @@ interface Props {
   hasReview?: boolean;
   coverImage?: ImageMetadata;
   lang?: Lang;
+  titleLang?: Lang;
 }
 
 const {
@@ -27,7 +28,10 @@ const {
   hasReview = false,
   coverImage,
   lang = 'en',
+  titleLang,
 } = Astro.props;
+
+const titleClass = titleLang && titleLang !== lang && titleLang === 'en' ? 'bidi-en' : '';
 
 const i18n = t(lang);
 const formattedDate = `${date.getFullYear()}/${String(date.getMonth() + 1).padStart(2, '0')}/${String(date.getDate()).padStart(2, '0')}`;
@@ -58,7 +62,7 @@ const coverStyle = coverImage ? `background-image: url(${coverImage.src})` : '';
         class="group no-underline"
         aria-label={i18n.accessibility.readReview(title)}
       >
-        <h2 class="text-2xl font-display font-semibold leading-snug text-primary group-hover:text-accent-primary transition-colors mb-2">
+        <h2 class={`text-2xl font-display font-semibold leading-snug text-primary group-hover:text-accent-primary transition-colors mb-2 ${titleClass}`}>
           {title}
           {rate && (
             <span class="ml-2 inline-block">
@@ -68,7 +72,7 @@ const coverStyle = coverImage ? `background-image: url(${coverImage.src})` : '';
         </h2>
       </a>
     ) : (
-      <h2 class="text-2xl font-display font-semibold leading-snug text-primary mb-2">
+      <h2 class={`text-2xl font-display font-semibold leading-snug text-primary mb-2 ${titleClass}`}>
         {title}
         {rate && (
           <span class="ml-2 inline-block">

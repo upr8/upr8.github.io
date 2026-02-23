@@ -25,6 +25,7 @@ const library = defineCollection({
   schema: ({ image }) =>
     baseSchema.extend({
       type: z.literal('book'),
+      titleLang: z.enum(['en', 'fa']).optional(),
       author: z.string().optional(),
       publishDate: z.string().optional(),
       translator: z.string().optional(),
