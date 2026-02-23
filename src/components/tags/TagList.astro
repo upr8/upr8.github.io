@@ -10,7 +10,7 @@ const { tags, lang = 'en', isCenter = true } = Astro.props;
 
 <ul
   class={`flex items-baseline mt-2 ms-1 @md:mt-0 overflow-x-auto @md:overflow-x-visible @md:flex-wrap ${
-    isCenter ? '@md:justify-center' : 'justify-start'
+    isCenter ? 'justify-center' : 'justify-start'
   }`}
 >
   {tags.map((tag) => (
