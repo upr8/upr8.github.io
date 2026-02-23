@@ -108,6 +108,7 @@ const latestBooks = await getLatestBooks(lang, 5);
             hasReview={book.data.hasReview}
             coverImage={book.data.embeddedImagesLocal?.[0]}
             lang={lang}
+            titleLang={book.data.titleLang}
           />
         ))}
       </div>

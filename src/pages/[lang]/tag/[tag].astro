@@ -113,6 +113,7 @@ const hasContent = blogs.length > 0 || library.length > 0 || archives.length > 0
             hasReview={book.data.hasReview}
             coverImage={book.data.embeddedImagesLocal?.[0]}
             lang={lang}
+            titleLang={book.data.titleLang}
           />
         ))}
       </section>

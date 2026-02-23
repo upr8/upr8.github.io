@@ -5,13 +5,16 @@ interface Props {
   pageTitle: string;
   pageSubtitle?: string;
   lang?: 'en' | 'fa';
+  titleLang?: 'en' | 'fa';
 }
 
-const { pageTitle, pageSubtitle = '', lang = 'en' } = Astro.props;
+const { pageTitle, pageSubtitle = '', lang = 'en', titleLang } = Astro.props;
 
 // Detect terminal-style titles that should always be LTR and monospaced
 const isTerminalTitle = /^[/$>~]/.test(pageTitle.trim());
-const titleClass = isTerminalTitle ? 'bidi-en font-mono' : '';
+// If content's original language differs from page language, use content's direction
+const isForeignTitle = titleLang && titleLang !== lang;
+const titleClass = isTerminalTitle ? 'bidi-en font-mono' : isForeignTitle && titleLang === 'en' ? 'bidi-en' : '';
 ---
 
 <header class="border-b-2 border-primary">

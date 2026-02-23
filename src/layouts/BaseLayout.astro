@@ -20,6 +20,7 @@ interface Props {
   lang?: Lang;
   dir?: 'ltr' | 'rtl';
   justContent?: boolean;
+  titleLang?: Lang;
 }
 
 const {
@@ -28,6 +29,7 @@ const {
   lang = 'en',
   dir = lang === 'fa' ? 'rtl' : 'ltr',
   justContent = false,
+  titleLang,
 } = Astro.props;
 
 const bodyClass = `bg-body font-sans ${lang === 'en' ? 'body-lang-english' : 'body-lang-farsi'}`;
@@ -54,7 +56,7 @@ const bodyClass = `bg-body font-sans ${lang === 'en' ? 'body-lang-english' : 'bo
         </div>
       ) : (
         <div class="box-border max-w-full px-4 sm:mx-4 lg:max-w-4xl lg:mx-auto">
-          <Header pageTitle={title} pageSubtitle={description} lang={lang} />
+          <Header pageTitle={title} pageSubtitle={description} lang={lang} titleLang={titleLang} />
           <Main>
             <slot />
           </Main>

@@ -50,6 +50,7 @@ function getSlug(id: string): string {
           hasReview={book.data.hasReview}
           coverImage={book.data.embeddedImagesLocal?.[0]}
           lang={lang}
+          titleLang={book.data.titleLang}
         />
       ))
     ) : (

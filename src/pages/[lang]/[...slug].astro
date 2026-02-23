@@ -46,8 +46,11 @@ export async function getStaticPaths() {
 }
 
 const { lang } = Astro.params as { lang: 'en' | 'fa'; slug: string };
-const { entry } = Astro.props;
+const { entry, type } = Astro.props;
 const dir = lang === 'fa' ? 'rtl' : 'ltr';
+
+// titleLang only exists on library entries
+const titleLang = type === 'library' ? (entry as LibraryEntry).data.titleLang : undefined;
 
 const { Content } = await render(entry);
 ---
@@ -57,6 +60,7 @@ const { Content } = await render(entry);
   description={entry.data.desc}
   lang={lang}
   dir={dir}
+  titleLang={titleLang}
 >
   <article class="mt-8">
     <!-- Article content -->
