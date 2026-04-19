@@ -1,0 +1,73 @@
+---
+title: 'Every Question Is a Failed UI'
+date: '2026-04-19'
+lang: 'en'
+type: 'blog'
+published: true
+desc: 'When a user asks an AI chat agent a question on your product page, the page just told you what it failed to answer.'
+tags: ['analytics', 'product', 'ux', 'genai']
+---
+
+The reports were impressive. An AI chat agent on our product pages had cut average wait times, reduced support load, and improved customer satisfaction scores. Everyone was excited.
+
+I was thinking about something else.
+
+The agent works by answering questions in a text conversation. It is very good at this. But a text conversation is not a good way to inspire someone to buy a trip. You cannot feel the pull of a destination through a chat bubble. You cannot build the kind of emotional momentum that a well-designed page creates with imagery, layout, and pacing. A chat agent can inform and assist, but it cannot *move* someone the way a visual experience can.
+
+And then there is the cost. A website serves a page to a hundred thousand users for effectively zero marginal cost. The AI agent costs money every time someone types a question — tokens, API calls, sometimes human escalation. If every user started chatting instead of browsing, the economics would break.
+
+That asymmetry made me look at the conversations differently. If the chat is expensive and the website is cheap, then every question a user asks the chat agent is, in some sense, a question the website should have answered first.
+
+## Every question is a failed UI
+
+A chat question on a product page is not like a support ticket. A support ticket says "something broke." A chat question says something more subtle: "I couldn't find what I needed, or I found it but didn't trust it, or I found it but couldn't act on it."
+
+The remedy is not fixing a bug. It is rethinking how information is presented.
+
+When the agent classifies the question — pricing inquiry, suitability concern, logistics question — it produces structured data about which needs the page leaves unmet. At scale, this becomes something traditional UX research cannot easily match: thousands of micro-interviews per day, already classified, tied to specific pages and sections.
+
+There is a caveat. The users who open a chat are a self-selected group. They may skew toward certain demographics, comfort levels, or frustration thresholds. Optimising the UI purely based on what chat users ask risks a selection bias — you end up designing for the segment that asks, not for everyone. Chat data is a powerful signal, but it is not the only signal, and it should be triangulated with broader behavioural data before driving major design decisions.
+
+## A learning loop
+
+What surprised me was how naturally this creates a feedback cycle.
+
+The user asks a question. The agent classifies the need. The classification accumulates in analytics. The analytics reveal which needs arise most often, on which pages, for which types of users. The product team addresses the top needs in the UI. The question frequency drops. The remaining questions are harder, more specific, more valuable.
+
+![The learning loop](./learning-loop.d2.svg)
+
+This is not a new idea in principle. Customer feedback has always informed product decisions. What is new is the granularity and speed. A user interview gives you ten data points over an hour. A chat agent gives you thousands per day, already structured, already tied to specific pages and sections.
+
+## Where the semantic layer meets the chat
+
+In [The Event That Knows Its Job](/en/semantic-layer-for-user-events/), I described the idea of annotating every event with the *role* of the UI element that produced it — what information need it addresses, what confidence it builds, what action it drives.
+
+The chat agent adds a second data source to the same framework. The semantic layer tells you what each section is *supposed* to do. The chat tells you where it is *failing* to do it.
+
+If 42% of chat conversations map to the "cost" information dimension, and the page already has multiple sections classified as addressing cost, then the problem is not missing content. It is presentation — the cost information exists but users cannot find it or trust it. If the conversations map to "suitability" and the page has no section addressing that dimension, the problem is a genuine gap.
+
+The two signals — what the UI declares about itself and what users actually ask — create a triangulation that neither provides alone.
+
+## What makes this work in practice
+
+The learning loop sounds clean in theory. In practice, it depends on a few capabilities that most modern chat SDKs already support but few teams wire together.
+
+First, the agent needs to be able to **act on the page**, not just talk in a box. When a user asks "what's the cheapest option?", the agent should answer *and* scroll the page to the pricing section, apply a sort, highlight the relevant row. Most chat SDKs support custom attachments — structured payloads the agent sends back to the host page, which the page interprets as actions. The chat becomes a guide that walks the user through the page, not a separate window they read while scrolling on their own.
+
+Second, the agent needs to **classify the need** in a structured way. Not just "the user asked a question about price" as free text, but a categorical label — `pricing_inquiry`, `suitability_concern`, `logistics_question` — that can be aggregated, compared, and tracked over time. Without structure, you have transcripts. With structure, you have data.
+
+Third, the classification needs to **flow into your analytics pipeline** alongside the rest of your behavioural telemetry. When a need is detected, the event should carry the same context as any other user event — which page, which section, which journey stage. This is what makes the triangulation with the semantic layer possible. A chat question about cost on a page that already has cost sections classified as "transparent" tells a different story than the same question on a page with no cost attribution at all.
+
+None of this requires building a custom AI agent from scratch. The pieces — page actions via structured attachments, intent classification, analytics integration — exist in most commercial chat platforms. The hard part is not the technology. It is deciding to treat the chat as a research instrument, not just a support channel.
+
+## The part that is hard to design for
+
+The simplest needs are the easiest to address. "What's the cheapest?" can be solved with a badge. "When can I go?" can be solved with a filter. These are information gaps with clear UI solutions.
+
+The harder questions are the ones that touch confidence rather than information. "Is this right for someone my age?" is not asking for a data point — it is asking for reassurance. "What do other people think?" is not asking for a review score — it is asking whether peers validate the decision the user is already leaning toward.
+
+These questions do not disappear when you add a section to the page. They persist because the need is psychological, not informational. The user may have seen the reviews. They may have read the fitness requirements. They still ask, because reading is not the same as being convinced.
+
+An AI agent can address these in conversation in ways a static page cannot — it can acknowledge the specific concern, connect it to relevant evidence, and respond to follow-up doubts. The interesting design question is not how to eliminate these conversations, but how to recognise which questions the UI should answer and which questions are better left to a conversation.
+
+Not every question is a failure. Some questions are the beginning of a relationship between the user and the decision they are trying to make. The UI's job is to handle the obvious ones, so the agent can focus on the ones that actually benefit from dialogue.

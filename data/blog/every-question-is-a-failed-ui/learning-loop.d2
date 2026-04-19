@@ -1,0 +1,51 @@
+direction: right
+
+ask: {
+  label: "User asks"
+  shape: rectangle
+  style: {
+    fill: "#f8d7da"
+    stroke: "#c0392b"
+    font-size: 14
+  }
+}
+
+classify: {
+  label: "Agent classifies"
+  shape: rectangle
+  style: {
+    fill: "#fff3cd"
+    stroke: "#c4a000"
+    font-size: 14
+  }
+}
+
+pattern: {
+  label: "Analytics reveals pattern"
+  shape: rectangle
+  style: {
+    fill: "#e8f4f8"
+    stroke: "#5b9aa0"
+    font-size: 14
+  }
+}
+
+improve: {
+  label: "UI improved"
+  shape: rectangle
+  style: {
+    fill: "#d4edda"
+    stroke: "#28a745"
+    font-size: 14
+  }
+}
+
+ask -> classify
+classify -> pattern
+pattern -> improve
+improve -> ask: fewer questions {
+  style: {
+    stroke: "#666"
+    stroke-dash: 3
+  }
+}
