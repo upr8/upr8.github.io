@@ -1,0 +1,73 @@
+---
+title: 'The Event That Knows Its Job'
+date: '2026-04-18'
+lang: 'en'
+type: 'blog'
+published: true
+desc: 'Raw clickstream data tells you what happened. It does not tell you whether your product is doing its job.'
+tags: ['analytics', 'product', 'architecture', 'ux']
+---
+
+I once spent an afternoon staring at a dashboard that told me everything yet nothing.
+
+Page views, click counts, scroll depth, dwell time per section, bounce rates by referrer. The numbers were precise. The instrumentation was thorough. And yet, when I asked myself a simple question — "is the reviews section actually helping people decide?" — I couldn't answer it.
+
+I knew *that* users scrolled past reviews. I knew *how long* they stayed. I did not know whether the section was doing its job.
+
+## What the event does not say
+
+Most analytics events describe what happened: a click, a scroll, a page view. They name the element, the page, sometimes the section. What they almost never carry is *purpose*.
+
+A click on a reviews section and a click on a pricing table are both clicks. But the user's need is completely different. One is asking "did others enjoy this?" The other is asking "can I afford it?" The event stream flattens both into the same shape.
+
+This flattening is not a technical limitation. It is a design choice — and a costly one. When every event is a fact without context, analysis becomes archaeology. You dig through logs trying to reconstruct intent that was obvious at the moment the user acted, but was never captured.
+
+## The missing layer
+
+The idea is not complicated. Between the raw event and the dashboard, there should be a layer that annotates every event with the role of the thing that produced it.
+
+Not "user clicked section X on page Y." Instead: this section exists to answer a question about cost. Or to build confidence through social proof. Or to nudge a ready user toward the next step.
+
+These are not exotic concepts. Any designer who built the page can tell you what each section is *for*. The problem is that this knowledge lives in people's heads and in design documents, not in the event stream. By the time the data reaches an analyst, the purpose is gone.
+
+## Three kinds of purpose
+
+When I tried to formalize this, I found that sections on a page serve three distinct functions, often simultaneously.
+
+Some sections answer a question. The user wants to know what the experience will be like, what it costs, how the logistics work, or whether it suits their specific situation. This is the informational dimension — the cognitive task the section supports.
+
+Some sections remove a psychological barrier. Reviews say "others did this and liked it." Certifications say "experts endorse this." Transparent pricing says "there are no hidden surprises." This is distinct from information. A section can answer every question and still fail to build the confidence needed for a decision.
+
+Some sections push the user to act. A prominent call-to-action is a signal for someone who is ready. A discount badge is a spark for someone who is hesitant. A scarcity message creates urgency. A save-for-later button creates a micro-commitment. These are behavioural prompts, and their effectiveness depends on timing.
+
+The interesting part is the composition. A reviews section simultaneously answers an information question *and* removes a confidence barrier. A pricing section that shows flexible payment options provides cost information *and* reduces friction. Collapsing these into a single label — "reviews = social proof" — loses exactly the nuance that makes the data useful.
+
+## What changes
+
+When events carry purpose, the questions you can ask change.
+
+Instead of "which page has the lowest conversion rate?", you can ask "which journey stage has the highest drop-off, and is the problem a lack of information, a lack of confidence, or a missing prompt?" These are different diagnoses with different remedies.
+
+You can compare all social proof sections across an entire site, regardless of which page they appear on. You can measure whether urgency messaging drives action or anxiety. You can find users who are stuck in evaluation and determine *why* they are stuck — not enough information about fit, or not enough evidence from peers.
+
+None of this is possible when events only know their name.
+
+## The thing that surprised me
+
+The practical value of this abstraction turned out to be less about dashboards and more about conversations.
+
+Design reviews started asking different questions. Not "does this section look good?" but "what information need does it address, and what confidence does it build?" Product discussions shifted from "the conversion rate is low" to "the confidence coverage is low" — a more specific claim that points toward a specific fix.
+
+BJ Fogg's behaviour model says action requires ability, motivation, and a prompt at the same moment. The three dimensions map almost exactly to those three prerequisites:
+
+| Fogg Component | Semantic Dimension | Question |
+|---|---|---|
+| **Ability** | Information need | Can the user answer their questions? |
+| **Motivation** | Confidence type | Does the user feel confident enough? |
+| **Prompt** | Action driver | Is there an effective trigger at the right moment? |
+
+When someone does not convert, the data can point to which ingredient is missing.
+
+That alignment was not planned. It emerged from trying to describe what sections actually *do*, rather than what they *are*. Perhaps the reason it works is that good UI already embodies these behavioural principles — we just never gave the event stream the vocabulary to reflect them.
+
+The event that knows its job turns out to be more useful than the event that only knows its name.
