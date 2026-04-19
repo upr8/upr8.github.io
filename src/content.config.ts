@@ -1,4 +1,5 @@
-import { defineCollection, z } from 'astro:content';
+import { defineCollection } from 'astro:content';
+import { z } from 'astro/zod';
 import { glob } from 'astro/loaders';
 
 // Base schema for common frontmatter fields
@@ -41,7 +42,7 @@ const archive = defineCollection({
   loader: glob({ pattern: '**/[!_]*.mdx', base: './data/archive' }),
   schema: baseSchema.extend({
     type: z.literal('archive'),
-    externalLink: z.string().url(),
+    externalLink: z.url(),
     hasReview: z.boolean().default(false),
   }),
 });
