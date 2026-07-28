@@ -11,5 +11,5 @@
       "@/types": ["src/content/types.ts"]
     }
   },
-  "include": ["src/**/*", "astro.config.mjs"]
+  "include": ["src/**/*", "astro.config.mjs", "playwright.config.ts"]
 }
