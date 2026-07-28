@@ -38,10 +38,13 @@ export default defineConfig({
 		? {}
 		: {
 				webServer: {
-					// `astro build` (via npm run build) is required locally because the sitemap,
+					// `astro build` (via pnpm run build) is required locally because the sitemap,
 					// PWA manifest/service worker, and RSS output are only fully materialized in
 					// build output, not under `astro dev`.
-					command: `npm run build && npm run preview -- --port ${PORT}`,
+					// No `--` before --port: unlike npm, pnpm forwards a literal `--` token to
+					// the script instead of stripping it, which made astro's CLI silently ignore
+					// --port and fall back to its default (4321), never binding to PORT below.
+					command: `pnpm run build && pnpm run preview --port ${PORT}`,
 					url: LOCAL_URL,
 					reuseExistingServer: !process.env.CI,
 					timeout: 180_000,

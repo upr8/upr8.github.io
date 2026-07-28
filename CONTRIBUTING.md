@@ -11,9 +11,9 @@ Standards and best practices for this codebase.
 - [ ] No console.logs or debugging statements
 - [ ] TypeScript types properly defined (no `any` unless necessary)
 - [ ] No unused imports
-- [ ] Build succeeds: `npm run build`
-- [ ] Type checking passes: `npm run typecheck`
-- [ ] Linting passes: `npm run biome:check`
+- [ ] Build succeeds: `pnpm run build`
+- [ ] Type checking passes: `pnpm run typecheck`
+- [ ] Linting passes: `pnpm run biome:check`
 - [ ] Changes tested locally
 
 ### ✅ Styling & Tailwind
@@ -179,9 +179,9 @@ hasReview: true
 
 ## Pre-Commit Checklist
 
-- [ ] `npm run typecheck` passes
-- [ ] `npm run biome:check` passes
-- [ ] `npm run build` succeeds
+- [ ] `pnpm run typecheck` passes
+- [ ] `pnpm run biome:check` passes
+- [ ] `pnpm run build` succeeds
 - [ ] Tested in light and dark themes
 - [ ] Tested on mobile viewport (if UI changes)
 - [ ] No breaking changes for existing content

@@ -26,7 +26,7 @@ async function expectImagesLoaded(images: Locator) {
 for (const lang of LANGS) {
 	test.describe(`images and diagrams (${lang})`, () => {
 		// The d2 CLI (an external binary, not an npm package) renders .d2 sources to
-		// SVG as a `npm run diagrams` prebuild step; Astro's image pipeline then
+		// SVG as a `pnpm run diagrams` prebuild step; Astro's image pipeline then
 		// optimizes and hashes them. Both stages are outside the dependency bump
 		// itself but are exactly the kind of thing a broken build could silently drop.
 		test("a post embedding a D2-generated diagram renders it", async ({
