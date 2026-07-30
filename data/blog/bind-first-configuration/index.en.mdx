@@ -49,7 +49,7 @@ Configurations can be divided into four main categories:
 - Configurations for public and external networks in the `named.conf.external-zones`.
 Therefore, the `/etc/bind/named.conf` file will look like as follows:
 
-```dns-zone
+```plaintext
 include "/etc/bind/named.conf.options";
 include "/etc/bind/named.conf.logs";
 include "/etc/bind/named.conf.internal-zones";
@@ -60,7 +60,7 @@ include "/etc/bind/named.conf.external-zones";
 
 General settings(`/etc/bind/named.conf.options`), also known as _options_, are configured as follows:
 
-```dns-zone
+```plaintext
 options {
         directory "/var/cache/bind";
 
@@ -84,7 +84,7 @@ options {
 
 ### named.conf.internal-zones: internal network settings
 
-```dns-zone
+```plaintext
 view "internal" {
         match-clients {
                 localhost;
@@ -115,7 +115,7 @@ This includes specifying the domain name, nameservers, A records, CNAME records,
 
 For example, `/etc/bind/zones/db.example.com` can contain the following record:
 
-```dns-zone
+```plaintext
 ;
 $TTL    604800
 @       IN      SOA     ns1.example.com. admin.example.com (
@@ -139,7 +139,7 @@ This is commonly used for reverse DNS lookup. Specify PTR records to map IP addr
 
 For example, `/etc/bind/zones/db.1.168.192` can contain the following record:
 
-```dns-zone
+```plaintext
 ;
 $TTL    604800
 @       IN      SOA     ns1.example.com. admin.example.com (
@@ -164,7 +164,7 @@ mkdir /var/log/named/
 chown bind:bind /var/log/named/
 ```
 
-```dns-zone
+```plaintext
 logging {
     channel default_file {
         file "/var/log/named/default.log" versions 3 size 5m;

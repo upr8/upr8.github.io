@@ -48,7 +48,7 @@ sudo apt -y install bind9 bind9utils dnsutils
 - پیکربندی‌ها برای شبکه‌های عمومی و خارجی در بخش `named.conf.external-zones`
 بنابراین، فایل `/etc/bind/named.conf` به صورت زیر خواهد بود:
 
-```dns-zone
+```plaintext
 include "/etc/bind/named.conf.options";
 include "/etc/bind/named.conf.logs";
 include "/etc/bind/named.conf.internal-zones";
@@ -59,7 +59,7 @@ include "/etc/bind/named.conf.external-zones";
 
 تنظیمات عمومی (`/etc/bind/named.conf.options`)، که به آن _options_ نیز گفته می‌شود، به صورت زیر پیکربندی می‌شوند:
 
-```dns-zone
+```plaintext
 options {
         directory "/var/cache/bind";
 
@@ -83,7 +83,7 @@ options {
 
 ### named.conf.internal-zones: تنظیمات شبکه داخلی
 
-```dns-zone
+```plaintext
 view "internal" {
         match-clients {
                 localhost;
@@ -114,7 +114,7 @@ BIND از فایل‌های zone برای تعریف رکوردهای DNS دام
 
 به عنوان مثال، فایل `/etc/bind/zones/db.example.com` می‌تواند شامل رکورد زیر باشد:
 
-```dns-zone
+```plaintext
 ;
 $TTL    604800
 @       IN      SOA     ns1.example.com. admin.example.com (
@@ -138,7 +138,7 @@ edit-this     IN      A       192.168.1.80
 
 به عنوان مثال، فایل `/etc/bind/zones/db.1.168.192` می‌تواند شامل رکورد زیر باشد:
 
-```dns-zone
+```plaintext
 ;
 $TTL    604800
 @       IN      SOA     ns1.example.com. admin.example.com (
@@ -163,7 +163,7 @@ mkdir /var/log/named/
 chown bind:bind /var/log/named/
 ```
 
-```dns-zone
+```plaintext
 logging {
     channel default_file {
         file "/var/log/named/default.log" versions 3 size 5m;
