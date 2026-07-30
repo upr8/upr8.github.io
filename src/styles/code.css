@@ -19,6 +19,13 @@
 .post-body {
     pre {
         @apply relative p-4 my-4 overflow-x-auto rounded-lg;
+
+        /* Code is always LTR, even on RTL pages. Without this it inherits
+           direction:rtl and the bidi algorithm reorders trailing neutrals,
+           moving ';' to the wrong end and mirroring braces. */
+        direction: ltr;
+        text-align: left;
+
         code { @apply bg-transparent p-0; }
 
         /* Language label */
@@ -57,5 +64,11 @@
         }
     }
 
-    code { @apply px-1 py-0.5 rounded text-sm bg-nav font-mono; }
+    /* Inline code: isolate it as its own LTR run so a leading '/' or trailing
+       ';' is not pulled to the wrong end by the surrounding RTL paragraph. */
+    code {
+        @apply px-1 py-0.5 rounded text-sm bg-nav font-mono;
+        direction: ltr;
+        unicode-bidi: isolate;
+    }
 }
