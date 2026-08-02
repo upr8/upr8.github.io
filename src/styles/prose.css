@@ -25,11 +25,14 @@
 
     /* Tables */
     table {
-        @apply w-5/6 mx-auto table-auto border border-collapse border-table;
+        @apply w-5/6 mx-auto my-6 table-auto border border-collapse border-table;
+
+        /* text-start keeps cells aligned correctly in both LTR and RTL */
+        :is(th, td) { @apply px-3 py-2 text-start align-top; }
 
         thead {
             @apply bg-table-head border border-table;
-            th { @apply border border-table; }
+            th { @apply border border-table font-semibold; }
         }
 
         tbody {
@@ -37,6 +40,13 @@
             tr:nth-child(even) { @apply bg-table-even; }
             td { @apply border border-table; }
         }
+    }
+
+    /* On narrow screens a table wider than the column is clipped and
+       unreachable, because the page itself does not scroll horizontally.
+       Let it scroll in place instead. Tables that already fit are unaffected. */
+    @media (max-width: 640px) {
+        table { @apply block w-max max-w-full overflow-x-auto; }
     }
 
     /* Blockquotes */
